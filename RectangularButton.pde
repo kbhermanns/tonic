@@ -1,4 +1,4 @@
-//This button class allows for the drawing tool to be used to create a button. When the code is copied from the tool, the paramaters to this button object can be defined using the generated code. 
+//This button class allows for the Art Station drawing tool to be used to create a button. When the code is copied from the tool, the paramaters to this button object can be defined using the generated code. 
 class RectangularButton {
   PVector Position = new PVector(0,0); 
   float Width;

@@ -23,9 +23,9 @@ class LinearBeatCreation {
   RectangularButton rimButton; 
   RectangularButton tomButton; 
    
-  PImage img1 = loadImage("/Users/katrinahermanns/Desktop/Snare.png");
-  PImage img0 = loadImage("/Users/katrinahermanns/Desktop/Kick.png");
-  PImage img2 = loadImage("/Users/katrinahermanns/Desktop/Tom.png");
+  //PImage img1 = loadImage("/Users/katrinahermanns/Desktop/Snare.png");
+  //PImage img0 = loadImage("/Users/katrinahermanns/Desktop/Kick.png");
+  //PImage img2 = loadImage("/Users/katrinahermanns/Desktop/Tom.png");
   
   LinearBeatCreation() {
   }
@@ -100,16 +100,16 @@ class LinearBeatCreation {
   
   void renderKickSelector() {
     
-    noFill();
-    strokeWeight(3.553719);
-    stroke(-3361793);
-    pushMatrix();
-    translate(22.346786, 90.68261);
-    rotate(0.0);
-    rectMode(CORNERS);
-    rect(0, 0, 99.75087, 128.25113);
-    image(img0, 0, 0, 99.75087, 128.25113);
-    popMatrix();
+    //noFill();
+    //strokeWeight(3.553719);
+    //stroke(-3361793);
+    //pushMatrix();
+    //translate(22.346786, 90.68261);
+    //rotate(0.0);
+    //rectMode(CORNERS);
+    //rect(0, 0, 99.75087, 128.25113);
+    //image(img0, 0, 0, 99.75087, 128.25113);
+    //popMatrix();
   
     fill(-13421259);
     strokeWeight(3.553719);
@@ -294,16 +294,16 @@ class LinearBeatCreation {
   
   void renderRimSelector() {
     
-    noFill();
-    strokeWeight(3.553719);
-    stroke(-3361793);
-    pushMatrix();
-    translate(15.869457, 358.84406);
-    rotate(0.0);
-    rectMode(CORNERS);
-    rect(0, 0, 112.70553, 99.750885);
-    image(img1, 0, 0, 117.88739, 107.52368);
-    popMatrix();
+    //noFill();
+    //strokeWeight(3.553719);
+    //stroke(-3361793);
+    //pushMatrix();
+    //translate(15.869457, 358.84406);
+    //rotate(0.0);
+    //rectMode(CORNERS);
+    //rect(0, 0, 112.70553, 99.750885);
+    //image(img1, 0, 0, 117.88739, 107.52368);
+    //popMatrix();
 
     fill(-13421259);
     strokeWeight(3.553719);
@@ -478,16 +478,16 @@ class LinearBeatCreation {
   
   void renderTomSelector() {
     
-    noFill();
-    strokeWeight(3.553719);
-    stroke(-3361793);
-    pushMatrix();
-    translate(14.573991, 233.18385);
-    rotate(0.0);
-    rectMode(CORNERS);
-    rect(0, 0, 117.88739, 107.52368);
-    image(img2, 0, 0, 112.70553, 99.750885);
-    popMatrix();
+    //noFill();
+    //strokeWeight(3.553719);
+    //stroke(-3361793);
+    //pushMatrix();
+    //translate(14.573991, 233.18385);
+    //rotate(0.0);
+    //rectMode(CORNERS);
+    //rect(0, 0, 117.88739, 107.52368);
+    //image(img2, 0, 0, 112.70553, 99.750885);
+    //popMatrix();
 
     fill(-13421259);
     strokeWeight(3.553719);
