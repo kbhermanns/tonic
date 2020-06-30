@@ -32,7 +32,6 @@ void draw(){
   if (addABeatButton.isClicked()) {
     renderAddABeat = false;
     renderLinearBeat = true;
-    println("Button Is Clicked!");
     addABeatButton.reset();
     createLinearBeat.render();
   }
@@ -43,11 +42,11 @@ void draw(){
    if (createLinearBeat.isKickSelected()) {
      createLinearBeat.renderKickSelector();
    }
-   else if (createLinearBeat.isTomSelected()) {
-     createLinearBeat.renderTomSelector();
+   if (createLinearBeat.isHatSelected()) {
+     createLinearBeat.renderHatSelector();
    }
-   else if (createLinearBeat.isRimSelected()) {
-     createLinearBeat.renderRimSelector();
+   if (createLinearBeat.isSnareSelected()) {
+     createLinearBeat.renderSnareSelector();
    }
  }
 }

@@ -38,24 +38,40 @@ class RectangularButton {
     TextSize = textSize; 
   }
   
+  RectangularButton(int fill, float strokeWeight, int stroke, float transX, float transY, float rotate, float rect1, float rect2, float rect3, float rect4){
+    Fill = fill;
+    StrokeWeight = strokeWeight;
+    Stroke = stroke;
+    TransX = transX;
+    TransY = transY;
+    Rotate = rotate;
+    Rect1 = rect1;
+    Rect2 = rect2; 
+    Rect3 = rect3;
+    Rect4 = rect4;  
+  }
+  
   void update() {
     if (mousePressed == true && mouseButton == LEFT && Pressed == false) {
       Pressed = true;
-      if (mouseX >= Position.x && mouseX <= Position.x + Width && mouseY >= Position.y && mouseY <= Position.y + Height) {
+      if (mouseX >= Position.x && mouseX <= Position.x + Width && mouseY >= Position.y && mouseY <= Position.y + Height && Clicked == false) {
         Clicked = true;
       }
-    } else {
+      else if (mouseX >= Position.x && mouseX <= Position.x + Width && mouseY >= Position.y && mouseY <= Position.y + Height && Clicked == true) {
+        Clicked = false;
+      } 
+      else {
       Clicked = false;
     }
-    
-    if(mousePressed != true) {
+    }
+    else if(mousePressed != true) {
       Pressed = false;
     }
   }
   
   void renderWithText() {
     fill(Fill);
-    strokeWeight(7.933884);
+    strokeWeight(StrokeWeight);
     stroke(Stroke);
     pushMatrix();
     translate(TransX, TransY);
@@ -68,12 +84,13 @@ class RectangularButton {
     fill(000000);
     textAlign(CENTER, CENTER);
     textSize(TextSize);
-    text(ButtonText, TextX, TextY); //<>//
+    text(ButtonText, TextX, TextY);
     
   }
   
   void renderWithoutText() {
-    strokeWeight(7.933884);
+    fill(Fill);
+    strokeWeight(StrokeWeight);
     stroke(Stroke);
     pushMatrix();
     translate(TransX, TransY);

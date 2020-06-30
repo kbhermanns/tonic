@@ -36,7 +36,7 @@
    void update() {
     if (mousePressed == true && mouseButton == LEFT && Pressed == false) {
       Pressed = true;
-      if (((mouseX >= PositionX && mouseX <= PositionX + Radius) || (mouseX <= PositionX && mouseX >= PositionX - Radius)) && ((mouseY >= PositionY && mouseY <= PositionY + Radius) || (mouseY <= PositionY && mouseY >= PositionY - Radius))) { //<>//
+      if (((mouseX >= PositionX && mouseX <= PositionX + Radius) || (mouseX <= PositionX && mouseX >= PositionX - Radius)) && ((mouseY >= PositionY && mouseY <= PositionY + Radius) || (mouseY <= PositionY && mouseY >= PositionY - Radius))) {
         Clicked = true;
       }
     } else {
