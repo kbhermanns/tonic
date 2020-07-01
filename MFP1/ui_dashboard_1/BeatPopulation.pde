@@ -6,6 +6,8 @@ class BeatPopulation {
     Beat[] population;
     ArrayList<Beat> matingPool;
     int generations;
+    Beat fittestBeat;
+    Beat secondFittestBeat;
 
     // create initial beat population
     BeatPopulation (float m, int num) {
@@ -13,6 +15,10 @@ class BeatPopulation {
         population = new Beat[num];
         matingPool = new ArrayList<Beat>();
         generations = 0;
+
+        BeatDNA emptyBeat = new BeatDNA();
+        fittestBeat = new Beat(emptyBeat);
+        secondFittestBeat = new Beat(emptyBeat);
 
         for (int i = 0; i< population.length; i++) {
             //population[i] = new Beat(); //TODO setup initial population
@@ -46,4 +52,15 @@ class BeatPopulation {
         }
         generations++;
     }
+
+
+    // get the top beat for displaying to the user
+    Beat fittestBeat() {
+        return fittestBeat;
+    }
+
+    Beat secondFittestBeat() {
+        return secondFittestBeat;
+    }
+
 }
