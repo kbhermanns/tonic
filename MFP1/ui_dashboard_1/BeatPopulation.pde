@@ -15,8 +15,7 @@ class BeatPopulation {
         generations = 0;
 
         for (int i = 0; i< population.length; i++) {
-            //population[i] = new Beat(); //TODO to match beat contstuctor
-
+            //population[i] = new Beat(); //TODO setup initial population
         }
     }
 
@@ -40,10 +39,10 @@ class BeatPopulation {
             Beat dad = matingPool.get(d);
 
             // now perform crossover and mutation
-            // we will likely need to do this for each row (instrument) so that
-            // we aren't crossing over beats from different instruments
+            BeatDNA child = (mom.getBeatDNA()).crossover(dad.getBeatDNA());
+            child.mutate(mutationRate);
 
-            // population[i] = the mutated beat;
+            population[i] = new Beat(child);
         }
         generations++;
     }
