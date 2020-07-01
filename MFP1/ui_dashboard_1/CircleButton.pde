@@ -1,4 +1,4 @@
- class CircleButton {
+class CircleButton {
    float PositionX; 
    float PositionY;
    float Radius;
@@ -13,6 +13,12 @@
      Radius = radius;
      ButtonColor = c;
    }
+   
+   CircleButton(float x, float y, float radius) {
+     PositionX = x;
+     PositionY = y;
+     Radius = radius;
+   }
   
   void render(boolean r) {
     if (r == true) {
@@ -22,6 +28,14 @@
       textAlign(CENTER, CENTER);
       textSize(24);
       text("Click Me", PositionX, PositionY);
+    }
+  }
+  
+  void renderNoFill(boolean r) {
+    if (r == true) {
+      noFill();
+      stroke(-14079703);
+      circle(PositionX, PositionY, Radius);
     }
   }
   
