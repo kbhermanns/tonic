@@ -1,3 +1,5 @@
+import g4p_controls.*;
+
 boolean addABeat = false;
 CircleButton addABeatButton;
 LinearBeatCreation createLinearBeat;
@@ -19,7 +21,7 @@ void setup(){
    addABeatY = height/2 - 110;
    addABeatHighlight = color(204);
    addABeatButton = new CircleButton(addABeatX, addABeatY, addABeatRadius);
-   createLinearBeat = new LinearBeatCreation();
+   createLinearBeat = new LinearBeatCreation(this);
    dashImg = loadImage("Dashboard.png");
 }
 
@@ -57,4 +59,9 @@ void draw(){
      createLinearBeat.renderSnareSelector();
    }
  }
+}
+
+//NOTE: this will need to be updated if additional areas require keystrokes
+void keyPressed() {
+  createLinearBeat.setName();
 }

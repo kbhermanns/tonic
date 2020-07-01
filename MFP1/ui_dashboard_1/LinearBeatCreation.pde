@@ -1,4 +1,5 @@
 import java.awt.Rectangle;
+import java.awt.Font;
 class LinearBeatCreation {
   Boolean[] Beat;
   PImage img17;
@@ -33,7 +34,21 @@ class LinearBeatCreation {
   PImage img1 = loadImage("Kick.png");
   PImage img2 = loadImage("Snare.png");
   
-  LinearBeatCreation() {
+  // Vars for setting beat name
+  String name;
+  GTextArea area;
+  
+  Boolean showNameTooltip = true;
+  Boolean showInstrumentTooltip = false;
+  Boolean showBeatTooltip = false;
+  
+  LinearBeatCreation(PApplet papp) {
+    //Setup the name input for the song
+    area = new GTextArea(papp,15, 15, 350, 50, G4P.SCROLLBARS_NONE);
+    name = "";
+    area.appendText(name);
+    area.setVisible(false);
+    
     beats = new Boolean[16][3];
     for (int i = 0; i < 16; i++) {
       for (int j = 0; j < 3; j++) {
@@ -61,12 +76,24 @@ class LinearBeatCreation {
       if (mouseX >= kickX && mouseX <= kickX + 100 && mouseY >= kickY && mouseY <= kickY + 100 && kickSelected == false) {
         Clicked = true;
         kickSelected = true; 
+        if (showInstrumentTooltip) {
+          showInstrumentTooltip = false;
+          showBeatTooltip = true;
+        }
       } else if (mouseX >= hatX && mouseX <= hatX + 100 && mouseY >= hatY && mouseY <= hatY + 100 && hatSelected == false) {
         Clicked = true;
         hatSelected = true; 
+        if (showInstrumentTooltip) {
+          showInstrumentTooltip = false;
+          showBeatTooltip = true;
+        }
       } else if (mouseX >= snareX && mouseX <= snareX + 100 && mouseY >= snareY && mouseY <= snareY + 100 && snareSelected == false) {
         Clicked = true;
         snareSelected = true;
+        if (showInstrumentTooltip) {
+          showInstrumentTooltip = false;
+          showBeatTooltip = true;
+        }
       }else if (mouseX >= kickX && mouseX <= kickX + 100 && mouseY >= kickY && mouseY <= kickY + 100 && kickSelected == true) {
         Clicked = true;
         kickSelected = false; 
@@ -103,6 +130,33 @@ class LinearBeatCreation {
     stroke(-1);
     line(1.6193323, 570, 1297.0852, 570);
     
+    // Text Input for Name of Song
+    area.setVisible(true);
+    area.setOpaque(true);
+    area.setLocalColor(2, color(252,252,252)); //text color
+    area.setLocalColor(6, color(66,65,62)); //border colour
+    area.setLocalColor(7, color(66,65,62)); //background color
+    area.setFont(new Font("Gothic A1", Font.PLAIN, 30));
+    
+    // Show tooltips
+    if (showNameTooltip) {
+      Tooltip beatTooltip = new Tooltip("Add a name for your beat","T",25,80,300,30);   
+     beatTooltip.drawTooltip();
+    } else if (showInstrumentTooltip) {
+      Tooltip instrumentTooltip = new Tooltip("Select an instrument to add to your beat","T",25,710,300,30);
+      instrumentTooltip.drawTooltip();
+    } else if (showBeatTooltip) {
+      int y = 200;
+      if (snareSelected){
+        y = 300;
+      }
+      else if(hatSelected) {
+        y = 400;
+      }
+      Tooltip beatTooltip = new Tooltip("Click on a segment to add the instruments to the beat", "B", 25,y,300,30);
+      beatTooltip.drawTooltip();
+    }
+      
     algorithmButton = new RectangularButton(-16524602, 7.933884, -16524602, 1078.1515, 497.4589, 1.5648444, -34.9776, -189.1425, 24.9776, 100.195866, "Get Help From Algorithm", 1123.74, 490.98, 24);
     saveButton = new RectangularButton(-10241491, 7.933884, -10241491, 949.9004, 737.1201, 1.5707965, -34.9776, -110.114624, 34.9776, 34.9776, "Save", 983.582, 737.30, 24);
     cancelButton = new RectangularButton(-1094570, 7.933884, -1094570, 1159.7659, 737.1201, 1.5707965, -34.9776, -110.114624, 34.9776, 34.9776, "Cancel", 1196.04, 737.30, 24);
@@ -112,7 +166,7 @@ class LinearBeatCreation {
     } else {
       hatFill = -1;
     }
-    hatButton = new RectangularButton(hatFill, 7.933884, -1157409, 500.3737, 646.4375, 1.5707964, -34.9776, -110.122215, 34.9776, 34.9776, "Hat", 539.23, 638.66, 24);
+    hatButton = new RectangularButton(hatFill, 7.933884, -1157409, 500.3737, 642.551, 1.5707964, -34.9776, -110.122215, 34.9776, 34.9776, "Hat", 539.23, 638.66, 24);
     
     if (snareSelected) {
       snareFill = -10241491;
@@ -134,9 +188,8 @@ class LinearBeatCreation {
     cancelButton.renderWithText();
     saveButton.renderWithText();
     algorithmButton.renderWithText();
-  
   }
-  
+
   void renderKickSelector() {
     
     noFill();
@@ -177,5 +230,12 @@ class LinearBeatCreation {
     for (int i = 0; i < hatButtons.size() - 1; i++){
       hatButtons.get(i).renderWithoutText();
     }
+  }
+  
+  // Set the name of the beat
+  void setName() {
+    name = area.getText();
+    showNameTooltip = false;
+    showInstrumentTooltip = true;
   }
 }
