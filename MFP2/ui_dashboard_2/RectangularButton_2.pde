@@ -19,6 +19,8 @@ class RectangularButton {
   float TextX;
   float TextY;
   int Fill;
+  int SelectedFill;
+  boolean Selected;
   int TextSize;
   
    RectangularButton(int fill, float strokeWeight, int stroke, float transX, float transY, float rotate, float rect1, float rect2, float rect3, float rect4, String text, float textX, float textY, int textSize){
@@ -35,11 +37,13 @@ class RectangularButton {
     ButtonText = text;
     TextX = textX;
     TextY = textY;
-    TextSize = textSize; 
+    TextSize = textSize;
+    Selected = false;
   }
   
-  RectangularButton(int fill, float strokeWeight, int stroke, float transX, float transY, float rotate, float rect1, float rect2, float rect3, float rect4){
+  RectangularButton(int fill, int selectedFill, float strokeWeight, int stroke, float transX, float transY, float rotate, float rect1, float rect2, float rect3, float rect4){
     Fill = fill;
+    SelectedFill = selectedFill;
     StrokeWeight = strokeWeight;
     Stroke = stroke;
     TransX = transX;
@@ -48,20 +52,20 @@ class RectangularButton {
     Rect1 = rect1;
     Rect2 = rect2; 
     Rect3 = rect3;
-    Rect4 = rect4;  
+    Rect4 = rect4;
+    Selected = false;
   }
   
   void update() {
     if (mousePressed == true && mouseButton == LEFT && Pressed == false) {
       Pressed = true;
-      if (mouseX >= Position.x && mouseX <= Position.x + Width && mouseY >= Position.y && mouseY <= Position.y + Height && Clicked == false) {
-        Clicked = true;
+      if (mouseX >= Position.x && mouseX <= Position.x + Width && mouseY >= Position.y && mouseY <= Position.y + Height) {
+        Clicked = !Clicked;
+        Selected = !Selected;
       }
-      else if (mouseX >= Position.x && mouseX <= Position.x + Width && mouseY >= Position.y && mouseY <= Position.y + Height && Clicked == true) {
-        Clicked = false;
-      } 
       else {
       Clicked = false;
+      Selected = false;
     }
     }
     else if(mousePressed != true) {
@@ -89,7 +93,12 @@ class RectangularButton {
   }
   
   void renderWithoutText() {
-    fill(Fill);
+    if (Selected) {
+      fill(SelectedFill);
+    }
+    else {
+      fill(Fill);
+    }
     strokeWeight(StrokeWeight);
     stroke(Stroke);
     pushMatrix();
@@ -101,7 +110,35 @@ class RectangularButton {
     popMatrix();   
   }
   
+  void selectWithoutText() {
+    fill(SelectedFill);
+    strokeWeight(StrokeWeight);
+    stroke(Stroke);
+    pushMatrix();
+    translate(TransX, TransY);
+    rotate(Rotate);
+    rectMode(CORNERS);
+    //the fifth paramater rounds the corners of the button
+    rect(Rect1, Rect2, Rect3, Rect4, 7);
+    popMatrix();
+  }
+  
+  void pressed() {
+    if (((mouseX >= TransX && mouseX <= TransX + Rect3) || (mouseX >= TransX - Rect3 && mouseX <= TransX))  && ((mouseY >= TransY && mouseY <= TransY + Rect4) || (mouseY >= TransY - Rect4 && mouseY <= TransY))){
+      Selected = !Selected; //<>//
+      Clicked = !Clicked;
+    }
+  }
+  
   boolean isClicked() {
     return Clicked;
+  }
+  
+  boolean getSelected() {
+    return Selected;
+  }
+  
+  void setSelected(boolean s){
+    Selected = s;
   }
 }
