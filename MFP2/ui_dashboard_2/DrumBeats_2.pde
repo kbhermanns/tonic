@@ -24,8 +24,12 @@ class DrumBeats {
     Beats = new boolean[3][16];
   }
   
-  void updateBeats(int row, int column) {
-    Beats[row][column] = !Beats[row][column];
+  void updateBeats(int row, int column, boolean value) {
+    Beats[row][column] = value;
+  }
+  
+  boolean getBeat(int row, int column) {
+    return Beats[row][column];
   }
 
 }

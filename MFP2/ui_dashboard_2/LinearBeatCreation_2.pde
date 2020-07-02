@@ -103,16 +103,19 @@ class LinearBeatCreation {
         linearLayoutToggle = false; 
       }
       //kick buttons check
-      for(int i = 0; i < kickButtons.size(); ++i) {
+      for(int i = 0; i < kickButtons.size() - 1; ++i) {
         kickButtons.get(i).pressed();
+        Beats.updateBeats(0, i, kickButtons.get(i).getSelected());
       }
       //snare buttons check 
-      for(int j = 0; j < snareButtons.size(); ++j) {
+      for(int j = 0; j < snareButtons.size() - 1; ++j) {
         snareButtons.get(j).pressed();
+        Beats.updateBeats(1, j, snareButtons.get(j).getSelected());
       }
       //hat buttons check
-      for(int k = 0; k < hatButtons.size(); ++k) {
-        snareButtons.get(k).pressed();
+      for(int k = 0; k < hatButtons.size() - 1; ++k) {
+        hatButtons.get(k).pressed();
+        Beats.updateBeats(2, k, kickButtons.get(k).getSelected());
       }
     }
       else {
@@ -243,8 +246,8 @@ class LinearBeatCreation {
     image(img2, 0, 0, 80, 70);
     popMatrix();
 
-    for (int i = 0; i < snareButtons.size() - 1; i++){
-      snareButtons.get(i).renderWithoutText();
+    for (int j = 0; j < snareButtons.size() - 1; j++){
+      snareButtons.get(j).renderWithoutText();
     }
   }
   
@@ -256,8 +259,8 @@ class LinearBeatCreation {
     image(img0, 0, 0, 100, 80);
     popMatrix();
 
-    for (int i = 0; i < hatButtons.size() - 1; i++){
-      hatButtons.get(i).renderWithoutText();
+    for (int k = 0; k < hatButtons.size() - 1; k++){
+      hatButtons.get(k).renderWithoutText();
     }
   }
   
