@@ -14,6 +14,7 @@ int addABeatRadius = 80;
 color testColor = color(204);
 boolean renderAddABeat = true;
 boolean renderLinearBeat = false;
+boolean renderLikeOrDislikeBeat = false;
 PImage dashImg;
 
 boolean kickSelected = false;
@@ -30,7 +31,6 @@ void setup(){
    createLinearBeat = new LinearBeatCreation(beats, this);
    createCircularBeat = new CircularBeatCreation();
    dashImg = loadImage("Dashboard.png");
-   
 }
 
 void draw(){ 

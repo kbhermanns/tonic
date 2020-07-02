@@ -1,6 +1,11 @@
+
 import java.awt.Font;
+import java.awt.Rectangle;
+LikeOrDislikeBeat likeOrDislikeBeat;
+
 class LinearBeatCreation {
   Boolean[] Beat;
+  LikeOrDislikeBeat createLikeOrDislikeBeat = new LikeOrDislikeBeat();
   PImage img17;
   Boolean Pressed = false; 
   Boolean Clicked = false;
@@ -20,6 +25,10 @@ class LinearBeatCreation {
   boolean circularLayoutToggle = false;
   color circleToggleFill = color(-16524602);
   color linearToggleFill = color(-16524602);
+// what I added - dekete kater 
+  Boolean algorithmButtonSelected = false;
+  float algorithmButtonX = 0;
+  float algorithmButtonY = 0;
   
   DrumBeats Beats;
   ArrayList<RectangularButton> kickButtons;
@@ -96,6 +105,14 @@ class LinearBeatCreation {
           showInstrumentTooltip = false;
           showBeatTooltip = true;
         }
+        hatSelected = false; 
+      } else if (mouseX >= snareX && mouseX <= snareX + 100 && mouseY >= snareY && mouseY <= snareY + 100 && snareSelected == true) {
+        Clicked = true;
+        snareSelected = false;
+      } else if (mouseX >= algorithmButtonX + 400 && mouseX <= algorithmButtonX + 600 && mouseY >= algorithmButtonY && mouseY <= algorithmButtonY + 100) {
+        // TODO: Update - this is temp route into LikeOrDislikeBeatPage
+        Clicked = true;
+        algorithmButtonSelected = true;
       }
       // layout toggle check
       else if (mouseX >= 1075 && mouseX <= 1135 && mouseY >= 25 && mouseY <= 70){
@@ -219,10 +236,12 @@ class LinearBeatCreation {
     saveButton.renderWithText();
     algorithmButton.renderWithText();
   
+    if (algorithmButtonSelected) {
+      createLikeOrDislikeBeat.render();
+    }
   }
-  
+ 
   void renderKickSelector() {
-    
     noFill();
     pushMatrix();
     translate(30, 90);
@@ -237,7 +256,6 @@ class LinearBeatCreation {
   }
   
   void renderSnareSelector() {
-    
     noFill();
     pushMatrix();
     translate(30, 225);
