@@ -1,4 +1,3 @@
-import java.awt.Rectangle;
 import java.awt.Font;
 class LinearBeatCreation {
   Boolean[] Beat;
@@ -17,8 +16,12 @@ class LinearBeatCreation {
   int snareFill;  
   float snareX = 328; 
   float snareY = 638.66; 
+  boolean linearLayoutToggle = false;
+  boolean circularLayoutToggle = false;
+  color circleToggleFill = color(-16524602);
+  color linearToggleFill = color(-16524602);
   
-  Boolean[][] beats;
+  DrumBeats Beats;
   ArrayList<RectangularButton> kickButtons;
   ArrayList<RectangularButton> snareButtons;
   ArrayList<RectangularButton> hatButtons;
@@ -37,76 +40,85 @@ class LinearBeatCreation {
   // Vars for setting beat name
   String name;
   GTextArea area;
-  
+
   Boolean showNameTooltip = true;
   Boolean showInstrumentTooltip = false;
   Boolean showBeatTooltip = false;
+    
   
-  LinearBeatCreation(PApplet papp) {
+  LinearBeatCreation(DrumBeats beats, PApplet papp) {
+    
     //Setup the name input for the song
     area = new GTextArea(papp,15, 15, 350, 50, G4P.SCROLLBARS_NONE);
     name = "";
     area.appendText(name);
     area.setVisible(false);
     
-    beats = new Boolean[16][3];
-    for (int i = 0; i < 16; i++) {
-      for (int j = 0; j < 3; j++) {
-        beats[i][j] = false;
-      }
-    }
-        
+     Beats = beats;
      kickButtons = new ArrayList<RectangularButton>();
      for (int k = 0; k < 17; k++) {
-       kickButtons.add(new RectangularButton(-13421259, 3.553719, -2039584, (178 + 70*k), 150, 1.5728104, -27.235615, -22.174805, 30.242954, 34.977585));
+       kickButtons.add(new RectangularButton(-13421259, -2039584, 3.553719, -2039584, (178 + 70*k), 150, 1.5728104, -27.235615, -22.174805, 30.242954, 34.977585));
+       //kickButtons.get(k).setSelected(Beats.getBeatValue(1,k));
      }
      snareButtons = new ArrayList<RectangularButton>();
      for (int m = 0; m < 17; m++) {
-       snareButtons.add(new RectangularButton(-13421259, 3.553719, -2039584, (178 + 70*m), 250, 1.5728104, -27.235615, -22.174805, 30.242954, 34.977585));
+       snareButtons.add(new RectangularButton(-13421259, -2039584, 3.553719, -2039584, (178 + 70*m), 250, 1.5728104, -27.235615, -22.174805, 30.242954, 34.977585));
+       //snareButtons.get(m).setSelected(Beats.getBeatValue(2,m));
      }
      hatButtons = new ArrayList<RectangularButton>();
      for (int n = 0; n < 17; n++) {
-       hatButtons.add(new RectangularButton(-13421259, 3.553719, -2039584, (178 + 70*n), 350, 1.5728104, -27.235615, -22.174805, 30.242954, 34.977585));
+       hatButtons.add(new RectangularButton(-13421259, -2039584, 3.553719, -2039584, (178 + 70*n), 350, 1.5728104, -27.235615, -22.174805, 30.242954, 34.977585));
+       //hatButtons.get(n).setSelected(Beats.getBeatValue(1,n));
      }
   }
   
   void update() {
     if (mousePressed == true && mouseButton == LEFT && Pressed == false) {
       Pressed = true;
-      if (mouseX >= kickX && mouseX <= kickX + 100 && mouseY >= kickY && mouseY <= kickY + 100 && kickSelected == false) {
+      if (mouseX >= kickX && mouseX <= kickX + 100 && mouseY >= kickY && mouseY <= kickY + 100) {
         Clicked = true;
-        kickSelected = true; 
+        kickSelected = !kickSelected; 
         if (showInstrumentTooltip) {
           showInstrumentTooltip = false;
           showBeatTooltip = true;
         }
-      } else if (mouseX >= hatX && mouseX <= hatX + 100 && mouseY >= hatY && mouseY <= hatY + 100 && hatSelected == false) {
+      } else if (mouseX >= hatX && mouseX <= hatX + 100 && mouseY >= hatY && mouseY <= hatY + 100) {
         Clicked = true;
-        hatSelected = true; 
+        hatSelected = !hatSelected; 
         if (showInstrumentTooltip) {
           showInstrumentTooltip = false;
           showBeatTooltip = true;
         }
-      } else if (mouseX >= snareX && mouseX <= snareX + 100 && mouseY >= snareY && mouseY <= snareY + 100 && snareSelected == false) {
+      } else if (mouseX >= snareX && mouseX <= snareX + 100 && mouseY >= snareY && mouseY <= snareY + 100) {
         Clicked = true;
-        snareSelected = true;
+        snareSelected = !snareSelected;
         if (showInstrumentTooltip) {
           showInstrumentTooltip = false;
           showBeatTooltip = true;
         }
-      }else if (mouseX >= kickX && mouseX <= kickX + 100 && mouseY >= kickY && mouseY <= kickY + 100 && kickSelected == true) {
-        Clicked = true;
-        kickSelected = false; 
-      } else if (mouseX >= hatX && mouseX <= hatX + 100 && mouseY >= hatY && mouseY <= hatY + 100 && hatSelected == true) {
-        Clicked = true;
-        hatSelected = false; 
-      } else if (mouseX >= snareX && mouseX <= snareX + 100 && mouseY >= snareY && mouseY <= snareY + 100 && snareSelected == true) {
-        Clicked = true;
-        snareSelected = false;
       }
-    } else {
+      // layout toggle check
+      else if (mouseX >= 1075 && mouseX <= 1135 && mouseY >= 25 && mouseY <= 70){
+        circularLayoutToggle = true;
+        linearLayoutToggle = false; 
+      }
+      //kick buttons check
+      for(int i = 0; i < kickButtons.size(); ++i) {
+        kickButtons.get(i).pressed();
+      }
+      //snare buttons check 
+      for(int j = 0; j < snareButtons.size(); ++j) {
+        snareButtons.get(j).pressed();
+      }
+      //hat buttons check
+      for(int k = 0; k < hatButtons.size(); ++k) {
+        snareButtons.get(k).pressed();
+      }
+    }
+      else {
       Clicked = false;
     }
+   
     if(mousePressed != true) {
       Pressed = false;
     }
@@ -122,6 +134,22 @@ class LinearBeatCreation {
   
   Boolean isSnareSelected() {
     return snareSelected;
+  }
+  
+  Boolean isCircularLayoutSelected() {
+    return circularLayoutToggle;
+  }
+  
+  void setKickSelected(boolean s) {
+    kickSelected = s;
+  }
+  
+  void setHatSelected(boolean s) {
+    hatSelected = s;
+  }
+  
+  void setSnareSelected(boolean s) {
+    snareSelected = s;
   }
   
   void render() {
@@ -233,7 +261,7 @@ class LinearBeatCreation {
     }
   }
   
-  // Set the name of the beat
+   // Set the name of the beat
   void setName() {
     name = area.getText();
     showNameTooltip = false;
