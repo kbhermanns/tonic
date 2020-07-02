@@ -17,6 +17,7 @@ class DrumBeats {
   int hatRow = 3;
   
   boolean[][] Beats;
+  Boolean[] holder;
   int bpm = 120;
   int curBeat;
   
@@ -24,13 +25,20 @@ class DrumBeats {
     Beats = new boolean[3][16];
   }
   
-  void updateBeats(int row, int column) {
-    Beats[row][column] = !Beats[row][column];
+  void updateBeats(int row, int column, boolean value) {
+    Beats[row][column] = value;
   }
   
- //boolean getBeatValue(int row, int column) {
- //  return Beats[row][column];
- //}
+  boolean getBeat(int row, int column) {
+    return Beats[row][column];
+  }
   
+    Boolean[] getRow(int row) {
+    holder = new Boolean[16];
+    for (int i = 0; i < 16; i ++) {
+      holder[i] = Beats[row][i];
+    }
+    return holder;
+  }
 
 }
