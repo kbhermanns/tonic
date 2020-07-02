@@ -1,10 +1,7 @@
-import g4p_controls.*;
-
 boolean addABeat = false;
 CircleButton addABeatButton;
 LinearBeatCreation createLinearBeat;
-CircularBeatCreation createCircularBeat;
-DrumBeats beats;
+Quiz createQuiz;
 
 color addABeatHighlight; 
 color addABeatColor; 
@@ -13,24 +10,25 @@ int addABeatY;
 int addABeatRadius = 80; 
 color testColor = color(204);
 boolean renderAddABeat = true;
+boolean renderQuiz = false;
 boolean renderLinearBeat = false;
 PImage dashImg;
 
-boolean kickSelected = false;
-boolean snareSelected = false;
-boolean hatSelected = false;
+String target_genre = "None";
+String target_speed = "None";
+String target_time_sig = "None";
+Boolean target_syncopation = false;
+Boolean[][] target_beats;
 
 void setup(){
    size(1300, 800);
-   beats = new DrumBeats();
    addABeatX = width/2;
-   addABeatY = height/2 -105;
+   addABeatY = height/2 - 110;
    addABeatHighlight = color(204);
    addABeatButton = new CircleButton(addABeatX, addABeatY, addABeatRadius);
-   createLinearBeat = new LinearBeatCreation(beats, this);
-   createCircularBeat = new CircularBeatCreation(beats);
+   createLinearBeat = new LinearBeatCreation();
+   createQuiz = new Quiz();
    dashImg = loadImage("Dashboard.png");
-   
 }
 
 void draw(){ 
@@ -49,62 +47,36 @@ void draw(){
   
   if (addABeatButton.isClicked()) {
     renderAddABeat = false;
-    renderLinearBeat = true;
+    renderQuiz = true;
     addABeatButton.reset();
-    createLinearBeat.render(beats);
   }
   
- if (createLinearBeat.isCircularLayoutSelected()) {
-   renderLinearBeat = false;
+  if (renderQuiz){
+    createQuiz.render();
+    createQuiz.update();
   }
   
-  if (createCircularBeat.isLinearLayoutSelected()) {
-   renderLinearBeat = true;
+  if(createQuiz.isGoClicked()){
+    renderQuiz = false;
+    renderLinearBeat = true;
+    target_genre = createQuiz.getGenre();
+    target_speed = createQuiz.getSpeed();
+    target_time_sig = createQuiz.getTimeSig();
+    target_syncopation = createQuiz.isSyncopated();
+    target_beats = createQuiz.getTargetBeats();
   }
   
- if (renderLinearBeat || createCircularBeat.isLinearLayoutSelected()) {
-   createLinearBeat.render(beats);
-   beats = createLinearBeat.update();
- 
-   if (createLinearBeat.isKickSelected() || createCircularBeat.isKickSelected()) {
-     createLinearBeat.setKickSelected(true);
-     createCircularBeat.setKickSelected(false);
+ if (renderLinearBeat) {
+   createLinearBeat.render();
+   createLinearBeat.update();
+   if (createLinearBeat.isKickSelected()) {
      createLinearBeat.renderKickSelector();
    }
-   if (createLinearBeat.isHatSelected() || createCircularBeat.isHatSelected()) {
-     createLinearBeat.setHatSelected(true);
-     createCircularBeat.setHatSelected(false);
+   if (createLinearBeat.isHatSelected()) {
      createLinearBeat.renderHatSelector();
    }
-   if (createLinearBeat.isSnareSelected() || createCircularBeat.isSnareSelected()) {
-     createLinearBeat.setSnareSelected(true);
-     createCircularBeat.setSnareSelected(false);
+   if (createLinearBeat.isSnareSelected()) {
      createLinearBeat.renderSnareSelector();
    }
  }
- 
-  else if (createLinearBeat.isCircularLayoutSelected()){
-    createCircularBeat.render(beats);
-    beats = createCircularBeat.update();
-    if (createCircularBeat.isKickSelected() || createLinearBeat.isKickSelected()) {
-     createCircularBeat.setKickSelected(true);
-     createLinearBeat.setKickSelected(false);
-     createCircularBeat.renderKickCircle();
-   }
-   if (createCircularBeat.isHatSelected()|| createLinearBeat.isHatSelected()) {
-     createCircularBeat.setHatSelected(true);
-     createLinearBeat.setHatSelected(false);
-     createCircularBeat.renderHatCircle();
-   }
-   if (createCircularBeat.isSnareSelected() || createLinearBeat.isSnareSelected()) {
-     createCircularBeat.setSnareSelected(true);
-     createLinearBeat.setSnareSelected(false);
-     createCircularBeat.renderSnareCircle();
-   }
-  }
-  
-  }
-  //NOTE: this will need to be updated if additional areas require keystrokes
-  void keyPressed() {
-    createLinearBeat.setName();
 }
