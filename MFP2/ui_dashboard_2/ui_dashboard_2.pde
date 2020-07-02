@@ -23,7 +23,7 @@ void setup(){
    size(1300, 800);
    beats = new DrumBeats();
    addABeatX = width/2;
-   addABeatY = height/2;
+   addABeatY = height/2 - 105;
    addABeatHighlight = color(204);
    addABeatButton = new CircleButton(addABeatX, addABeatY, addABeatRadius);
    createLinearBeat = new LinearBeatCreation(beats, this);

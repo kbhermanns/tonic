@@ -75,21 +75,21 @@ class LinearBeatCreation {
   void update() {
     if (mousePressed == true && mouseButton == LEFT && Pressed == false) {
       Pressed = true;
-      if (mouseX >= kickX && mouseX <= kickX + 100 && mouseY >= kickY && mouseY <= kickY + 100) {
+      if (((mouseX >= kickX && mouseX <= kickX + 100) || (mouseX >= kickX - 100 && mouseX <= kickX)) && ((mouseY >= kickY && mouseY <= kickY + 100) || (mouseY >= kickY - 100 && mouseY <= kickY))) {
         Clicked = true;
         kickSelected = !kickSelected; 
         if (showInstrumentTooltip) {
           showInstrumentTooltip = false;
           showBeatTooltip = true;
         }
-      } else if (mouseX >= hatX && mouseX <= hatX + 100 && mouseY >= hatY && mouseY <= hatY + 100) {
+      } else if (((mouseX >= hatX && mouseX <= hatX + 100) || (mouseX >= hatX - 100 && mouseX <= hatX)) && ((mouseY >= hatY && mouseY <= hatY + 100) || (mouseY >= hatY - 100 && mouseY <= hatY))) {
         Clicked = true;
         hatSelected = !hatSelected; 
         if (showInstrumentTooltip) {
           showInstrumentTooltip = false;
           showBeatTooltip = true;
         }
-      } else if (mouseX >= snareX && mouseX <= snareX + 100 && mouseY >= snareY && mouseY <= snareY + 100) {
+      } else if (((mouseX >= snareX && mouseX <= snareX + 100) || (mouseX >= snareX - 100 && mouseX <= snareX)) && ((mouseY >= snareY && mouseY <= snareY + 100) || (mouseY >= snareY - 100 && mouseY <= snareY))) {
         Clicked = true;
         snareSelected = !snareSelected;
         if (showInstrumentTooltip) {
