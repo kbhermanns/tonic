@@ -1,6 +1,7 @@
 import java.awt.Font;
 class LinearBeatCreation {
   Boolean[] Beat;
+  ThisOrThat createThisOrThat = new ThisOrThat();
   PImage img17;
   Boolean Pressed = false; 
   Boolean Clicked = false;
@@ -16,8 +17,11 @@ class LinearBeatCreation {
   int snareFill;  
   float snareX = 328; 
   float snareY = 638.66; 
+  float algorithmButtonX = 1078.1515;
+  float algorithmButtonY = 497.4589;
   boolean linearLayoutToggle = false;
   boolean circularLayoutToggle = false;
+  boolean algorithmButtonSelected = false;
   color circleToggleFill = color(-16524602);
   color linearToggleFill = color(-16524602);
   
@@ -47,11 +51,9 @@ class LinearBeatCreation {
     
   
   LinearBeatCreation(DrumBeats beats, PApplet papp) {
-    
     //Setup the name input for the song
     area = new GTextArea(papp,15, 15, 350, 50, G4P.SCROLLBARS_NONE);
     name = "";
-    area.appendText(name);
     area.setVisible(false);
     
      Beats = beats;
@@ -96,6 +98,14 @@ class LinearBeatCreation {
           showInstrumentTooltip = false;
           showBeatTooltip = true;
         }
+     } else if (mouseX >= algorithmButtonX && mouseX <= algorithmButtonX + 100 && mouseY >= algorithmButtonY && mouseY <= algorithmButtonY + 100) {
+        // TODO: Update - this is temp route into LikeOrDislikeBeatPage
+        area.setVisible(false);
+        area.setOpaque(false);
+        Clicked = true;
+        circularLayoutToggle = false;
+        linearLayoutToggle = false; 
+        algorithmButtonSelected = true;
       }
       // layout toggle check
       else if (mouseX >= 1075 && mouseX <= 1135 && mouseY >= 25 && mouseY <= 70){
@@ -105,16 +115,19 @@ class LinearBeatCreation {
       //kick buttons check
       for(int i = 0; i < kickButtons.size() - 1; ++i) {
         kickButtons.get(i).pressed();
+        if (Beats.getBeat(0,i)) showBeatTooltip = false;
         Beats.updateBeats(0, i, kickButtons.get(i).getSelected());
       }
       //snare buttons check 
       for(int j = 0; j < snareButtons.size() - 1; ++j) {
         snareButtons.get(j).pressed();
+        if (Beats.getBeat(1,j)) showBeatTooltip = false;
         Beats.updateBeats(1, j, snareButtons.get(j).getSelected());
       }
       //hat buttons check
       for(int k = 0; k < hatButtons.size() - 1; ++k) {
         hatButtons.get(k).pressed();
+        if (Beats.getBeat(2,k)) showBeatTooltip = false;
         Beats.updateBeats(2, k, kickButtons.get(k).getSelected());
       }
     }
@@ -220,6 +233,9 @@ class LinearBeatCreation {
     saveButton.renderWithText();
     algorithmButton.renderWithText();
   
+    if (algorithmButtonSelected) {
+      createThisOrThat.render();
+    }
   }
   
   void renderKickSelector() {
@@ -264,9 +280,8 @@ class LinearBeatCreation {
     }
   }
   
-   // Set the name of the beat
-  void setName() {
-    name = area.getText();
+ void updateName(String n) {
+    name = n;
     showNameTooltip = false;
     showInstrumentTooltip = true;
   }

@@ -10,6 +10,10 @@ class Beat {
   int getFitness() {
     return fitness;
   }
+  
+  void setFitness(int fit) {
+    fitness = fit;
+  }
 
   BeatDNA getBeatDNA() {
     return beatDNA;

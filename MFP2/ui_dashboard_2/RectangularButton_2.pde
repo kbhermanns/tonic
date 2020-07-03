@@ -1,8 +1,12 @@
-//This button class allows for the Art Station drawing tool to be used to create a button. When the code is copied from the tool, the paramaters to this button object can be defined using the generated code. 
+//This button class allows for the Art Station drawing tool to be used to create a button. When the code is copied from the tool, the paramaters to this button object can be defined using the generated code.  //<>//
 class RectangularButton {
   PVector Position = new PVector(0,0); 
   float Width;
   float Height;
+  float WidthLeft;
+  float HeightUp;
+  float WidthRight;
+  float HeightDown;
   color ButtonSelectedColor;
   Boolean Pressed = false; 
   Boolean Clicked = false; 
@@ -39,6 +43,10 @@ class RectangularButton {
     TextY = textY;
     TextSize = textSize;
     Selected = false;
+    WidthLeft = rect1;
+    WidthRight = rect3;
+    HeightUp = rect2;
+    HeightDown = rect4;
   }
   
   RectangularButton(int fill, int selectedFill, float strokeWeight, int stroke, float transX, float transY, float rotate, float rect1, float rect2, float rect3, float rect4){
@@ -54,22 +62,29 @@ class RectangularButton {
     Rect3 = rect3;
     Rect4 = rect4;
     Selected = false;
+    WidthLeft = rect1;
+    WidthRight = rect3;
+    HeightUp = rect2;
+    HeightDown = rect4;
   }
   
   void update() {
-    if (mousePressed == true && mouseButton == LEFT && Pressed == false) {
-      Pressed = true;
-      if (mouseX >= Position.x && mouseX <= Position.x + Width && mouseY >= Position.y && mouseY <= Position.y + Height) {
-        Clicked = !Clicked;
-        Selected = !Selected;
-      }
-      else {
-      Clicked = false;
-      Selected = false;
+       // Works best with one click in the bottom right corner of the button.
+    if (mousePressed == true && mouseX >= Position.x && mouseX <= Position.x + WidthRight && mouseY >= Position.y && mouseY <= Position.y + HeightUp) {
+        //Clicked = !Clicked;
+        Clicked = true;
     }
+    else if (mousePressed == true && mouseX >= Position.x && mouseX <= Position.x + WidthRight && mouseY >= Position.y && mouseY <= Position.y + HeightDown) {
+        //Clicked = !Clicked;
+        Clicked = true;
     }
-    else if(mousePressed != true) {
-      Pressed = false;
+    else if (mousePressed == true && mouseX >= Position.x && mouseX <= Position.x + WidthLeft && mouseY >= Position.y && mouseY <= Position.y + HeightUp) {
+        //Clicked = !Clicked;
+        Clicked = true;
+    }
+    else if (mousePressed == true && mouseX >= Position.x && mouseX <= Position.x + WidthLeft && mouseY >= Position.y && mouseY <= Position.y + HeightDown) {
+        //Clicked = !Clicked;
+        Clicked = true;
     }
   }
   
@@ -125,7 +140,7 @@ class RectangularButton {
   
   void pressed() {
     if (((mouseX >= TransX && mouseX <= TransX + Rect3) || (mouseX >= TransX - Rect3 && mouseX <= TransX))  && ((mouseY >= TransY && mouseY <= TransY + Rect4) || (mouseY >= TransY - Rect4 && mouseY <= TransY))){
-      Selected = !Selected; //<>//
+      Selected = !Selected;
       Clicked = !Clicked;
     }
   }

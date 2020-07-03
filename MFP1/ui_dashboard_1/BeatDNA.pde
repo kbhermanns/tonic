@@ -5,8 +5,8 @@ class BeatDNA {
   
   BeatDNA() {
     beat = new Boolean[numInstruments][numBeats];
-    for (int i = 0; i < numBeats; i++) {
-      for (int j = 0; j < numInstruments; j++) {
+    for (int i = 0; i < numInstruments; i++) {
+      for (int j = 0; j < numBeats; j++) {
         beat[i][j] = false;
       }
     }
@@ -17,8 +17,8 @@ class BeatDNA {
     numInstruments = numIns;
     
     beat = new Boolean[numInstruments][numBeats];
-    for (int i = 0; i < numBeats; i++) {
-      for (int j = 0; j < numInstruments; j++) {
+    for (int i = 0; i < numInstruments; i++) {
+      for (int j = 0; j < numBeats; j++) {
         beat[i][j] = false;
       }
     }
@@ -30,8 +30,8 @@ class BeatDNA {
       numInstruments = existingBeat.length;
       
       beat = new Boolean[numInstruments][numBeats];
-      for (int i = 0; i < numBeats; i++) {
-        for (int j = 0; j < numInstruments; j++) {
+      for (int i = 0; i < numInstruments; i++) {
+        for (int j = 0; j < numBeats; j++) {
           beat[i][j] = false;
         }
       }
@@ -61,7 +61,7 @@ class BeatDNA {
     for (int i=0; i<numInstruments; i++) {
         for (int j=0; j<numBeats; j++) {
           if (random(1) < m)
-            beat[i][j] = boolean(int(random(0,1.1)));
+            beat[i][j] = boolean(int(random(0,2)));
         }
       } 
   }
