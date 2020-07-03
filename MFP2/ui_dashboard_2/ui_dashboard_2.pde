@@ -114,3 +114,13 @@ public void handleTextEvents(GEditableTextControl textControl, GEvent event) {
         createLinearBeat.updateName(textControl.getText());
         }
 }
+
+boolean[][] BoolToPrimative(Boolean[][] arr) {
+  boolean[][] ret = new boolean[arr.length][arr[0].length];
+  for (int i = 0; i < arr.length; i++) {
+    for (int j = 0; j < arr[0].length; j++) {
+      ret[i][j] = arr[i][j];
+    }
+  }
+  return ret;
+}
