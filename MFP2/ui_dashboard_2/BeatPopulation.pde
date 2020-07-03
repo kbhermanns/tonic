@@ -181,7 +181,7 @@ class BeatPopulation {
   boolean[][] getSecondBestBeat() {
     Arrays.sort(population);
     print("2nd BEAT: " + generations + " - ");
-    population[1].print()
+    population[1].print();
     println();
     return population[1].dna.beat;
   }

@@ -75,20 +75,25 @@ class RectangularButton {
   void update() {
        // Works best with one click in the bottom right corner of the button.
     if (mousePressed == true && mouseX >= Position.x && mouseX <= Position.x + WidthRight && mouseY >= Position.y && mouseY <= Position.y + HeightUp) {
-        //Clicked = !Clicked;
         Clicked = true;
     }
     else if (mousePressed == true && mouseX >= Position.x && mouseX <= Position.x + WidthRight && mouseY >= Position.y && mouseY <= Position.y + HeightDown) {
-        //Clicked = !Clicked;
         Clicked = true;
     }
     else if (mousePressed == true && mouseX >= Position.x && mouseX <= Position.x + WidthLeft && mouseY >= Position.y && mouseY <= Position.y + HeightUp) {
-        //Clicked = !Clicked;
         Clicked = true;
     }
     else if (mousePressed == true && mouseX >= Position.x && mouseX <= Position.x + WidthLeft && mouseY >= Position.y && mouseY <= Position.y + HeightDown) {
-        //Clicked = !Clicked;
         Clicked = true;
+    }
+    else if (mousePressed == true && mouseX >= Position.x && mouseX <= Position.x + WidthRight && mouseY <= Position.y && mouseY >= Position.y - HeightDown) {
+        Clicked = true;
+    }
+    else if (mousePressed == true && mouseX <= Position.x && mouseX >= Position.x + WidthLeft && mouseY <= Position.y && mouseY >= Position.y - HeightDown){
+      Clicked = true;
+    }
+    else if (mousePressed == true && mouseX <= Position.x && mouseX >= Position.x + WidthLeft && mouseY >= Position.y && mouseY <= Position.y + HeightDown){
+      Clicked = true;
     }
   }
   

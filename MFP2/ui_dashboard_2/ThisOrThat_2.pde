@@ -48,20 +48,24 @@ class ThisOrThat {
   PImage preferTealButtonImage = loadImage("IPreferThisButtonTeal.png");
   PImage useThisInSongButtonImage = loadImage("UseThisInSongButton.png");
   
-  ThisOrThat(DrumBeats userCreatedBeats) {
+  PApplet pa;
+  
+  ThisOrThat(DrumBeats userCreatedBeats, PApplet papp) {
     whatHasChangedInBeat1 = new boolean[3]; // kick - 0, snare - 1, hi-hat - 2
     whatHasChangedInBeat2 = new boolean[3];
     originalBeat = userCreatedBeats;
-    beats1 = new DrumBeats();
-    beats2 = new DrumBeats();
+    pa = papp;
+    beats1 = new DrumBeats(pa,3,16);
+    beats2 = new DrumBeats(pa,3,16);
     beatNumber = 0;
 
     // Create a population with a mutation rate, population size, number of instruments,
     // length of beat, and the original user-created beat.
     population = new BeatPopulation(
       0.01, 50,
-      beats1.Beats.length, beats1.Beats[0].length
+      beats1.beats.length, beats1.beats[0].length
     );
+    
     
     // create linear beats - TODO update to grab the beat we have 
     kickButtons = new ArrayList<RectangularButton>();
@@ -84,9 +88,9 @@ class ThisOrThat {
   void update() {
       // Run the GA upon initialization without user input to get the first pair of beats.
       if (!firstPairCreated) {
-        population.run(null, null, originalBeat.Beats, BoolToPrimative(target_beats), 100);
-        beats1.Beats = population.getBestBeat();
-        beats2.Beats = population.getSecondBestBeat();
+        population.run(null, null, originalBeat.beats, target_beats, 100);
+        beats1.beats = population.getBestBeat();
+        beats2.beats = population.getSecondBestBeat();
         firstPairCreated = true;
       }
       if (((mouseX >= leftPlayButtonx && mouseX <= leftPlayButtonx + 100) || (mouseX >= leftPlayButtonx - 100 && mouseX <= leftPlayButtonx)) 
@@ -108,9 +112,9 @@ class ThisOrThat {
         // TODO - let the GA know that the user likes the beat
         // TODO - get a new beat from GA - will this by calling fittestbeat()?
         // 
-        population.run(beats1.Beats, beats2.Beats, originalBeat.Beats, BoolToPrimative(target_beats), 100);
-        beats1.Beats = population.getBestBeat();
-        beats2.Beats = population.getSecondBestBeat();
+        population.run(beats1.beats, beats2.beats, originalBeat.beats, target_beats, 100);
+        beats1.beats = population.getBestBeat();
+        beats2.beats = population.getSecondBestBeat();
       } else if (((mouseX >= rightIPreferThisButtonx && mouseX <= rightIPreferThisButtonx + 270) || (mouseX >= rightIPreferThisButtonx - 270 && mouseX <= rightIPreferThisButtonx)) 
       && ((mouseY >= rightIPreferThisButtony && mouseY <= rightIPreferThisButtony + 70) || (mouseY >= rightIPreferThisButtony - 70 && mouseY <= rightIPreferThisButtony))) {
          // user prefers right beat (purple)
@@ -118,9 +122,9 @@ class ThisOrThat {
         // TODO - let the GA know that the user does not like the beat the beat 
         // TODO - get a new beat from GA - will this by calling fittestbeat()?
         //
-        population.run(beats2.Beats, beats1.Beats, originalBeat.Beats, BoolToPrimative(target_beats), 100);
-        beats1.Beats = population.getBestBeat();
-        beats2.Beats = population.getSecondBestBeat();
+        population.run(beats2.beats, beats1.beats, originalBeat.beats, target_beats, 100);
+        beats1.beats = population.getBestBeat();
+        beats2.beats = population.getSecondBestBeat();
       } else if (((mouseX >= useThisBeatLeftButtonx && mouseX <= useThisBeatLeftButtonx + 300) || (mouseX >= useThisBeatLeftButtonx - 300 && mouseX <= useThisBeatLeftButtonx)) 
       && ((mouseY >= useThisBeatLeftButtony && mouseY <= useThisBeatLeftButtony + 60) || (mouseY >= useThisBeatLeftButtony - 60 && mouseY <= useThisBeatLeftButtony))) {
         // user wants to use left beat in song (teal)
@@ -374,4 +378,7 @@ class ThisOrThat {
     }
     return changedText;
   }
+  
+  DrumBeats getBeat1() {return beats1;}
+  DrumBeats getBeat2() {return beats2;}
 }

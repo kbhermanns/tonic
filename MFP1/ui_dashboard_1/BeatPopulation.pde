@@ -8,36 +8,32 @@ class BeatPopulation {
   ArrayList<Beat> matingPool;
   int generations;
 
-  Beat fittestBeat;
-  Beat secondFittestBeat;
   Beat styleTarget;
-  Beat startingBeat;
+  Beat originalBeat;
+
+  int numInstruments;
+  int beatLength;
 
   // create initial beat population
-  BeatPopulation(float m, int num) {
-      mutationRate = m;
-      population = new Beat[num];
-      matingPool = new ArrayList<Beat>();
-      generations = 0;
+  BeatPopulation(float m, int size, int numIns, int beatLen) {
+    mutationRate = m;
+    population = new Beat[size];
+    matingPool = new ArrayList<Beat>();
+    generations = 0;
 
-      fittestBeat = new Beat(new BeatDNA());
-      secondFittestBeat = new Beat(new BeatDNA());
-      
-      //TODO: Set these to match quiz results when in and set starting beat
-      Boolean[][] emptyBeat = new Boolean[numInstruments][beatLength];
-      styleTarget = new Beat(new BeatDNA(emptyBeat));
-      startingBeat = new Beat(new BeatDNA(emptyBeat));
-      
-      generateRandomPopulation();
+    numInstruments = numIns;
+    beatLength = beatLen;
+    
+    generateRandomPopulation();
   }
   
   // completely random population
   void generateRandomPopulation() {
     for (int i = 0; i < population.length; i++) {
-      Boolean[][] baseBeat = new Boolean[numInstruments][beatLength];
+      boolean[][] baseBeat = new boolean[numInstruments][beatLength];
       for (int j = 0; j < numInstruments; j++) {
         for (int k = 0; k < beatLength; k++) {
-          Boolean x = boolean(int(random(0,2)));
+          boolean x = boolean(int(random(0,2)));
           baseBeat[j][k] = x;
         }
       }
@@ -51,10 +47,10 @@ class BeatPopulation {
   void generateStylePopulation() {
     population[0] = styleTarget;
     for (int i = 1; i < population.length; i++) {
-      Boolean[][] baseBeat = new Boolean[numInstruments][beatLength];
+      boolean[][] baseBeat = new boolean[numInstruments][beatLength];
       for (int j = 0; j < numInstruments; j++) {
         for (int k = 0; k < beatLength; k++) {
-          Boolean x = boolean(int(random(0,2)));
+          boolean x = boolean(int(random(0,2)));
           baseBeat[j][k] = x;
         }
       }
@@ -64,12 +60,12 @@ class BeatPopulation {
   }
   
   void generateStartingBeatPopulation() {
-    population[0] = startingBeat;
+    population[0] = originalBeat;
     for (int i = 1; i < population.length; i++) {
-      Boolean[][] baseBeat = new Boolean[numInstruments][beatLength];
+      boolean[][] baseBeat = new boolean[numInstruments][beatLength];
       for (int j = 0; j < numInstruments; j++) {
         for (int k = 0; k < beatLength; k++) {
-          Boolean x = boolean(int(random(0,2)));
+          boolean x = boolean(int(random(0,2)));
           baseBeat[j][k] = x;
         }
       }
@@ -78,8 +74,30 @@ class BeatPopulation {
     }
   }
 
+  void run(boolean[][] liked, boolean[][] other, boolean[][] original, boolean[][] styleBeats, int numGens) {
+    print("RUN CALLED");
+    Beat likedBeat = liked != null ? new Beat(new BeatDNA(liked)) : null;
+    Beat otherBeat = other != null ? new Beat(new BeatDNA(other)) : null;
+
+    originalBeat = new Beat(new BeatDNA(original));
+    styleTarget = new Beat(new BeatDNA(styleBeats));
+
+    int i = 0;
+    int leniency = 50;
+    while (i < numGens) {
+      calcFitness(likedBeat, otherBeat);
+      selection();
+      reproduction();
+      // If we don't have any fit beats and are about to return, try again.
+      if (i == (numGens - 1) && getMaxFitness() <= 0.00001 && leniency > 0) {
+        i--;
+        leniency--;
+      }
+      i++;
+    }
+  }
+
   void live () {
-    // For every creature
     Arrays.sort(population);
     for (int i = 0; i < population.length; i++) {
       population[i].display(new PVector(50, 80 + (60 * numInstruments * i)));
@@ -122,34 +140,11 @@ class BeatPopulation {
     }
     generations++;
   }
-
-
-  // get the top beat for displaying to the user
-  Beat getFittestBeat() {
-      return fittestBeat;
-  }
-
-  Beat getSecondFittestBeat() {
-      return secondFittestBeat;
-  }
   
   // calculate the fitness of the entire population
-  void calcFitness(Beat likedBeat) {
-    int[][] baseStyle = {
-      {1, 0, 1, 0, 1, 1, 0, 0, 1, 0, 0, 1, 1, 0, 1, 1},
-      {0, 0, 1, 0, 1, 1, 0, 0, 1, 0, 0, 1, 1, 0, 1, 1},
-      {1, 0, 1, 0, 1, 1, 0, 0, 1, 0, 0, 1, 1, 0, 1, 1}
-    };
-    int[][] liked = {
-      {0, 0, 0, 1, 0, 1, 1, 0, 0, 0, 1, 1, 1, 1, 0, 0},
-      {0, 0, 1, 0, 0, 1, 0, 0, 1, 0, 0, 1, 1, 0, 1, 0},
-      {1, 0, 1, 0, 1, 1, 0, 0, 1, 0, 0, 1, 1, 0, 1, 1}
-    };
-    Beat styleTarget = new Beat(new BeatDNA(intToBool(baseStyle)));
-    Beat startingBeat = null;
-    Beat sbeatLiked = new Beat(new BeatDNA(intToBool(liked)));
+  void calcFitness(Beat likedBeat, Beat otherBeat) {
     for (int i = 0; i < population.length; i++) {
-      population[i].calcFitness(styleTarget, startingBeat, sbeatLiked);
+      population[i].calcFitness(styleTarget, originalBeat, likedBeat, otherBeat);
     }
   }
 
@@ -175,13 +170,19 @@ class BeatPopulation {
     return record;
   }
 
-  Boolean[][] intToBool(int[][] arr) {
-    Boolean[][] ret = new Boolean[arr.length][arr[0].length];
-    for (int i = 0; i < ret.length; i++) {
-      for (int j = 0; j < ret[0].length; j++) {
-        ret[i][j] = boolean(arr[i][j]);
-      }
-    }
-    return ret;
+  boolean[][] getBestBeat() {
+    Arrays.sort(population);
+    print("BEST BEAT: " + generations + " - ");
+    population[0].print();
+    println();
+    return population[0].dna.beat;
+  }
+
+  boolean[][] getSecondBestBeat() {
+    Arrays.sort(population);
+    print("2nd BEAT: " + generations + " - ");
+    population[1].print();
+    println();
+    return population[1].dna.beat;
   }
 }

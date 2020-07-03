@@ -1,19 +1,19 @@
 import java.awt.Font;
 class LinearBeatCreation {
-  Boolean[] Beat;
+  boolean[] Beat;
   ThisOrThat createThisOrThat;
   PImage img17;
-  Boolean Pressed = false; 
-  Boolean Clicked = false;
-  Boolean kickSelected = false;
+  boolean Pressed = false; 
+  boolean Clicked = false;
+  boolean kickSelected = false;
   int kickFill;
   float kickX = 127.28;
   float kickY = 638.66;
-  Boolean hatSelected = false;
+  boolean hatSelected = false;
   int hatFill;
   float hatX = 539.23;
   float hatY = 638.66;
-  Boolean snareSelected = false;
+  boolean snareSelected = false;
   int snareFill;  
   float snareX = 328; 
   float snareY = 638.66; 
@@ -45,9 +45,9 @@ class LinearBeatCreation {
   String name;
   GTextArea area;
 
-  Boolean showNameTooltip = true;
-  Boolean showInstrumentTooltip = false;
-  Boolean showBeatTooltip = false;
+  boolean showNameTooltip = true;
+  boolean showInstrumentTooltip = false;
+  boolean showBeatTooltip = false;
     
   
   LinearBeatCreation(DrumBeats beats, PApplet papp) {
@@ -55,7 +55,7 @@ class LinearBeatCreation {
     area = new GTextArea(papp,15, 15, 350, 50, G4P.SCROLLBARS_NONE);
     name = "";
     area.setVisible(false);
-    createThisOrThat = new ThisOrThat(beats);
+    createThisOrThat = new ThisOrThat(beats, papp);
     
      Beats = beats;
      kickButtons = new ArrayList<RectangularButton>();
@@ -141,23 +141,23 @@ class LinearBeatCreation {
     }
   }
   
-  Boolean isKickSelected() {
+  boolean isKickSelected() {
     return kickSelected;
   }
   
-  Boolean isHatSelected() {
+  boolean isHatSelected() {
     return hatSelected;
   }
   
-  Boolean isSnareSelected() {
+  boolean isSnareSelected() {
     return snareSelected;
   }
   
-  Boolean isCircularLayoutSelected() {
+  boolean isCircularLayoutSelected() {
     return circularLayoutToggle;
   }
   
-  Boolean isAlgorithmButtonSelected() {
+  boolean isAlgorithmButtonSelected() {
     return algorithmButtonSelected;
   }
   
@@ -292,4 +292,7 @@ class LinearBeatCreation {
     showNameTooltip = false;
     showInstrumentTooltip = true;
   }
+  
+  DrumBeats getBeats() { return Beats;}
+  ThisOrThat getThisThat() {return createThisOrThat;}
 }

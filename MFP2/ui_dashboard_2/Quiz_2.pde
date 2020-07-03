@@ -4,49 +4,49 @@ import java.awt.Rectangle;
 
 class Quiz{
 
-    Boolean[][] target_beats;
+    boolean[][] target_beats;
     String[] genre_title = {"Hip-Hop", "Disco/Pop", "Dubstep", "Rock"};
     int shiftx = 200;
     int shifty = -50;
 
-    Boolean goClicked = false;
-    Boolean HipHopPrevClick = false;
-    Boolean DiscoPopPrevClick = false;
-    Boolean DubstepPrevClick = false;
-    Boolean RockPrevClick = false;
-    Boolean SlowPrevClick = false;
-    Boolean WalkingPrevClick = false;
-    Boolean ModeratePrevClick = false;
-    Boolean HeartbeatPrevClick = false;
-    Boolean FastPrevClick = false;
-    Boolean TwoFourPrevClick = false;
-    Boolean ThreeFourPrevClick = false;
-    Boolean FourFourPrevClick = false;
-    Boolean YesSyncoPrevClick = false;
-    Boolean NoSyncoPrevClick = false;
-    Boolean GoPrevClick = false;
+    boolean goClicked = false;
+    boolean HipHopPrevClick = false;
+    boolean DiscoPopPrevClick = false;
+    boolean DubstepPrevClick = false;
+    boolean RockPrevClick = false;
+    boolean SlowPrevClick = false;
+    boolean WalkingPrevClick = false;
+    boolean ModeratePrevClick = false;
+    boolean HeartbeatPrevClick = false;
+    boolean FastPrevClick = false;
+    boolean TwoFourPrevClick = false;
+    boolean ThreeFourPrevClick = false;
+    boolean FourFourPrevClick = false;
+    boolean YesSyncoPrevClick = false;
+    boolean NoSyncoPrevClick = false;
+    boolean GoPrevClick = false;
 
 
     String genre = "None";
     String speed = "None";
     String time_sig = "None";
-    Boolean syncopation = false; 
+    boolean syncopation = false; 
 
-    Boolean HipHopSelected = false;
-    Boolean DiscoPopSelected = false;
-    Boolean DubstepSelected = false;
-    Boolean RockSelected = false;
-    Boolean SlowSelected = false;
-    Boolean WalkingSelected = false;
-    Boolean ModerateSelected = false;
-    Boolean HeartbeatSelected = false;
-    Boolean FastSelected = false;
-    Boolean TwoFourSelected = false;
-    Boolean ThreeFourSelected = false;
-    Boolean FourFourSelected = false;
-    Boolean YesSyncoSelected = false;
-    Boolean NoSyncoSelected = false;
-    Boolean GoSelected = false;
+    boolean HipHopSelected = false;
+    boolean DiscoPopSelected = false;
+    boolean DubstepSelected = false;
+    boolean RockSelected = false;
+    boolean SlowSelected = false;
+    boolean WalkingSelected = false;
+    boolean ModerateSelected = false;
+    boolean HeartbeatSelected = false;
+    boolean FastSelected = false;
+    boolean TwoFourSelected = false;
+    boolean ThreeFourSelected = false;
+    boolean FourFourSelected = false;
+    boolean YesSyncoSelected = false;
+    boolean NoSyncoSelected = false;
+    boolean GoSelected = false;
 
     RectangularButton HipHopButton;
     RectangularButton DiscoPopButton;
@@ -82,7 +82,7 @@ class Quiz{
 
 
   Quiz(){
-    target_beats = new Boolean[3][16];
+    target_beats = new boolean[3][16];
     for (int i = 0; i < 3; i++) {
       for (int j = 0; j < 16; j++) {
         target_beats[i][j] = false;
@@ -289,7 +289,7 @@ class Quiz{
     if (GoButton.isClicked() || GoPrevClick) {
       GoFill = -1;
       if (genre == "Hip-Hop"){
-        Boolean[][] copy_beats = {{true,false,false,false,false,false,false,false,true,false,true,false,false,false,false,false},
+        boolean[][] copy_beats = {{true,false,false,false,false,false,false,false,true,false,true,false,false,false,false,false},
           {false,false,false,false,true,false,false,false,false,false,false,false,true,false,false,false}, 
           {false,false,true,false,false,false,true,false,false,false,false,false,false,false,true,false}};
         for (int i = 0; i < 3; i++) {
@@ -299,7 +299,7 @@ class Quiz{
         }  
       }
       if(genre == "Disco/Pop"){
-        Boolean[][] copy_beats = {{true,false,false,false,false,false,false,false,true,false,false,false,false,false,false,false},
+        boolean[][] copy_beats = {{true,false,false,false,false,false,false,false,true,false,false,false,false,false,false,false},
           {false,false,false,false,true,false,false,false,false,false,false,false,true,false,false,false},
           {true,false,true,false,false,false,true,false,true,false,true,false,false,false,true,false}};
         for (int i = 0; i < 3; i++) {
@@ -309,7 +309,7 @@ class Quiz{
         }  
       }
       if(genre == "Dubstep"){
-        Boolean[][] copy_beats = {{true,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false},
+        boolean[][] copy_beats = {{true,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false},
           {false,false,false,false,false,false,false,false,true,false,false,false,false,false,false,false},
           {false,false,false,false,true,false,false,false,false,false,false,false,true,false,false,false}};
         for (int i = 0; i < 3; i++) {
@@ -319,7 +319,7 @@ class Quiz{
         }  
       }
        if(genre == "Rock"){
-        Boolean[][] copy_beats = {{true,false,true,false,false,false,true,false,true,false,true,false,false,false,true,false},
+        boolean[][] copy_beats = {{true,false,true,false,false,false,true,false,true,false,true,false,false,false,true,false},
           {false,false,false,false,true,false,false,false,false,false,false,false,true,false,false,false},
           {true,false,true,false,true,false,true,false,true,false,true,false,true,false,true,false}};
         for (int i = 0; i < 3; i++) {
@@ -344,7 +344,7 @@ class Quiz{
 
   } 
 
-  Boolean[][] getTargetBeats(){
+  boolean[][] getTargetBeats(){
     return target_beats;
   }
 
@@ -360,11 +360,11 @@ class Quiz{
   return time_sig;
   }
 
-  Boolean isSyncopated(){
+  boolean isSyncopated(){
   return syncopation;
   }
 
-  Boolean isGoClicked(){
+  boolean isGoClicked(){
     return goClicked;
   }
 }

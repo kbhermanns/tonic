@@ -12,18 +12,23 @@ class Beat implements Comparable {
     return fitness;
   }
 
-  void calcFitness(Beat baseStyle, Beat createdBeat, Beat likedBeat) {
+  void calcFitness(Beat baseStyle, Beat createdBeat, Beat likedBeat, Beat otherBeat) {
     // Just so we never have a max fitness of 0.
     fitness = 1.0 / (dna.beatLength * dna.numInstruments);
     for (int i = 0; i < dna.numInstruments; i++) {
       for (int j = 0; j < dna.beatLength; j++) {
-        // difference to calculate beat similarities.
+        // If the createdBeat exists then disregard the style.
         if (createdBeat != null) {
-          fitness *= dna.beat[i][j] != createdBeat.dna.beat[i][j] ? 1 : 2;
+          fitness *= dna.beat[i][j] != createdBeat.dna.beat[i][j] ? 1.0 : 2.0;
         } else {
-          fitness *= dna.beat[i][j] != baseStyle.dna.beat[i][j] ? 1 : 2;
+          fitness *= dna.beat[i][j] != baseStyle.dna.beat[i][j] ? 1.0 : 2.0;
         }
-        fitness *= dna.beat[i][j] != likedBeat.dna.beat[i][j] ? 1 : 4;
+        // Give beats similar to the liked beat extra weight.
+        if (likedBeat != null)
+          fitness *= dna.beat[i][j] != likedBeat.dna.beat[i][j] ? 1.0 : 4.0;
+        // And beats similar to the other beat the opposite.
+        if (otherBeat != null)
+          fitness *= dna.beat[i][j] != otherBeat.dna.beat[i][j] ? 2.0 : 0.5;
       }
     }
   }
@@ -53,5 +58,8 @@ class Beat implements Comparable {
     Beat b = (Beat) o;
     if (fitness > b.getFitness()) return 1;
     return fitness < b.getFitness() ? -1 : 0;
+  }
+  
+  void print() {
   }
 }
