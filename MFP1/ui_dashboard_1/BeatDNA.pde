@@ -1,24 +1,25 @@
 class BeatDNA {
-  int numBeats = 16;
-  int numInstruments = 3;
+  int beatLength = 16;
+  int numInstruments = 1;
+
   Boolean[][] beat;
   
   BeatDNA() {
-    beat = new Boolean[numInstruments][numBeats];
+    beat = new Boolean[numInstruments][beatLength];
     for (int i = 0; i < numInstruments; i++) {
-      for (int j = 0; j < numBeats; j++) {
+      for (int j = 0; j < beatLength; j++) {
         beat[i][j] = false;
       }
     }
   }
   
-  BeatDNA(int numB, int numIns) {
-    numBeats = numB;
-    numInstruments = numIns;
+  BeatDNA(int _beatLength, int _numInstruments) {
+    beatLength = _beatLength;
+    numInstruments = _numInstruments;
     
-    beat = new Boolean[numInstruments][numBeats];
+    beat = new Boolean[numInstruments][beatLength];
     for (int i = 0; i < numInstruments; i++) {
-      for (int j = 0; j < numBeats; j++) {
+      for (int j = 0; j < beatLength; j++) {
         beat[i][j] = false;
       }
     }
@@ -26,13 +27,13 @@ class BeatDNA {
   
   BeatDNA(Boolean[][] existingBeat) {
     if (existingBeat != null) {
-      numBeats = existingBeat[0].length;
+      beatLength = existingBeat[0].length;
       numInstruments = existingBeat.length;
       
-      beat = new Boolean[numInstruments][numBeats];
+      beat = new Boolean[numInstruments][beatLength];
       for (int i = 0; i < numInstruments; i++) {
-        for (int j = 0; j < numBeats; j++) {
-          beat[i][j] = false;
+        for (int j = 0; j < beatLength; j++) {
+          beat[i][j] = existingBeat[i][j];
         }
       }
     }    
@@ -40,29 +41,29 @@ class BeatDNA {
 
   //Perform crossover between two parent beats to generate a new beat
   BeatDNA crossover(BeatDNA partner) {
-      // perform crossover, likely want to go instrument by instrument
-      Boolean[][] newBeatDNA = new Boolean[numInstruments][numBeats];
-      for (int i=0; i<numInstruments; i++) {
-        int crossover = int(random(numBeats));
-        for (int j=0; j<numBeats; j++) {
-          if (j > crossover)
-            newBeatDNA[i][j] = beat[i][j];
-          else
-            newBeatDNA[i][j] = partner.beat[i][j];
-        }
-      } 
-      BeatDNA newBeat = new BeatDNA(newBeatDNA);
-      return newBeat;     
+    // perform crossover, likely want to go instrument by instrument
+    Boolean[][] newDNA = new Boolean[numInstruments][beatLength];
+    for (int i = 0; i < numInstruments; i++) {
+      int crossover = int(random(beatLength));
+      for (int j = 0; j < beatLength; j++) {
+        if (j > crossover)
+          newDNA[i][j] = beat[i][j];
+        else
+          newDNA[i][j] = partner.beat[i][j];
+      }
+    } 
+    BeatDNA newBeat = new BeatDNA(newDNA);
+    return newBeat;
   }
 
   //TODO
   // mutate based on probability
   void mutate(float m) {
-    for (int i=0; i<numInstruments; i++) {
-        for (int j=0; j<numBeats; j++) {
-          if (random(1) < m)
-            beat[i][j] = boolean(int(random(0,2)));
-        }
-      } 
+    for (int i = 0; i < numInstruments; i++) {
+      for (int j = 0; j < beatLength; j++) {
+        if (random(1) < m)
+          beat[i][j] = boolean(int(random(0,2)));
+      }
+    } 
   }
 }
