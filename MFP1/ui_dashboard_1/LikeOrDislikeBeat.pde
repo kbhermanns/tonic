@@ -39,7 +39,7 @@ class LikeOrDislikeBeat {
     // call fittest beat here instead of populating empty array
     for (int i = 0; i < 16; i++) {
       for (int j = 0; j < 3; j++) {
-        beats[i][j] = true;
+        beats[i][j] = false; // temp
       }
     }
     
@@ -68,11 +68,13 @@ class LikeOrDislikeBeat {
         // user likes the beat 
         // TODO - let the GA know that the user likes the beat
         // TODO - get a new beat from GA - will this by calling fittestbeat()? 
+        playBeatOutLoud();
       } else if (((mouseX >= xButtonx && mouseX <= xButtonx + 100) || (mouseX >= xButtonx - 100 && mouseX <= xButtonx)) 
       && ((mouseY >= xButtony && mouseY <= xButtony + 100) || (mouseY >= xButtony - 100 && mouseY <= xButtony))) {
         // user dislikes the beat 
         // TODO - let the GA know that the user does not like the beat the beat 
         // TODO - get a new beat from GA - will this by calling fittestbeat()? 
+        playBeatOutLoud();
       } else if (((mouseX >= useThisBeatButtonx && mouseX <= useThisBeatButtonx + 270) || (mouseX >= useThisBeatButtonx - 270 && mouseX <= useThisBeatButtonx)) 
       && ((mouseY >= useThisBeatButtony && mouseY <= useThisBeatButtony + 100) || (mouseY >= useThisBeatButtony - 100 && mouseY <= useThisBeatButtony))) {
         // user wants to use the beat in their song

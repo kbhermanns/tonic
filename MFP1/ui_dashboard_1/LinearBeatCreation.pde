@@ -27,8 +27,8 @@ class LinearBeatCreation {
   color linearToggleFill = color(-16524602);
 // what I added - dekete kater 
   Boolean algorithmButtonSelected = false;
-  float algorithmButtonX = 0;
-  float algorithmButtonY = 0;
+  float algorithmButtonX = 1078.1515;
+  float algorithmButtonY = 497.4589;
   
   DrumBeats Beats;
   ArrayList<RectangularButton> kickButtons;
@@ -121,7 +121,7 @@ class LinearBeatCreation {
       } else if (mouseX >= snareX && mouseX <= snareX + 100 && mouseY >= snareY && mouseY <= snareY + 100 && snareSelected == true) {
         Clicked = true;
         snareSelected = false;
-      } else if (mouseX >= algorithmButtonX + 400 && mouseX <= algorithmButtonX + 600 && mouseY >= algorithmButtonY && mouseY <= algorithmButtonY + 100) {
+      } else if (mouseX >= algorithmButtonX && mouseX <= algorithmButtonX + 100 && mouseY >= algorithmButtonY && mouseY <= algorithmButtonY + 100) {
         // TODO: Update - this is temp route into LikeOrDislikeBeatPage
         area.setVisible(false);
         area.setOpaque(false);

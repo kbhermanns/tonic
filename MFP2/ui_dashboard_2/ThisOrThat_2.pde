@@ -1,7 +1,11 @@
 import java.awt.Rectangle;
 
 class ThisOrThat {
-  Boolean[][] beats;
+  Boolean[][] originalBeat;
+  Boolean[][] beats1;
+  Boolean[][] beats2;
+  Boolean[] whatHasChangedInBeat1; // kick - 0, snare - 1, hi-hat - 2
+  Boolean[] whatHasChangedInBeat2;
   Integer beatNumber;
   //DrumBeats Beats;
   //BeatPopulation beatPopulation;
@@ -13,7 +17,20 @@ class ThisOrThat {
   RectangularButton xButton;
   RectangularButton cancelButton; 
   RectangularButton useThisButton;
- 
+  
+  Float leftPlayButtonx = 307.34927;
+  Float leftPlayButtony = 361.435;
+  Float rightPlayButtonx = 923.991;
+  Float rightPlayButtony = 365.32138;
+  Float leftIPreferThisButtonx = 210.18935;
+  Float leftIPreferThisButtony = 500.04984;
+  Float rightIPreferThisButtonx = 828.1266;
+  Float rightIPreferThisButtony = 501.3453;
+  Float useThisBeatLeftButtonx = 179.09816;
+  Float useThisBeatLeftButtony = 572.59595;
+  Float useThisBeatRightButtonx = 806.10364;
+  Float useThisBeatRightButtony = 573.8914;
+
   PImage purplePlayButtonImage = loadImage("PlayButtonPurple.png");
   PImage tealPlayButtonImage = loadImage("PlayButtonTeal.png");
   PImage purplePauseButtonImage = loadImage("PauseButtonPurple.png");
@@ -25,12 +42,23 @@ class ThisOrThat {
   PImage useThisInSongButtonImage = loadImage("UseThisInSongButton.png");
   
   ThisOrThat() {
-    beats = new Boolean[16][3];
+    whatHasChangedInBeat1 = new Boolean[3]; // kick - 0, snare - 1, hi-hat - 2
+    whatHasChangedInBeat2 = new Boolean[3];
+    beats1 = new Boolean[16][3];
+    beats2 = new Boolean[16][3];
     beatNumber = 0;
-    // TODO populate beat with stuff from genetic algorithm and call func for it 
+    // TODO - populate beat with stuff from genetic algorithm and call func for it 
+    // call fittest beat here instead of populating empty array
     for (int i = 0; i < 16; i++) {
       for (int j = 0; j < 3; j++) {
-        beats[i][j] = false;
+        beats1[i][j] = false; // temp
+      }
+    }
+    // TODO - populate beat with stuff from genetic algorithm and call func for it 
+    // call 2nd most fit beat here instead of populating empty array
+   for (int i = 0; i < 16; i++) {
+      for (int j = 0; j < 3; j++) {
+        beats2[i][j] = false; // temp
       }
     }
     
@@ -51,13 +79,53 @@ class ThisOrThat {
       //hatButtons.get(n).setSelected(Beats.getBeatValue(1,n));
     }
   }
-  
+
   void update() {
-    // TODO: if user clicks main button then pause music ?? - is this even possible ?? 
-    // TODO: if user clicks check or dislike then
+    // TODO: if user clicks main button then pause music ?? - is this even possible ?? - need to look into this based on what is done in the play functions. 
+    if (mousePressed == true && mouseButton == LEFT) {
+      if (((mouseX >= leftPlayButtonx && mouseX <= leftPlayButtonx + 100) || (mouseX >= leftPlayButtonx - 100 && mouseX <= leftPlayButtonx)) 
+      && ((mouseY >= leftPlayButtony && mouseY <= leftPlayButtony + 120) || (mouseY >= leftPlayButtony - 120 && mouseY <= leftPlayButtony))) {
+         // user wants to play left beat (teal)
+        // TODO: link up to play button 
+        playBeatOutLoud();
+      } else if (((mouseX >= rightPlayButtonx && mouseX <= rightPlayButtonx + 100) || (mouseX >= rightPlayButtonx - 100 && mouseX <= rightPlayButtonx)) 
+      && ((mouseY >= rightPlayButtony && mouseY <= rightPlayButtony + 100) || (mouseY >= rightPlayButtony - 100 && mouseY <= rightPlayButtony))) {
+        // user wants to play right beat (purple)
+        // TODO: link up to play button 
+        playBeatOutLoud();
+      } else if (((mouseX >= leftIPreferThisButtonx && mouseX <= leftIPreferThisButtonx + 270) || (mouseX >= leftIPreferThisButtonx - 270 && mouseX <= leftIPreferThisButtonx)) 
+      && ((mouseY >= leftIPreferThisButtony && mouseY <= leftIPreferThisButtony + 70) || (mouseY >= leftIPreferThisButtony - 70 && mouseY <= leftIPreferThisButtony))) {
+        // user prefers left beat (teal)
+        // TODO - let the GA know that the user likes the beat
+        // TODO - get a new beat from GA - will this by calling fittestbeat()? 
+      } else if (((mouseX >= rightIPreferThisButtonx && mouseX <= rightIPreferThisButtonx + 270) || (mouseX >= rightIPreferThisButtonx - 270 && mouseX <= rightIPreferThisButtonx)) 
+      && ((mouseY >= rightIPreferThisButtony && mouseY <= rightIPreferThisButtony + 70) || (mouseY >= rightIPreferThisButtony - 70 && mouseY <= rightIPreferThisButtony))) {
+         // user prefers right beat (purple)
+        // TODO - let the GA know that the user does not like the beat the beat 
+        // TODO - get a new beat from GA - will this by calling fittestbeat()? 
+      } else if (((mouseX >= useThisBeatLeftButtonx && mouseX <= useThisBeatLeftButtonx + 300) || (mouseX >= useThisBeatLeftButtonx - 300 && mouseX <= useThisBeatLeftButtonx)) 
+      && ((mouseY >= useThisBeatLeftButtony && mouseY <= useThisBeatLeftButtony + 60) || (mouseY >= useThisBeatLeftButtony - 60 && mouseY <= useThisBeatLeftButtony))) {
+        // user wants to use left beat in song (teal)
+        // TODO: are we going to handle this in prototype?? 
+      } else if (((mouseX >= useThisBeatRightButtonx && mouseX <= useThisBeatRightButtonx + 300) || (mouseX >= useThisBeatRightButtonx - 300 && mouseX <= useThisBeatRightButtonx)) 
+      && ((mouseY >= useThisBeatRightButtony && mouseY <= useThisBeatRightButtony + 60) || (mouseY >= useThisBeatRightButtony - 60 && mouseY <= useThisBeatRightButtony))) {
+        // user wants to use right beat in song (purple)
+        // TODO: are we going to handle this in prototype?? 
+      } 
+    }
+  }
+  
+  void playBeatOutLoud() {
+    // TODO: Update once we have this functionality
+  }
+  
+  void selectedPreferredBeat() {
+    // TODO: let GA know which beat was selected so it can update 
+    // TODO: set variable here 
   }
   
   void render() {
+    playBeatOutLoud();
     // Background 
     size(1300, 800);
     background(41, 41, 41);
@@ -210,14 +278,35 @@ class ThisOrThat {
     rect(0, 0, 301.84354, 53.114075);
     image(useThisInSongButtonImage, 0, 0, 301.84354, 53.114075);
     popMatrix();
+    
+    calculateWhatHasChangedInBeat1();
+    calculateWhatHasChangedInBeat2();
+    //String changedTextInBeat1 = "This changed: " + formatTextForWhatHasChanged(whatHasChangedInBeat1);
+    //String changedTextInBeat2 = "This changed: " + formatTextForWhatHasChanged(whatHasChangedInBeat2);
+    // TODO: use these variables 
   } 
   
-  void playBeat() {
-    // TODO: Update once we have this functionality
+  void calculateWhatHasChangedInBeat1() {
+    //whatHasChangedInBeat1
+    // TODO - compare against original to see what has changed 
   }
   
-  void selectedPreferredBeat() {
-    // TODO: let GA know which beat was selected so it can update 
-    // TODO: set variable here 
+  void calculateWhatHasChangedInBeat2() {
+    //whatHasChangedInBeat2
+    // TODO - compare against original to see what has changed
+  }
+  
+  String formatTextForWhatHasChanged(Boolean[] changedArray) {
+    String changedText = "";
+    if (changedArray[0] == true) {
+      changedText += " Kick Drum ";
+    }
+    if (changedArray[1] == true) {
+      changedText += " Snare Drum ";
+    }
+    if (changedArray[2] == true) {
+      changedText += " Hi-Hat Drum ";
+    }
+    return changedText;
   }
 }
