@@ -1,6 +1,11 @@
+
 import java.awt.Font;
+import java.awt.Rectangle;
+LikeOrDislikeBeat likeOrDislikeBeat;
+
 class LinearBeatCreation {
   Boolean[] Beat;
+  LikeOrDislikeBeat createLikeOrDislikeBeat = new LikeOrDislikeBeat();
   PImage img17;
   Boolean Pressed = false; 
   Boolean Clicked = false;
@@ -20,6 +25,10 @@ class LinearBeatCreation {
   boolean circularLayoutToggle = false;
   color circleToggleFill = color(-16524602);
   color linearToggleFill = color(-16524602);
+  // what I added - dekete kater 
+  Boolean algorithmButtonSelected = false;
+  float algorithmButtonX = 1078.1515;
+  float algorithmButtonY = 497.4589;
   
   DrumBeats Beats;
   ArrayList<RectangularButton> kickButtons;
@@ -45,8 +54,7 @@ class LinearBeatCreation {
   Boolean showInstrumentTooltip = false;
   Boolean showBeatTooltip = false;
     
-  
-  LinearBeatCreation(DrumBeats beats, PApplet papp) {    
+  LinearBeatCreation(DrumBeats beats, PApplet papp) {
     //Setup the name input for the song
     area = new GTextArea(papp,15, 15, 350, 50, G4P.SCROLLBARS_NONE);
     name = "";
@@ -109,6 +117,18 @@ class LinearBeatCreation {
           showInstrumentTooltip = false;
           showBeatTooltip = true;
         }
+        hatSelected = false; 
+      } else if (mouseX >= snareX && mouseX <= snareX + 100 && mouseY >= snareY && mouseY <= snareY + 100 && snareSelected == true) {
+        Clicked = true;
+        snareSelected = false;
+      } else if (mouseX >= algorithmButtonX && mouseX <= algorithmButtonX + 100 && mouseY >= algorithmButtonY && mouseY <= algorithmButtonY + 100) {
+        // TODO: Update - this is temp route into LikeOrDislikeBeatPage
+        area.setVisible(false);
+        area.setOpaque(false);
+        Clicked = true;
+        algorithmButtonSelected = true;
+        circularLayoutToggle = false;
+        linearLayoutToggle = false; 
       }
       // layout toggle check
       else if (mouseX >= 1075 && mouseX <= 1135 && mouseY >= 25 && mouseY <= 70){
@@ -244,10 +264,12 @@ class LinearBeatCreation {
     algorithmButton.renderWithText();
     
   
+    if (algorithmButtonSelected) {
+      createLikeOrDislikeBeat.render();
+    }
   }
-  
+ 
   void renderKickSelector() {
-    
     noFill();
     pushMatrix();
     translate(30, 90);
@@ -262,7 +284,6 @@ class LinearBeatCreation {
   }
   
   void renderSnareSelector() {
-    
     noFill();
     pushMatrix();
     translate(30, 225);
@@ -321,6 +342,11 @@ class LinearBeatCreation {
     strokeWeight(9.338843);
     stroke(-14079703);
     line(1155.8794, 49.227703, 1184.3796, 49.227703);
+  }
+  
+  // Set the name of the beat
+  void setName() {
+    name = area.getText();
   }
 
   void updateName(String n) {
