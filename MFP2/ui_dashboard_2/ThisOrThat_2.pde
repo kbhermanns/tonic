@@ -71,43 +71,43 @@ class ThisOrThat {
   }
 
   void update() {
-    println("Abby x " + mouseX);
-    println("Abby y " + mouseY);
-    // TODO: if user clicks main button then pause music ?? - is this even possible ?? - need to look into this based on what is done in the play functions. 
-    if (mousePressed == true && mouseButton == LEFT) {
       if (((mouseX >= leftPlayButtonx && mouseX <= leftPlayButtonx + 100) || (mouseX >= leftPlayButtonx - 100 && mouseX <= leftPlayButtonx)) 
       && ((mouseY >= leftPlayButtony && mouseY <= leftPlayButtony + 120) || (mouseY >= leftPlayButtony - 120 && mouseY <= leftPlayButtony))) {
          // user wants to play left beat (teal)
         // TODO: link up to play button 
+        //println("Abby clicked left play button");
         playBeatOutLoud();
       } else if (((mouseX >= rightPlayButtonx && mouseX <= rightPlayButtonx + 100) || (mouseX >= rightPlayButtonx - 100 && mouseX <= rightPlayButtonx)) 
       && ((mouseY >= rightPlayButtony && mouseY <= rightPlayButtony + 100) || (mouseY >= rightPlayButtony - 100 && mouseY <= rightPlayButtony))) {
         // user wants to play right beat (purple)
         // TODO: link up to play button 
+        //println("Abby clicked right play button");
         playBeatOutLoud();
       } else if (((mouseX >= leftIPreferThisButtonx && mouseX <= leftIPreferThisButtonx + 270) || (mouseX >= leftIPreferThisButtonx - 270 && mouseX <= leftIPreferThisButtonx)) 
       && ((mouseY >= leftIPreferThisButtony && mouseY <= leftIPreferThisButtony + 70) || (mouseY >= leftIPreferThisButtony - 70 && mouseY <= leftIPreferThisButtony))) {
         // user prefers left beat (teal)
+        //println("Abby clicked prefer left beat");
         // TODO - let the GA know that the user likes the beat
         // TODO - get a new beat from GA - will this by calling fittestbeat()? 
       } else if (((mouseX >= rightIPreferThisButtonx && mouseX <= rightIPreferThisButtonx + 270) || (mouseX >= rightIPreferThisButtonx - 270 && mouseX <= rightIPreferThisButtonx)) 
       && ((mouseY >= rightIPreferThisButtony && mouseY <= rightIPreferThisButtony + 70) || (mouseY >= rightIPreferThisButtony - 70 && mouseY <= rightIPreferThisButtony))) {
          // user prefers right beat (purple)
+         //println("Abby clicked prefer right beat");
         // TODO - let the GA know that the user does not like the beat the beat 
         // TODO - get a new beat from GA - will this by calling fittestbeat()? 
       } else if (((mouseX >= useThisBeatLeftButtonx && mouseX <= useThisBeatLeftButtonx + 300) || (mouseX >= useThisBeatLeftButtonx - 300 && mouseX <= useThisBeatLeftButtonx)) 
       && ((mouseY >= useThisBeatLeftButtony && mouseY <= useThisBeatLeftButtony + 60) || (mouseY >= useThisBeatLeftButtony - 60 && mouseY <= useThisBeatLeftButtony))) {
         // user wants to use left beat in song (teal)
+        //println("Abby clicked  use left beat in song (teal)");
         // TODO: are we going to handle this in prototype?? 
       } else if (((mouseX >= useThisBeatRightButtonx && mouseX <= useThisBeatRightButtonx + 300) || (mouseX >= useThisBeatRightButtonx - 300 && mouseX <= useThisBeatRightButtonx)) 
       && ((mouseY >= useThisBeatRightButtony && mouseY <= useThisBeatRightButtony + 60) || (mouseY >= useThisBeatRightButtony - 60 && mouseY <= useThisBeatRightButtony))) {
         // user wants to use right beat in song (purple)
+        //println("Abby clicked  use right beat in song (purple)");
         // TODO: are we going to handle this in prototype?? 
       }  else if (((mouseX >= useThisBeatRightButtonx && mouseX <= useThisBeatRightButtonx + 300) || (mouseX >= useThisBeatRightButtonx - 300 && mouseX <= useThisBeatRightButtonx)) 
       && ((mouseY >= useThisBeatRightButtony && mouseY <= useThisBeatRightButtony + 60) || (mouseY >= useThisBeatRightButtony - 60 && mouseY <= useThisBeatRightButtony))) {
-        
       }
-    }
   }
   
   void playBeatOutLoud() {
@@ -303,7 +303,6 @@ class ThisOrThat {
     fill(-13421773);
     textSize(20);
     text(changedTextInBeat2, 800, 730);  // Text wraps within text box
-
   } 
   
   void calculateWhatHasChangedInBeat1() {
