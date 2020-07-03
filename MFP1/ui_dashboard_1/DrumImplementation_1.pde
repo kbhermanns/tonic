@@ -45,6 +45,12 @@ class DrumBeats {
     }
     return holder;
   }
+  boolean[][] getEntireBeat(){
+    return Beats;
+  }
+  void setBeats(boolean[][] newBeat) {
+    Beats = newBeat;
+  }
   
   class Tick implements Instrument
 {
@@ -67,8 +73,6 @@ class DrumBeats {
 }
 
 void audioSetup() {  
-    println("here");
-    
     kick  = new Sampler( "BD.wav", 4, minim );
     snare = new Sampler( "SD.wav", 4, minim );
     hat   = new Sampler( "CHH.wav", 4, minim );
@@ -86,7 +90,8 @@ void audioSetup() {
 void mute() {
   out.mute();
 }
-void unMute() {
+
+void unMute() {   
   out.unmute();
 }
 

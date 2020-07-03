@@ -84,10 +84,7 @@ void draw(){
   if (createLinearBeat.isAlgorithmButtonSelected() || createCircularBeat.isAlgorithmButtonSelected()) {
     playGA.setVisible(true);
     playButton.setVisible(false);
-    beats.mute();
-    LikeOrDislikeBeat likeDislike = createLinearBeat.getLikeOrDislike();
-   
-    gaBeat = likeDislike.getBeat();
+    beats.mute();    
   }
   
   
@@ -187,4 +184,6 @@ public void audioHandler(GButton button, GEvent event) {
 public void playGAHandler(GButton button, GEvent event) {
   if (gaBeat.isMuted()) gaBeat.unMute();
   else gaBeat.mute();
+  LikeOrDislikeBeat likeDislike = createLinearBeat.getLikeOrDislike();
+  gaBeat.setBeats(likeDislike.getBeat().getEntireBeat());
 }
