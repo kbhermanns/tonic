@@ -30,9 +30,15 @@ boolean kickSelected = false;
 boolean snareSelected = false;
 boolean hatSelected = false;
 
+GButton playButton;
+GButton playGA;
+DrumBeats gaBeat;
+
 void setup(){
    size(1300, 800);
-   beats = new DrumBeats();
+   beats = new DrumBeats(this);
+   beats.audioSetup();
+   beats.mute();
    addABeatX = width/2;
    addABeatY = height/2 -105;
    addABeatHighlight = color(204);
@@ -42,6 +48,18 @@ void setup(){
    
    createQuiz = new Quiz();
    dashImg = loadImage("Dashboard.png");
+   
+   playButton = new GButton(this, 380, 30, 80, 30, "PLAY");
+   playButton.addEventHandler(this, "audioHandler");
+   playButton.setVisible(false);
+   
+   playGA = new GButton(this, 600, 200, 80, 30, "PLAY");
+   playGA.addEventHandler(this, "playGAHandler");
+   playGA.setVisible(false);
+   
+   gaBeat = new DrumBeats(this);
+   gaBeat.audioSetup();
+   gaBeat.mute();
 }
 
 void draw(){ 
@@ -62,6 +80,16 @@ void draw(){
     addABeatButton.renderNoFill(renderAddABeat);
     addABeatButton.update();
   }
+  
+  if (createLinearBeat.isAlgorithmButtonSelected() || createCircularBeat.isAlgorithmButtonSelected()) {
+    playGA.setVisible(true);
+    playButton.setVisible(false);
+    beats.mute();
+    LikeOrDislikeBeat likeDislike = createLinearBeat.getLikeOrDislike();
+   
+    gaBeat = likeDislike.getBeat();
+  }
+  
   
   if (addABeatButton.isClicked()) {
     renderDash = false;
@@ -98,6 +126,7 @@ void draw(){
  if (renderLinearBeat || createCircularBeat.isLinearLayoutSelected()) {
    createLinearBeat.render(beats);
    beats = createLinearBeat.update();
+   if (!createLinearBeat.isAlgorithmButtonSelected()) playButton.setVisible(true);
    
    if (!createLinearBeat.isAlgorithmButtonSelected()) {
    if (createLinearBeat.isKickSelected() || createCircularBeat.isKickSelected()) {
@@ -138,8 +167,7 @@ void draw(){
      createCircularBeat.renderSnareCircle();
    }
    }
-  }
-  
+  }  
   }
 
 public void handleTextEvents(GEditableTextControl textControl, GEvent event) { 
@@ -150,4 +178,13 @@ public void handleTextEvents(GEditableTextControl textControl, GEvent event) {
         createCircularBeat.updateName(textControl.getText());
         createLinearBeat.updateName(textControl.getText());
         }
+}
+public void audioHandler(GButton button, GEvent event) {
+  if (!createLinearBeat.isAlgorithmButtonSelected()) beats = createLinearBeat.getBeats();
+  if (beats.isMuted()) beats.unMute();
+  else beats.mute();
+}
+public void playGAHandler(GButton button, GEvent event) {
+  if (gaBeat.isMuted()) gaBeat.unMute();
+  else gaBeat.mute();
 }
