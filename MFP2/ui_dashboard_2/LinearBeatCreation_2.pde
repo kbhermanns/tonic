@@ -19,7 +19,7 @@ class LinearBeatCreation {
   float snareY = 638.66; 
   float algorithmButtonX = 1078.1515;
   float algorithmButtonY = 497.4589;
-  boolean linearLayoutToggle = false;
+  boolean linearLayoutToggle = true;
   boolean circularLayoutToggle = false;
   boolean algorithmButtonSelected = false;
   color circleToggleFill = color(-16524602);
@@ -156,6 +156,10 @@ class LinearBeatCreation {
     return circularLayoutToggle;
   }
   
+  Boolean isAlgorithmButtonSelected() {
+    return algorithmButtonSelected;
+  }
+  
   void setKickSelected(boolean s) {
     kickSelected = s;
   }
@@ -169,6 +173,7 @@ class LinearBeatCreation {
   }
   
   void render() {
+    if (linearLayoutToggle){
     background(-14079703);
     strokeWeight(5);
     stroke(-1);
@@ -231,11 +236,12 @@ class LinearBeatCreation {
     hatButton.renderWithText();
     cancelButton.renderWithText();
     saveButton.renderWithText();
-    algorithmButton.renderWithText();
+    algorithmButton.renderWithText();}
   
     if (algorithmButtonSelected) {
       createThisOrThat.render();
     }
+    
   }
   
   void renderKickSelector() {

@@ -98,7 +98,8 @@ void draw(){
  if (renderLinearBeat || createCircularBeat.isLinearLayoutSelected()) {
    createLinearBeat.render(beats);
    beats = createLinearBeat.update();
- 
+   
+   if (!createLinearBeat.isAlgorithmButtonSelected()) {
    if (createLinearBeat.isKickSelected() || createCircularBeat.isKickSelected()) {
      createLinearBeat.setKickSelected(true);
      createCircularBeat.setKickSelected(false);
@@ -114,11 +115,13 @@ void draw(){
      createCircularBeat.setSnareSelected(false);
      createLinearBeat.renderSnareSelector();
    }
+   }
  }
  
   else if (createLinearBeat.isCircularLayoutSelected()){
     createCircularBeat.render(beats);
     beats = createCircularBeat.update();
+    if (!createCircularBeat.isAlgorithmButtonSelected()) {
     if (createCircularBeat.isKickSelected() || createLinearBeat.isKickSelected()) {
      createCircularBeat.setKickSelected(true);
      createLinearBeat.setKickSelected(false);
@@ -133,6 +136,7 @@ void draw(){
      createCircularBeat.setSnareSelected(true);
      createLinearBeat.setSnareSelected(false);
      createCircularBeat.renderSnareCircle();
+   }
    }
   }
   
