@@ -25,7 +25,6 @@ class LinearBeatCreation {
   boolean circularLayoutToggle = false;
   color circleToggleFill = color(-16524602);
   color linearToggleFill = color(-16524602);
-  // what I added - dekete kater 
   Boolean algorithmButtonSelected = false;
   float algorithmButtonX = 970;
   float algorithmButtonY = 450;

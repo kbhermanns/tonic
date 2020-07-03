@@ -1,5 +1,6 @@
 class CircularBeatCreation {
   Boolean[] Beat;
+  LikeOrDislikeBeat createLikeOrDislikeBeat = new LikeOrDislikeBeat();
   PImage img17;
   Boolean Pressed = false; 
   Boolean Clicked = false;
@@ -15,6 +16,9 @@ class CircularBeatCreation {
   int snareFill;  
   float snareX = 328; 
   float snareY = 638.66; 
+  Boolean algorithmButtonSelected = false;
+  float algorithmButtonX = 970;
+  float algorithmButtonY = 450;
   boolean linearLayoutToggle = false;
   boolean circularLayoutToggle = false;
   
@@ -74,12 +78,12 @@ class CircularBeatCreation {
         Clicked = true;
         hatSelected = true; 
         if (showInstrumentTooltip) {
-          showInstrumentTooltip = false;
-          showBeatTooltip = true;
+          showInstrumentTooltip = false; //<>//
+          showBeatTooltip = true; //<>//
         }
       } else if (mouseX >= snareX && mouseX <= snareX + 100 && mouseY >= snareY && mouseY <= snareY + 100 && snareSelected == false) {
-        Clicked = true; //<>//
-        snareSelected = true; //<>//
+        Clicked = true;
+        snareSelected = true;
         if (showInstrumentTooltip) {
           showInstrumentTooltip = false;
           showBeatTooltip = true;
@@ -291,6 +295,14 @@ class CircularBeatCreation {
       else if (mouseX >= 521 && mouseX <= 605 && mouseY >= 69 && mouseY <= 133) {
         hatFilled[15] = !hatFilled[15];
         Beats.updateBeats(2, 15, hatFilled[15]);
+      } else if (mouseX >= algorithmButtonX && mouseX <= algorithmButtonX + 200 && mouseY >= algorithmButtonY && mouseY <= algorithmButtonY + 200) {
+        // TODO: Update - this is temp route into LikeOrDislikeBeatPage
+        area.setVisible(false);
+        area.setOpaque(false);
+        Clicked = true;
+        algorithmButtonSelected = true;
+        circularLayoutToggle = false;
+        linearLayoutToggle = false; 
       }
       else {
       Clicked = false;
@@ -408,6 +420,9 @@ class CircularBeatCreation {
     saveButton.renderWithText();
     algorithmButton.renderWithText();
     
+    if (algorithmButtonSelected) {
+      createLikeOrDislikeBeat.render();
+    }
   
   }
    
