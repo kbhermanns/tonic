@@ -51,7 +51,6 @@ class LinearBeatCreation {
     //Setup the name input for the song
     area = new GTextArea(papp,15, 15, 350, 50, G4P.SCROLLBARS_NONE);
     name = "";
-    area.appendText(name);
     area.setVisible(false);
     
      Beats = beats;
@@ -105,16 +104,19 @@ class LinearBeatCreation {
       //kick buttons check
       for(int i = 0; i < kickButtons.size() - 1; ++i) {
         kickButtons.get(i).pressed();
+        if (Beats.getBeat(0,i)) showBeatTooltip = false;
         Beats.updateBeats(0, i, kickButtons.get(i).getSelected());
       }
       //snare buttons check 
       for(int j = 0; j < snareButtons.size() - 1; ++j) {
         snareButtons.get(j).pressed();
+        if (Beats.getBeat(1,j)) showBeatTooltip = false;
         Beats.updateBeats(1, j, snareButtons.get(j).getSelected());
       }
       //hat buttons check
       for(int k = 0; k < hatButtons.size() - 1; ++k) {
         hatButtons.get(k).pressed();
+        if (Beats.getBeat(2,k)) showBeatTooltip = false;
         Beats.updateBeats(2, k, kickButtons.get(k).getSelected());
       }
     }
@@ -264,9 +266,8 @@ class LinearBeatCreation {
     }
   }
   
-   // Set the name of the beat
-  void setName() {
-    name = area.getText();
+ void updateName(String n) {
+    name = n;
     showNameTooltip = false;
     showInstrumentTooltip = true;
   }

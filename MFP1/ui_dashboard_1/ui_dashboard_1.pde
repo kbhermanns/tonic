@@ -36,7 +36,7 @@ void setup(){
    addABeatHighlight = color(204);
    addABeatButton = new CircleButton(addABeatX, addABeatY, addABeatRadius);
    createLinearBeat = new LinearBeatCreation(beats, this);
-   createCircularBeat = new CircularBeatCreation(beats);
+   createCircularBeat = new CircularBeatCreation(beats, this);
    
    createQuiz = new Quiz();
    dashImg = loadImage("Dashboard.png");
@@ -129,7 +129,13 @@ void draw(){
   }
   
   }
-  //NOTE: this will need to be updated if additional areas require keystrokes
-  void keyPressed() {
-    createLinearBeat.setName();
+
+public void handleTextEvents(GEditableTextControl textControl, GEvent event) { 
+    if (createLinearBeat.isCircularLayoutSelected()) {
+        createLinearBeat.updateName(textControl.getText());
+        createCircularBeat.updateName(textControl.getText());
+        } else {
+        createCircularBeat.updateName(textControl.getText());
+        createLinearBeat.updateName(textControl.getText());
+        }
 }

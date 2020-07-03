@@ -94,7 +94,11 @@ void draw(){
    }
   }
  }
-  //NOTE: this will need to be updated if additional areas require keystrokes
-  void keyPressed() {
-    createLinearBeat.setName();
+
+public void handleTextEvents(GEditableTextControl textControl, GEvent event) { 
+    if (createLinearBeat.isCircularLayoutSelected()) {
+        createLinearBeat.updateName(textControl.getText());
+        } else {
+        createLinearBeat.updateName(textControl.getText());
+        }
 }
