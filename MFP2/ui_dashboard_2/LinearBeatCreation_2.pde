@@ -1,7 +1,7 @@
 import java.awt.Font;
 class LinearBeatCreation {
   Boolean[] Beat;
-  ThisOrThat createThisOrThat = new ThisOrThat();
+  ThisOrThat createThisOrThat;
   PImage img17;
   Boolean Pressed = false; 
   Boolean Clicked = false;
@@ -55,6 +55,7 @@ class LinearBeatCreation {
     area = new GTextArea(papp,15, 15, 350, 50, G4P.SCROLLBARS_NONE);
     name = "";
     area.setVisible(false);
+    createThisOrThat = new ThisOrThat(beats);
     
      Beats = beats;
      kickButtons = new ArrayList<RectangularButton>();

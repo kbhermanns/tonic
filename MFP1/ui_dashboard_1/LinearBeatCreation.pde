@@ -5,7 +5,7 @@ LikeOrDislikeBeat likeOrDislikeBeat;
 
 class LinearBeatCreation {
   Boolean[] Beat;
-  LikeOrDislikeBeat createLikeOrDislikeBeat = new LikeOrDislikeBeat();
+  LikeOrDislikeBeat createLikeOrDislikeBeat;
   PImage img17;
   Boolean Pressed = false; 
   Boolean Clicked = false;
@@ -57,8 +57,8 @@ class LinearBeatCreation {
     area = new GTextArea(papp,15, 15, 350, 50, G4P.SCROLLBARS_NONE);
     name = "";
     area.setVisible(false);
-    
      Beats = beats;
+     createLikeOrDislikeBeat = new LikeOrDislikeBeat(Beats, true);
      kickButtons = new ArrayList<RectangularButton>();
      for (int k = 0; k < 17; k++) {
        kickButtons.add(new RectangularButton(-13421259, -2039584, 3.553719, -2039584, (178 + 70*k), 150, 1.5728104, -27.235615, -22.174805, 30.242954, 34.977585));

@@ -1,11 +1,11 @@
 import java.awt.Rectangle;
 
 class ThisOrThat {
-  Boolean[][] originalBeat;
-  Boolean[][] beats1;
-  Boolean[][] beats2;
-  Boolean[] whatHasChangedInBeat1; // kick - 0, snare - 1, hi-hat - 2
-  Boolean[] whatHasChangedInBeat2;
+  DrumBeats originalBeat;
+  DrumBeats beats1;
+  DrumBeats beats2;
+  boolean[] whatHasChangedInBeat1; // kick - 0, snare - 1, hi-hat - 2
+  boolean[] whatHasChangedInBeat2;
   Integer beatNumber;
   //DrumBeats Beats;
   //BeatPopulation beatPopulation;
@@ -30,7 +30,10 @@ class ThisOrThat {
   Float useThisBeatLeftButtony = 572.59595;
   Float useThisBeatRightButtonx = 806.10364;
   Float useThisBeatRightButtony = 573.8914;
+  Float topRightXButtonx = 2306.4026;
+  Float topRightXButtony = 10.363728;
 
+  PImage closeButtonImage = loadImage("lightGreyCloseButton.png");
   PImage purplePlayButtonImage = loadImage("PlayButtonPurple.png");
   PImage tealPlayButtonImage = loadImage("PlayButtonTeal.png");
   PImage purplePauseButtonImage = loadImage("PauseButtonPurple.png");
@@ -41,26 +44,13 @@ class ThisOrThat {
   PImage preferTealButtonImage = loadImage("IPreferThisButtonTeal.png");
   PImage useThisInSongButtonImage = loadImage("UseThisInSongButton.png");
   
-  ThisOrThat() {
-    whatHasChangedInBeat1 = new Boolean[3]; // kick - 0, snare - 1, hi-hat - 2
-    whatHasChangedInBeat2 = new Boolean[3];
-    beats1 = new Boolean[16][3];
-    beats2 = new Boolean[16][3];
+  ThisOrThat(DrumBeats userCreatedBeats) {
+    whatHasChangedInBeat1 = new boolean[3]; // kick - 0, snare - 1, hi-hat - 2
+    whatHasChangedInBeat2 = new boolean[3];
+    originalBeat = userCreatedBeats;
+    beats1 = new DrumBeats();
+    beats2 = new DrumBeats();
     beatNumber = 0;
-    // TODO - populate beat with stuff from genetic algorithm and call func for it 
-    // call fittest beat here instead of populating empty array
-    for (int i = 0; i < 16; i++) {
-      for (int j = 0; j < 3; j++) {
-        beats1[i][j] = false; // temp
-      }
-    }
-    // TODO - populate beat with stuff from genetic algorithm and call func for it 
-    // call 2nd most fit beat here instead of populating empty array
-   for (int i = 0; i < 16; i++) {
-      for (int j = 0; j < 3; j++) {
-        beats2[i][j] = false; // temp
-      }
-    }
     
     // create linear beats - TODO update to grab the beat we have 
     kickButtons = new ArrayList<RectangularButton>();
@@ -81,6 +71,8 @@ class ThisOrThat {
   }
 
   void update() {
+    println("Abby x " + mouseX);
+    println("Abby y " + mouseY);
     // TODO: if user clicks main button then pause music ?? - is this even possible ?? - need to look into this based on what is done in the play functions. 
     if (mousePressed == true && mouseButton == LEFT) {
       if (((mouseX >= leftPlayButtonx && mouseX <= leftPlayButtonx + 100) || (mouseX >= leftPlayButtonx - 100 && mouseX <= leftPlayButtonx)) 
@@ -111,12 +103,19 @@ class ThisOrThat {
       && ((mouseY >= useThisBeatRightButtony && mouseY <= useThisBeatRightButtony + 60) || (mouseY >= useThisBeatRightButtony - 60 && mouseY <= useThisBeatRightButtony))) {
         // user wants to use right beat in song (purple)
         // TODO: are we going to handle this in prototype?? 
-      } 
+      }  else if (((mouseX >= useThisBeatRightButtonx && mouseX <= useThisBeatRightButtonx + 300) || (mouseX >= useThisBeatRightButtonx - 300 && mouseX <= useThisBeatRightButtonx)) 
+      && ((mouseY >= useThisBeatRightButtony && mouseY <= useThisBeatRightButtony + 60) || (mouseY >= useThisBeatRightButtony - 60 && mouseY <= useThisBeatRightButtony))) {
+        
+      }
     }
   }
   
   void playBeatOutLoud() {
     // TODO: Update once we have this functionality
+  }
+  
+  void pauseBeat() {
+    // TODO - add ability to pause 
   }
   
   void selectedPreferredBeat() {
@@ -129,7 +128,18 @@ class ThisOrThat {
     // Background 
     size(1300, 800);
     background(41, 41, 41);
-
+    
+    // close button top right
+    noFill();
+    noStroke();
+    pushMatrix();
+    translate(1206.4026, 10.363728);
+    rotate(0.0);
+    rectMode(CORNERS);
+    rect(0, 0, 76.00952, 79.57245);
+    image(closeButtonImage, 0, 0, 50, 50);
+    popMatrix();
+    
     // Right background card 
     fill(-13421773);
     strokeWeight(3.0);
@@ -281,28 +291,58 @@ class ThisOrThat {
     
     calculateWhatHasChangedInBeat1();
     calculateWhatHasChangedInBeat2();
-    //String changedTextInBeat1 = "This changed: " + formatTextForWhatHasChanged(whatHasChangedInBeat1);
-    //String changedTextInBeat2 = "This changed: " + formatTextForWhatHasChanged(whatHasChangedInBeat2);
-    // TODO: use these variables 
+
+    // Left text in bottom box 
+    String changedTextInBeat1 = "This changed: \n" + formatTextForWhatHasChanged(whatHasChangedInBeat1);
+    fill(-13421773);
+    textSize(20);
+    text(changedTextInBeat1, 200, 730);  // Text wraps within text box
+    
+    // Right text in bottom box 
+    String changedTextInBeat2 = "This changed: \n" + formatTextForWhatHasChanged(whatHasChangedInBeat2);
+    fill(-13421773);
+    textSize(20);
+    text(changedTextInBeat2, 800, 730);  // Text wraps within text box
+
   } 
   
   void calculateWhatHasChangedInBeat1() {
-    //whatHasChangedInBeat1
-    // TODO - compare against original to see what has changed 
+    // comparing originalBeat to beats1
+    for (int i = 0; i < 3; i++) {
+      for (int j = 0; j < 15; j++) {
+        if (originalBeat.getBeat(i, j) != beats1.getBeat(i, j)) {
+          // break out of inner loop 
+          whatHasChangedInBeat1[i] = true;
+          j = 15;
+        } else {
+          whatHasChangedInBeat1[i] = false;
+        }
+      }
+    }
   }
   
   void calculateWhatHasChangedInBeat2() {
-    //whatHasChangedInBeat2
-    // TODO - compare against original to see what has changed
+    // comparing originalBeat to beats1
+    for (int i = 0; i < 3; i++) {
+      for (int j = 0; j < 15; j++) {
+        if (originalBeat.getBeat(i, j) != beats2.getBeat(i, j)) {
+          // break out of inner loop 
+          whatHasChangedInBeat1[i] = true;
+          j = 15;
+        } else {
+          whatHasChangedInBeat1[i] = false;
+        }
+      }
+    }
   }
   
-  String formatTextForWhatHasChanged(Boolean[] changedArray) {
+  String formatTextForWhatHasChanged(boolean[] changedArray) {
     String changedText = "";
     if (changedArray[0] == true) {
-      changedText += " Kick Drum ";
+      changedText += " Kick Drum \n";
     }
     if (changedArray[1] == true) {
-      changedText += " Snare Drum ";
+      changedText += " Snare Drum \n";
     }
     if (changedArray[2] == true) {
       changedText += " Hi-Hat Drum ";
