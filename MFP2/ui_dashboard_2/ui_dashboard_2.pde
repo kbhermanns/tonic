@@ -83,19 +83,21 @@ void draw(){
  if (renderLinearBeat) {
    createLinearBeat.render();
    createLinearBeat.update();
- 
-   if (createLinearBeat.isKickSelected()) {
-     createLinearBeat.setKickSelected(true);
-     createLinearBeat.renderKickSelector();
-   }
-   if (createLinearBeat.isHatSelected()) {
-     createLinearBeat.setHatSelected(true);
-     createLinearBeat.renderHatSelector();
-   }
-   if (createLinearBeat.isSnareSelected()) {
-     createLinearBeat.setSnareSelected(true);
-     createLinearBeat.renderSnareSelector();
-   }
+   
+   if (!createLinearBeat.isAlgorithmButtonSelected()){
+     if (createLinearBeat.isKickSelected()) {
+       createLinearBeat.setKickSelected(true);
+       createLinearBeat.renderKickSelector();
+     }
+     if (createLinearBeat.isHatSelected()) {
+       createLinearBeat.setHatSelected(true);
+       createLinearBeat.renderHatSelector();
+     }
+     if (createLinearBeat.isSnareSelected()) {
+       createLinearBeat.setSnareSelected(true);
+       createLinearBeat.renderSnareSelector();
+     }
+   }   
   }
  }
 

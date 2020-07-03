@@ -20,7 +20,7 @@ class CircularBeatCreation {
   float algorithmButtonX = 970;
   float algorithmButtonY = 450;
   boolean linearLayoutToggle = false;
-  boolean circularLayoutToggle = false;
+  boolean circularLayoutToggle = true;
   
   DrumBeats Beats;
   Boolean[] kickFilled;
@@ -342,14 +342,19 @@ class CircularBeatCreation {
     snareSelected = s;
   }
   
+  Boolean isAlgorithmButtonSelected() {
+    return algorithmButtonSelected;
+  }
+  
   void render(DrumBeats beats) {
-    
+    if (circularLayoutToggle){
     Beats = beats;
     kickFilled = Beats.getRow(0);
     snareFilled = Beats.getRow(1);
     hatFilled = Beats.getRow(2);
     
     background(-14079703);
+    
     strokeWeight(5);
     stroke(-1);
     line(1.6193323, 570, 1297.0852, 570);
@@ -419,6 +424,7 @@ class CircularBeatCreation {
     cancelButton.renderWithText();
     saveButton.renderWithText();
     algorithmButton.renderWithText();
+    }
     
     if (algorithmButtonSelected) {
       createLikeOrDislikeBeat.render();
