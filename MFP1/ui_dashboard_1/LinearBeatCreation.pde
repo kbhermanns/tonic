@@ -54,7 +54,6 @@ class LinearBeatCreation {
   Boolean showInstrumentTooltip = false;
   Boolean showBeatTooltip = false;
     
-  
   LinearBeatCreation(DrumBeats beats, PApplet papp) {
     
     //Setup the name input for the song
@@ -124,8 +123,12 @@ class LinearBeatCreation {
         snareSelected = false;
       } else if (mouseX >= algorithmButtonX + 400 && mouseX <= algorithmButtonX + 600 && mouseY >= algorithmButtonY && mouseY <= algorithmButtonY + 100) {
         // TODO: Update - this is temp route into LikeOrDislikeBeatPage
+        area.setVisible(false);
+        area.setOpaque(false);
         Clicked = true;
         algorithmButtonSelected = true;
+        circularLayoutToggle = false;
+        linearLayoutToggle = false; 
       }
       // layout toggle check
       else if (mouseX >= 1075 && mouseX <= 1135 && mouseY >= 25 && mouseY <= 70){
@@ -335,7 +338,7 @@ class LinearBeatCreation {
     line(1155.8794, 49.227703, 1184.3796, 49.227703);
   }
   
-   // Set the name of the beat
+  // Set the name of the beat
   void setName() {
     name = area.getText();
     showNameTooltip = false;

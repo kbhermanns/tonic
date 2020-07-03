@@ -3,10 +3,19 @@ import java.awt.Rectangle;
 class LikeOrDislikeBeat {
   Boolean[][] beats;
   Integer beatNumber;
-  DrumBeats Beats;
+  BeatPopulation beatPopulation;
   ArrayList<RectangularButton> kickButtons;
   ArrayList<RectangularButton> snareButtons;
   ArrayList<RectangularButton> hatButtons;
+
+  Float xButtonx = 673.9661;
+  Float xButtony = 371.7987;
+  Float checkMarkButtonx = 536.6467;
+  Float checkMarkButtony = 367.91232;
+  Float useThisBeatButtonx = 518.5102;
+  Float useThisBeatButtony = 483.20877;
+ 
+  Boolean wasPressed = false;
   
   RectangularButton checkButton;
   RectangularButton xButton;
@@ -16,6 +25,8 @@ class LikeOrDislikeBeat {
   PImage xImage = loadImage("X.png");
   PImage checkMarkImage = loadImage("CheckMark.png");
   PImage musicPlayingImage = loadImage("MusicPlaying.png");
+  PImage playButtonImage = loadImage("PlayButton.png");
+  PImage pauseButtonImage = loadImage("PauseButton.png");
   PImage useThisBeatButtonImage = loadImage("useThisBeatButton.png");
   PImage kickDrumImage = loadImage("Kick.png");
   PImage snareImage = loadImage("Snare.png");
@@ -24,15 +35,14 @@ class LikeOrDislikeBeat {
   LikeOrDislikeBeat() {
     beats = new Boolean[16][3];
     beatNumber = 0;
-    // TODO populate beat with stuff from genetic algorithm and call func for it 
+    // TODO - populate beat with stuff from genetic algorithm and call func for it 
+    // call fittest beat here instead of populating empty array
     for (int i = 0; i < 16; i++) {
       for (int j = 0; j < 3; j++) {
-        beats[i][j] = false;
+        beats[i][j] = true;
       }
     }
     
-    //   RectangularButton(int fill, float strokeWeight, int stroke, float transX, float transY, float rotate, float rect1, float rect2, float rect3, float rect4, String text, float textX, float textY, int textSize){
-      
     // create linear beats - TODO update to grab the beat we have 
     kickButtons = new ArrayList<RectangularButton>();
     for (int k = 0; k < 17; k++) {
@@ -50,16 +60,44 @@ class LikeOrDislikeBeat {
       //hatButtons.get(n).setSelected(Beats.getBeatValue(1,n));
     }
   }
-  
+
   void update() {
-    // get next fittest beat 
+    if (mousePressed == true && mouseButton == LEFT) {
+      if (((mouseX >= checkMarkButtonx && mouseX <= checkMarkButtonx + 100) || (mouseX >= checkMarkButtonx - 100 && mouseX <= checkMarkButtonx)) 
+      && ((mouseY >= checkMarkButtony && mouseY <= checkMarkButtony + 100) || (mouseY >= checkMarkButtony - 100 && mouseY <= checkMarkButtony))) {
+        // user likes the beat 
+        // TODO - let the GA know that the user likes the beat
+        // TODO - get a new beat from GA - will this by calling fittestbeat()? 
+      } else if (((mouseX >= xButtonx && mouseX <= xButtonx + 100) || (mouseX >= xButtonx - 100 && mouseX <= xButtonx)) 
+      && ((mouseY >= xButtony && mouseY <= xButtony + 100) || (mouseY >= xButtony - 100 && mouseY <= xButtony))) {
+        // user dislikes the beat 
+        // TODO - let the GA know that the user does not like the beat the beat 
+        // TODO - get a new beat from GA - will this by calling fittestbeat()? 
+      } else if (((mouseX >= useThisBeatButtonx && mouseX <= useThisBeatButtonx + 270) || (mouseX >= useThisBeatButtonx - 270 && mouseX <= useThisBeatButtonx)) 
+      && ((mouseY >= useThisBeatButtony && mouseY <= useThisBeatButtony + 100) || (mouseY >= useThisBeatButtony - 100 && mouseY <= useThisBeatButtony))) {
+        // user wants to use the beat in their song
+        // TODO - close this page and navigate back to the beat implementation page 
+        // let GA know this is the fittest beat?? - maybe? 
+      } 
+    }
+  }
+  
+  void playBeatOutLoud() {
+    // TODO - integrate with other code to play this outloud 
   }
   
   void render() {
+    playBeatOutLoud();
     // Background 
     size(1300, 800);
     background(41, 41, 41);
-    
+ 
+    // Main Header Text
+    String beatTitle = "Beat " + str(beatNumber);
+    fill(-3881788);
+    textSize(32);
+    text(beatTitle, 10, 10, 150, 100);  // Text wraps within text box
+
     // Lighter grey card
     fill(-3881788);
     strokeWeight(1.0);
@@ -124,11 +162,28 @@ class LikeOrDislikeBeat {
     image(useThisBeatButtonImage, 0, 0, 261.68414, 68.6597);
     popMatrix();
     
-    // Main Header Text
-    String beatTitle = "Beat " + str(beatNumber);
-    fill(-3881788);
-    textSize(32);
-    text(beatTitle, 10, 10, 150, 100);  // Text wraps within text box
+     // Play button center of circle
+     //noFill();
+     //noStroke();
+     //pushMatrix();
+     //translate(581.98804, 161.93324);
+     //rotate(-0.0012860298);
+     //rectMode(CORNERS);
+     //rect(0, 0, 128.09612, 120.643166);
+     //image(playButtonImage, 0, 0, 128.09612, 120.643166);
+     //popMatrix();
+
+    // Play button in top right corner
+    //noFill();
+    //noStroke();
+    //pushMatrix();
+    //translate(403.21375, 76.43249);
+    //rotate(0.023546413);
+    //rectMode(CORNERS);
+    //rect(0, 0, 54.471916, 57.029278);
+    //image(playButtonImage, 0, 0, 54.471916, 57.029278);
+    //image(pauseButtonImage, 0, 0, 50.189808, 54.71725);
+    //popMatrix();
     
     // Bottom section showing beat breakdown
     fill(-13421773);
@@ -151,7 +206,6 @@ class LikeOrDislikeBeat {
     image(kickDrumImage, 0, 0, 46.636772, 58.29596);
     popMatrix();
 
-    
     // Bottom section snare drum
     noFill();
     noStroke();
@@ -175,9 +229,13 @@ class LikeOrDislikeBeat {
     popMatrix();
     
     // Drum beat linear layout boxes
-    for (int i = 0; i < hatButtons.size() - 1; i++){
+    for (int i = 0; i < 15; i++){
+      // set selected 
+      kickButtons.get(i).setSelected(beats[i][0]);
       kickButtons.get(i).renderWithoutText();
+      snareButtons.get(i).setSelected(beats[i][1]);
       snareButtons.get(i).renderWithoutText();
+      hatButtons.get(i).setSelected(beats[i][2]);
       hatButtons.get(i).renderWithoutText();
     }
   } 
