@@ -239,9 +239,9 @@ class LinearBeatCreation {
     saveButton.renderWithText();
     algorithmButton.renderWithText();}
   
-    if (algorithmButtonSelected) {
-      createThisOrThat.render();
-    }
+    //if (algorithmButtonSelected) {
+    //  createThisOrThat.render();
+    //}
     
   }
   
