@@ -29,7 +29,7 @@ void setup(){
    addABeatHighlight = color(204);
    addABeatButton = new CircleButton(addABeatX, addABeatY, addABeatRadius);
    createLinearBeat = new LinearBeatCreation(beats, this);
-   createCircularBeat = new CircularBeatCreation();
+   createCircularBeat = new CircularBeatCreation(beats);
    dashImg = loadImage("Dashboard.png");
 }
 
@@ -51,7 +51,7 @@ void draw(){
     renderAddABeat = false;
     renderLinearBeat = true;
     addABeatButton.reset();
-    createLinearBeat.render();
+    createLinearBeat.render(beats);
   }
   
  if (createLinearBeat.isCircularLayoutSelected()) {
@@ -63,8 +63,8 @@ void draw(){
   }
   
  if (renderLinearBeat || createCircularBeat.isLinearLayoutSelected()) {
-   createLinearBeat.render();
-   createLinearBeat.update();
+   createLinearBeat.render(beats);
+   beats = createLinearBeat.update();
  
    if (createLinearBeat.isKickSelected() || createCircularBeat.isKickSelected()) {
      createLinearBeat.setKickSelected(true);
@@ -84,8 +84,8 @@ void draw(){
  }
  
   else if (createLinearBeat.isCircularLayoutSelected()){
-    createCircularBeat.render();
-    createCircularBeat.update();
+    createCircularBeat.render(beats);
+    beats = createCircularBeat.update();
     if (createCircularBeat.isKickSelected() || createLinearBeat.isKickSelected()) {
      createCircularBeat.setKickSelected(true);
      createLinearBeat.setKickSelected(false);

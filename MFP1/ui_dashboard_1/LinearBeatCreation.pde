@@ -81,7 +81,20 @@ class LinearBeatCreation {
      }
   }
   
-  void update() {
+  DrumBeats update() {
+    //update the status of the buttons
+    for (int i = 0; i < kickButtons.size() - 1; i++){
+      kickButtons.get(i).setSelected(Beats.getBeat(0, i));
+    }
+    for (int j = 0; j < snareButtons.size() - 1; j++){
+      snareButtons.get(j).setSelected(Beats.getBeat(1, j));
+    }
+    for (int k = 0; k < hatButtons.size() - 1; k++){
+      hatButtons.get(k).setSelected(Beats.getBeat(2, k));
+    }
+    
+    println("Moue X" + mouseX);
+    println(" Mouse Y" + mouseY);
     if (mousePressed == true && mouseButton == LEFT && Pressed == false) {
       Pressed = true;
       if (((mouseX >= kickX && mouseX <= kickX + 100) || (mouseX >= kickX - 100 && mouseX <= kickX)) && ((mouseY >= kickY && mouseY <= kickY + 100) || (mouseY >= kickY - 100 && mouseY <= kickY))) {
@@ -120,16 +133,19 @@ class LinearBeatCreation {
         linearLayoutToggle = false; 
       }
       //kick buttons check
-      for(int i = 0; i < kickButtons.size(); ++i) {
+      for(int i = 0; i < kickButtons.size() - 1; ++i) {
         kickButtons.get(i).pressed();
+        Beats.updateBeats(0, i, kickButtons.get(i).getSelected());
       }
       //snare buttons check 
-      for(int j = 0; j < snareButtons.size(); ++j) {
+      for(int j = 0; j < snareButtons.size() - 1; ++j) {
         snareButtons.get(j).pressed();
+        Beats.updateBeats(1, j, snareButtons.get(j).getSelected());
       }
       //hat buttons check
-      for(int k = 0; k < hatButtons.size(); ++k) {
-        snareButtons.get(k).pressed();
+      for(int k = 0; k < hatButtons.size() - 1; ++k) {
+        hatButtons.get(k).pressed();
+        Beats.updateBeats(2, k, hatButtons.get(k).getSelected());
       }
     }
       else {
@@ -139,6 +155,8 @@ class LinearBeatCreation {
     if(mousePressed != true) {
       Pressed = false;
     }
+    
+    return Beats;
   }
   
   Boolean isKickSelected() {
@@ -169,7 +187,8 @@ class LinearBeatCreation {
     snareSelected = s;
   }
   
-  void render() {
+  void render(DrumBeats beats) {
+    Beats = beats;
     background(-14079703);
     strokeWeight(5);
     stroke(-1);
