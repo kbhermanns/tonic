@@ -3,6 +3,7 @@ import g4p_controls.*;
 boolean addABeat = false;
 CircleButton addABeatButton;
 LinearBeatCreation createLinearBeat;
+ThisOrThat thisOrThat;
 DrumBeats beats;
 Quiz createQuiz;
 
@@ -37,6 +38,7 @@ void setup(){
    addABeatButton = new CircleButton(addABeatX, addABeatY, addABeatRadius);
    createQuiz = new Quiz();
    createLinearBeat = new LinearBeatCreation(beats, this);
+   thisOrThat = new ThisOrThat(beats);
    dashImg = loadImage("Dashboard.png");
 }
 
@@ -79,7 +81,7 @@ void draw(){
     addABeatButton.reset();
     createLinearBeat.render();
   }
-  
+ 
  if (renderLinearBeat) {
    createLinearBeat.render();
    createLinearBeat.update();
@@ -97,7 +99,11 @@ void draw(){
        createLinearBeat.setSnareSelected(true);
        createLinearBeat.renderSnareSelector();
      }
-   }   
+   }  else {
+     // algorithm button was selected 
+     thisOrThat.render();
+     thisOrThat.update();
+   }
   }
  }
 
