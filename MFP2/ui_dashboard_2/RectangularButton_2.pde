@@ -8,8 +8,8 @@ class RectangularButton {
   float WidthRight;
   float HeightDown;
   color ButtonSelectedColor;
-  Boolean Pressed = false; 
-  Boolean Clicked = false; 
+  boolean Pressed = false; 
+  boolean Clicked = false; 
   String ButtonText;
   float StrokeWeight;
   int Stroke;

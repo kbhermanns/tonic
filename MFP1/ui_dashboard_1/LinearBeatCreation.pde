@@ -363,4 +363,6 @@ class LinearBeatCreation {
     showNameTooltip = false;
     showInstrumentTooltip = true;
   }
+  DrumBeats getBeats() { return Beats;}
+  LikeOrDislikeBeat getLikeOrDislike() {return createLikeOrDislikeBeat;}
 }
