@@ -36,6 +36,12 @@ class DrumBeats {
   boolean getBeat(int row, int column) {
     return beats[row][column];
   }
+  boolean[][] getEntireBeat(){
+    return beats;
+  }
+  void setBeats(boolean[][] newBeat) {
+    beats = newBeat;
+  }
   
   class Tick implements Instrument
 {
