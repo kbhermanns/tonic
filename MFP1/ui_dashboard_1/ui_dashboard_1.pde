@@ -15,6 +15,7 @@ int addABeatRadius = 80;
 color testColor = color(204);
 boolean renderAddABeat = true;
 boolean renderLinearBeat = false;
+boolean renderLikeOrDislikeBeat = false;
 boolean renderQuiz = true;
 PImage dashImg;
 
@@ -40,7 +41,6 @@ void setup(){
    
    createQuiz = new Quiz();
    dashImg = loadImage("Dashboard.png");
-   
 }
 
 void draw(){ 

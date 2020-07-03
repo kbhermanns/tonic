@@ -1,6 +1,7 @@
 import java.awt.Font;
 class LinearBeatCreation {
   Boolean[] Beat;
+  ThisOrThat createThisOrThat = new ThisOrThat();
   PImage img17;
   Boolean Pressed = false; 
   Boolean Clicked = false;
@@ -16,8 +17,11 @@ class LinearBeatCreation {
   int snareFill;  
   float snareX = 328; 
   float snareY = 638.66; 
+  float algorithmButtonX = 1078.1515;
+  float algorithmButtonY = 497.4589;
   boolean linearLayoutToggle = false;
   boolean circularLayoutToggle = false;
+  boolean algorithmButtonSelected = false;
   color circleToggleFill = color(-16524602);
   color linearToggleFill = color(-16524602);
   
@@ -47,7 +51,6 @@ class LinearBeatCreation {
     
   
   LinearBeatCreation(DrumBeats beats, PApplet papp) {
-    
     //Setup the name input for the song
     area = new GTextArea(papp,15, 15, 350, 50, G4P.SCROLLBARS_NONE);
     name = "";
@@ -95,6 +98,14 @@ class LinearBeatCreation {
           showInstrumentTooltip = false;
           showBeatTooltip = true;
         }
+     } else if (mouseX >= algorithmButtonX && mouseX <= algorithmButtonX + 100 && mouseY >= algorithmButtonY && mouseY <= algorithmButtonY + 100) {
+        // TODO: Update - this is temp route into LikeOrDislikeBeatPage
+        area.setVisible(false);
+        area.setOpaque(false);
+        Clicked = true;
+        circularLayoutToggle = false;
+        linearLayoutToggle = false; 
+        algorithmButtonSelected = true;
       }
       // layout toggle check
       else if (mouseX >= 1075 && mouseX <= 1135 && mouseY >= 25 && mouseY <= 70){
@@ -222,6 +233,9 @@ class LinearBeatCreation {
     saveButton.renderWithText();
     algorithmButton.renderWithText();
   
+    if (algorithmButtonSelected) {
+      createThisOrThat.render();
+    }
   }
   
   void renderKickSelector() {
