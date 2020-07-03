@@ -8,6 +8,8 @@ class BeatPopulation {
     int generations;
     Beat fittestBeat;
     Beat secondFittestBeat;
+    Beat styleTarget;
+    Beat startingBeat;
 
     // create initial beat population
     BeatPopulation (float m, int num) {
@@ -19,9 +21,67 @@ class BeatPopulation {
         BeatDNA emptyBeat = new BeatDNA();
         fittestBeat = new Beat(emptyBeat);
         secondFittestBeat = new Beat(emptyBeat);
-
-        for (int i = 0; i< population.length; i++) {
-            //population[i] = new Beat(); //TODO setup initial population
+        
+        //TODO: Set these to match quiz results when in and set starting beat
+        styleTarget = new Beat(emptyBeat);
+        startingBeat = new Beat(emptyBeat);
+        
+        generateRandomPopulation();
+    }
+    
+    // completely random population
+    void generateRandomPopulation() {
+      for (int i = 0; i< population.length; i++) {
+          Boolean[][] baseBeat = new Boolean[3][16];
+          for (int j=0; j<3; j++) {
+            for (int k=0; k<16; k++) {
+              int x = (int)(random(0,2));
+              baseBeat[j][k] = boolean(x);
+              System.out.print(x+" ");
+            }
+            System.out.println();          
+          }
+          println();
+          BeatDNA beatDNA = new BeatDNA(baseBeat);
+          population[i] = new Beat(beatDNA);
+        }
+    }
+    
+    // population where we have a target style
+    // try adding the style as 1 and the remainder of the population is random
+    void generateStylePopulation() {
+      population[0] = styleTarget;
+      for (int i = 1; i< population.length; i++) {
+          Boolean[][] baseBeat = new Boolean[3][16];
+          for (int j=0; j<3; j++) {
+            for (int k=0; k<16; k++) {
+              int x = (int)(random(0,2));
+              baseBeat[j][k] = boolean(x);
+              System.out.print(x+" ");
+            }
+            System.out.println();          
+          }
+          println();
+          BeatDNA beatDNA = new BeatDNA(baseBeat);
+          population[i] = new Beat(beatDNA); //TODO setup initial population
+        }
+    }
+    
+    void generateStartingBeatPopulation() {
+      population[0] = startingBeat;
+      for (int i = 1; i< population.length; i++) {
+          Boolean[][] baseBeat = new Boolean[3][16];
+          for (int j=0; j<3; j++) {
+            for (int k=0; k<16; k++) {
+              int x = (int)(random(0,2));
+              baseBeat[j][k] = boolean(x);
+              System.out.print(x+" ");
+            }
+            System.out.println();          
+          }
+          println();
+          BeatDNA beatDNA = new BeatDNA(baseBeat);
+          population[i] = new Beat(beatDNA);
         }
     }
 
@@ -61,6 +121,13 @@ class BeatPopulation {
 
     Beat secondFittestBeat() {
         return secondFittestBeat;
+    }
+    
+    // calculate the fitness of the entire population
+    void calculateFitness() {
+    }
+    
+    void calculateBeatFitness() {
     }
 
 }

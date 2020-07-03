@@ -5,6 +5,7 @@ CircleButton addABeatButton;
 LinearBeatCreation createLinearBeat;
 CircularBeatCreation createCircularBeat;
 DrumBeats beats;
+Quiz createQuiz;
 
 color addABeatHighlight; 
 color addABeatColor; 
@@ -15,7 +16,14 @@ color testColor = color(204);
 boolean renderAddABeat = true;
 boolean renderLinearBeat = false;
 boolean renderLikeOrDislikeBeat = false;
+boolean renderQuiz = true;
 PImage dashImg;
+
+String target_genre = "None";
+String target_speed = "None";
+String target_time_sig = "None";
+Boolean target_syncopation = false;
+Boolean[][] target_beats;
 
 boolean kickSelected = false;
 boolean snareSelected = false;
@@ -29,7 +37,9 @@ void setup(){
    addABeatHighlight = color(204);
    addABeatButton = new CircleButton(addABeatX, addABeatY, addABeatRadius);
    createLinearBeat = new LinearBeatCreation(beats, this);
-   createCircularBeat = new CircularBeatCreation(beats);
+   createCircularBeat = new CircularBeatCreation(beats, this);
+   
+   createQuiz = new Quiz();
    dashImg = loadImage("Dashboard.png");
 }
 
@@ -60,6 +70,21 @@ void draw(){
   
   if (createCircularBeat.isLinearLayoutSelected()) {
    renderLinearBeat = true;
+  }
+
+    if (renderQuiz){
+    createQuiz.render();
+    createQuiz.update();
+  }
+
+  if(createQuiz.isGoClicked()){
+    renderQuiz = false;
+    renderLinearBeat = true;
+    target_genre = createQuiz.getGenre();
+    target_speed = createQuiz.getSpeed();
+    target_time_sig = createQuiz.getTimeSig();
+    target_syncopation = createQuiz.isSyncopated();
+    target_beats = createQuiz.getTargetBeats();
   }
   
  if (renderLinearBeat || createCircularBeat.isLinearLayoutSelected()) {
@@ -104,7 +129,13 @@ void draw(){
   }
   
   }
-  //NOTE: this will need to be updated if additional areas require keystrokes
-  void keyPressed() {
-    createLinearBeat.setName();
+
+public void handleTextEvents(GEditableTextControl textControl, GEvent event) { 
+    if (createLinearBeat.isCircularLayoutSelected()) {
+        createLinearBeat.updateName(textControl.getText());
+        createCircularBeat.updateName(textControl.getText());
+        } else {
+        createCircularBeat.updateName(textControl.getText());
+        createLinearBeat.updateName(textControl.getText());
+        }
 }

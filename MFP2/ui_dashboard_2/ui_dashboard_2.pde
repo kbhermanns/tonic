@@ -4,6 +4,7 @@ boolean addABeat = false;
 CircleButton addABeatButton;
 LinearBeatCreation createLinearBeat;
 DrumBeats beats;
+Quiz createQuiz;
 
 color addABeatHighlight; 
 color addABeatColor; 
@@ -13,7 +14,14 @@ int addABeatRadius = 80;
 color testColor = color(204);
 boolean renderAddABeat = true;
 boolean renderLinearBeat = false;
+boolean renderQuiz = true;
 PImage dashImg;
+
+String target_genre = "None";
+String target_speed = "None";
+String target_time_sig = "None";
+Boolean target_syncopation = false;
+Boolean[][] target_beats;
 
 boolean kickSelected = false;
 boolean snareSelected = false;
@@ -26,6 +34,7 @@ void setup(){
    addABeatY = height/2 - 105;
    addABeatHighlight = color(204);
    addABeatButton = new CircleButton(addABeatX, addABeatY, addABeatRadius);
+   createQuiz = new Quiz();
    createLinearBeat = new LinearBeatCreation(beats, this);
    dashImg = loadImage("Dashboard.png");
    
@@ -39,6 +48,21 @@ void draw(){
   rotate(0.0);
   image(dashImg, 0, 0, 1300, 800);
   popMatrix();
+  
+  if (renderQuiz){
+    createQuiz.render();
+    createQuiz.update();
+  }
+
+  if(createQuiz.isGoClicked()){
+    renderQuiz = false;
+    renderLinearBeat = true;
+    target_genre = createQuiz.getGenre();
+    target_speed = createQuiz.getSpeed();
+    target_time_sig = createQuiz.getTimeSig();
+    target_syncopation = createQuiz.isSyncopated();
+    target_beats = createQuiz.getTargetBeats();
+  }
   
   if (renderAddABeat) {
     addABeatButton.renderNoFill(renderAddABeat);
@@ -70,7 +94,11 @@ void draw(){
    }
   }
  }
-  //NOTE: this will need to be updated if additional areas require keystrokes
-  void keyPressed() {
-    createLinearBeat.setName();
+
+public void handleTextEvents(GEditableTextControl textControl, GEvent event) { 
+    if (createLinearBeat.isCircularLayoutSelected()) {
+        createLinearBeat.updateName(textControl.getText());
+        } else {
+        createLinearBeat.updateName(textControl.getText());
+        }
 }

@@ -17,9 +17,13 @@ class Tooltip {
 
     void drawTooltip() {
       fill(255);  
+      stroke(255);
       rectMode(CORNER);
       rect(x,y,w,h,4);
+      if (alignment.equals("T"))
       triangle(x+(w/2), y,x+(w/2) +10, y-10,x+(w/2) +20, y);
+      else if(alignment.equals("R"))
+        triangle(x+w, y + (h/2)-5,x+w+10,y + (h/2),x+w,y + (h/2)+5);
         
         PFont font;
         font = createFont("Arial",h);
