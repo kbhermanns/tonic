@@ -1,6 +1,5 @@
 class CircularBeatCreation {
   Boolean[] Beat;
-  LikeOrDislikeBeat createLikeOrDislikeBeat = new LikeOrDislikeBeat();
   PImage img17;
   Boolean Pressed = false; 
   Boolean Clicked = false;
@@ -27,6 +26,7 @@ class CircularBeatCreation {
   Boolean[] snareFilled;
   Boolean[] hatFilled;
   
+  LikeOrDislikeBeat createLikeOrDislikeBeat;
   RectangularButton algorithmButton;
   RectangularButton saveButton;
   RectangularButton cancelButton; 
@@ -48,11 +48,11 @@ class CircularBeatCreation {
     //area.appendText("");
     //area.appendText(name);
     area.setVisible(false);
-    
    kickFilled = new Boolean[16];
    snareFilled = new Boolean[16];
    hatFilled = new Boolean[16];
    Beats = beats;
+   createLikeOrDislikeBeat = new LikeOrDislikeBeat(Beats, false);
    for (int i = 0; i < 16; i++) {
      kickFilled[i] = false;
    }
@@ -65,6 +65,8 @@ class CircularBeatCreation {
   }
   
   DrumBeats update() {
+    println("ABBY - CIRCLE on this screen - x " + mouseX);
+    println("ABBY - CIRCLE on this screen - y " + mouseY);
     if (mousePressed == true && mouseButton == LEFT && Pressed == false) {
       Pressed = true;
       if (mouseX >= kickX && mouseX <= kickX + 100 && mouseY >= kickY && mouseY <= kickY + 100 && kickSelected == false) {
@@ -78,8 +80,8 @@ class CircularBeatCreation {
         Clicked = true;
         hatSelected = true; 
         if (showInstrumentTooltip) {
-          showInstrumentTooltip = false; //<>// //<>//
-          showBeatTooltip = true; //<>// //<>//
+          showInstrumentTooltip = false; //<>// //<>// //<>// //<>//
+          showBeatTooltip = true; //<>// //<>// //<>// //<>//
         }
       } else if (mouseX >= snareX && mouseX <= snareX + 100 && mouseY >= snareY && mouseY <= snareY + 100 && snareSelected == false) {
         Clicked = true;
