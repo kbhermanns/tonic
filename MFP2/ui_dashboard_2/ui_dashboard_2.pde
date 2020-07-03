@@ -84,10 +84,7 @@ void draw(){
   playGA1.setVisible(true); playGA2.setVisible(true); 
   playButton.setVisible(false);
   beats.mute();
-  ThisOrThat thisThat = createLinearBeat.getThisThat();
   
-  gaBeat1 = thisThat.getBeat1();
-  gaBeat2 = thisThat.getBeat2();
   }
 
   
@@ -167,9 +164,13 @@ public void playGA1Handler(GButton button, GEvent event) {
   println("Test");
   if (gaBeat1.isMuted()) gaBeat1.unMute();
   else gaBeat1.mute();
+  ThisOrThat thisThat = createLinearBeat.getThisThat();
+  gaBeat1.setBeats(thisThat.getBeat1().getEntireBeat());
 }
 
 public void playGA2Handler(GButton button, GEvent event) {  
   if (gaBeat2.isMuted()) gaBeat2.unMute();
   else gaBeat2.mute();
+  ThisOrThat thisThat = createLinearBeat.getThisThat();
+  gaBeat2.setBeats(thisThat.getBeat2().getEntireBeat());
 }
