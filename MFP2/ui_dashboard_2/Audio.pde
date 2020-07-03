@@ -18,25 +18,9 @@ int beat;
 
 class Tick implements Instrument
 {
-  void noteOn( float dur )
-  {
-    if ( hatRow[beat] ) hat.trigger();
-    if ( snrRow[beat] ) snare.trigger();
-    if ( kikRow[beat] ) kick.trigger();
-  }
   
-  void noteOff()
-  {
-    beat = (beat+1)%16;
-    out.setTempo( bpm );
-    out.playNote( 0, 0.25f, this );
-  }
-  
-}
-
-void setup()
-{
-  minim = new Minim(this);
+  Tick() {
+      minim = new Minim(this);
   out   = minim.getLineOut();
   
   kick  = new Sampler( "BD.wav", 4, minim );
@@ -51,19 +35,35 @@ void setup()
 
   out.setTempo( bpm );
   out.playNote( 0, 0.25f, new Tick() );
-}
-
-void Setkik(boolean[] _kik)
+  }
+  
+  void noteOn( float dur )
+  {
+    if ( hatRow[beat] ) hat.trigger();
+    if ( snrRow[beat] ) snare.trigger();
+    if ( kikRow[beat] ) kick.trigger();
+  }
+  
+  void noteOff()
+  {
+    beat = (beat+1)%16;
+    out.setTempo( bpm );
+    out.playNote( 0, 0.25f, this );
+  }
+  
+  void Setkik(boolean[] _kik)
   {
       kikRow = _kik;
   }
   
-void Setsnr(boolean[] _snr)
-  {
-      snrRow = _snr;
-  }
-
-void Sethat(boolean[] _hat)
-  {
-      hatRow = _hat;
-  }
+  void Setsnr(boolean[] _snr)
+    {
+        snrRow = _snr;
+    }
+  
+  void Sethat(boolean[] _hat)
+    {
+        hatRow = _hat;
+    }
+  
+}
