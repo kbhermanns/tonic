@@ -44,13 +44,17 @@ class ThisOrThat {
   PImage preferTealButtonImage = loadImage("IPreferThisButtonTeal.png");
   PImage useThisInSongButtonImage = loadImage("UseThisInSongButton.png");
   
-  ThisOrThat(DrumBeats userCreatedBeats) {
+  PApplet pa;
+  
+  ThisOrThat(DrumBeats userCreatedBeats, PApplet papp) {
     whatHasChangedInBeat1 = new boolean[3]; // kick - 0, snare - 1, hi-hat - 2
     whatHasChangedInBeat2 = new boolean[3];
     originalBeat = userCreatedBeats;
-    beats1 = new DrumBeats();
-    beats2 = new DrumBeats();
+    pa = papp;
+    beats1 = new DrumBeats(pa,3,16);
+    beats2 = new DrumBeats(pa,3,16);
     beatNumber = 0;
+    
     
     // create linear beats - TODO update to grab the beat we have 
     kickButtons = new ArrayList<RectangularButton>();
@@ -348,4 +352,7 @@ class ThisOrThat {
     }
     return changedText;
   }
+  
+  DrumBeats getBeat1() {return beats1;}
+  DrumBeats getBeat2() {return beats2;}
 }

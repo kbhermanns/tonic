@@ -22,24 +22,54 @@ PImage dashImg;
 String target_genre = "None";
 String target_speed = "None";
 String target_time_sig = "None";
-Boolean target_syncopation = false;
-Boolean[][] target_beats;
+boolean target_syncopation = false;
+boolean[][] target_beats;
 
 boolean kickSelected = false;
 boolean snareSelected = false;
 boolean hatSelected = false;
+boolean startPlay = false;
+boolean stopPlay = true;
+
+GButton playButton;
+GButton playGA1;
+GButton playGA2;
+DrumBeats gaBeat1;
+DrumBeats gaBeat2;
 
 void setup(){
    size(1300, 800);
-   beats = new DrumBeats();
+   beats = new DrumBeats(this,3,16);
+   beats.audioSetup();
+   beats.mute();
    addABeatX = width/2;
    addABeatY = height/2 - 105;
    addABeatHighlight = color(204);
    addABeatButton = new CircleButton(addABeatX, addABeatY, addABeatRadius);
    createQuiz = new Quiz();
    createLinearBeat = new LinearBeatCreation(beats, this);
-   thisOrThat = new ThisOrThat(beats);
+   thisOrThat = new ThisOrThat(beats, this);
    dashImg = loadImage("Dashboard.png");
+   
+   playButton = new GButton(this, 380, 30, 80, 30, "PLAY");
+   playButton.addEventHandler(this, "audioHandler");
+   playButton.setVisible(false);
+   
+   playGA1 = new GButton(this, 310, 400, 80, 30, "PLAY");
+   playGA1.addEventHandler(this, "playGA1Handler");
+   playGA1.setVisible(false);
+   
+   playGA2 = new GButton(this, 935, 400, 80, 30, "PLAY");
+   playGA2.addEventHandler(this, "playGA2Handler");
+   playGA2.setVisible(false);
+   
+   gaBeat1 = new DrumBeats(this,3,16);
+   gaBeat1.audioSetup();
+   gaBeat1.mute();
+   
+   gaBeat2 = new DrumBeats(this,3,16);
+   gaBeat2.audioSetup();
+   gaBeat2.mute();
 }
 
 void draw(){ 
@@ -49,6 +79,17 @@ void draw(){
   translate(5.50573, -1.295466);
   rotate(0.0);
   popMatrix();
+  
+  if (createLinearBeat.isAlgorithmButtonSelected()) {
+  playGA1.setVisible(true); playGA2.setVisible(true); 
+  playButton.setVisible(false);
+  beats.mute();
+  ThisOrThat thisThat = createLinearBeat.getThisThat();
+  
+  gaBeat1 = thisThat.getBeat1();
+  gaBeat2 = thisThat.getBeat2();
+  }
+
   
   if (renderQuiz){
     createQuiz.render();
@@ -83,6 +124,7 @@ void draw(){
   }
  
  if (renderLinearBeat) {
+   if (!createLinearBeat.isAlgorithmButtonSelected()) playButton.setVisible(true);
    createLinearBeat.render();
    createLinearBeat.update();
    
@@ -113,4 +155,21 @@ public void handleTextEvents(GEditableTextControl textControl, GEvent event) {
         } else {
         createLinearBeat.updateName(textControl.getText());
         }
+}
+
+public void audioHandler(GButton button, GEvent event) {
+  if (!createLinearBeat.isAlgorithmButtonSelected()) beats = createLinearBeat.getBeats();
+  if (beats.isMuted()) beats.unMute();
+  else beats.mute();
+}
+
+public void playGA1Handler(GButton button, GEvent event) {  
+  println("Test");
+  if (gaBeat1.isMuted()) gaBeat1.unMute();
+  else gaBeat1.mute();
+}
+
+public void playGA2Handler(GButton button, GEvent event) {  
+  if (gaBeat2.isMuted()) gaBeat2.unMute();
+  else gaBeat2.mute();
 }

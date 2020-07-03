@@ -296,4 +296,5 @@ class LikeOrDislikeBeat {
       hatButtons.get(i).renderWithoutText();
     }
   } 
+  DrumBeats getBeat() {return beats;}
 }
