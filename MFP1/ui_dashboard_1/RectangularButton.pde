@@ -43,8 +43,9 @@ class RectangularButton {
     TextY = textY;
     TextSize = textSize;
     Selected = false;
-    
-        WidthLeft = rect1;
+     Position.x = transX;
+    Position.y = transY;
+    WidthLeft = rect1;
     WidthRight = rect3;
     HeightUp = rect2;
     HeightDown = rect4;
@@ -63,7 +64,8 @@ class RectangularButton {
     Rect3 = rect3;
     Rect4 = rect4;
     Selected = false;
-    
+    Position.x = transX;
+    Position.y = transY;
     WidthLeft = rect1;
     WidthRight = rect3;
     HeightUp = rect2;

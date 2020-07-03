@@ -78,8 +78,8 @@ class CircularBeatCreation {
         Clicked = true;
         hatSelected = true; 
         if (showInstrumentTooltip) {
-          showInstrumentTooltip = false; //<>//
-          showBeatTooltip = true; //<>//
+          showInstrumentTooltip = false; //<>// //<>//
+          showBeatTooltip = true; //<>// //<>//
         }
       } else if (mouseX >= snareX && mouseX <= snareX + 100 && mouseY >= snareY && mouseY <= snareY + 100 && snareSelected == false) {
         Clicked = true;
@@ -105,8 +105,8 @@ class CircularBeatCreation {
         circularLayoutToggle = false;
       }
       else if (mouseX >= 613 && mouseX <= 640 && mouseY >= 198 && mouseY <= 263) {
-        kickFilled[0] = !kickFilled[0];
-        Beats.updateBeats(0, 0, !kickFilled[0]);
+        kickFilled[0] = !kickFilled[0]; //<>//
+        Beats.updateBeats(0, 0, !kickFilled[0]); //<>//
       }
       else if (mouseX >= 645 && mouseX <= 680 && mouseY >= 209 && mouseY <= 276) {
         kickFilled[1] = !kickFilled[1]; //<>//

@@ -11,10 +11,11 @@ color addABeatHighlight;
 color addABeatColor; 
 int addABeatX;
 int addABeatY;
-int addABeatRadius = 80; 
+int addABeatRadius = 85; 
 color testColor = color(204);
-boolean renderAddABeat = true;
+boolean renderAddABeat = false;;
 boolean renderLinearBeat = false;
+boolean renderDash = false;
 boolean renderLikeOrDislikeBeat = false;
 boolean renderQuiz = true;
 PImage dashImg;
@@ -52,12 +53,18 @@ void draw(){
   image(dashImg, 0, 0, 1300, 800);
   popMatrix();
   
+  if (renderDash) {
+    image(dashImg, 0, 0, 1300, 800);
+    renderAddABeat = true;
+  }
+  
   if (renderAddABeat) {
     addABeatButton.renderNoFill(renderAddABeat);
     addABeatButton.update();
   }
   
   if (addABeatButton.isClicked()) {
+    renderDash = false;
     renderAddABeat = false;
     renderLinearBeat = true;
     addABeatButton.reset();
@@ -79,7 +86,8 @@ void draw(){
 
   if(createQuiz.isGoClicked()){
     renderQuiz = false;
-    renderLinearBeat = true;
+    renderDash = true;
+    //renderLinearBeat = true;
     target_genre = createQuiz.getGenre();
     target_speed = createQuiz.getSpeed();
     target_time_sig = createQuiz.getTimeSig();

@@ -125,7 +125,7 @@ class LinearBeatCreation {
         area.setOpaque(false);
         Clicked = true;
         algorithmButtonSelected = true;
-        circularLayoutToggle = false;
+        circularLayoutToggle = true;
         linearLayoutToggle = false; 
       }
       // layout toggle check

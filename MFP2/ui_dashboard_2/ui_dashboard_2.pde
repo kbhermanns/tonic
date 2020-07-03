@@ -10,11 +10,12 @@ color addABeatHighlight;
 color addABeatColor; 
 int addABeatX;
 int addABeatY;
-int addABeatRadius = 80; 
+int addABeatRadius = 85; 
 color testColor = color(204);
-boolean renderAddABeat = true;
+boolean renderAddABeat = false;;
 boolean renderLinearBeat = false;
 boolean renderQuiz = true;
+boolean renderDash = false;
 PImage dashImg;
 
 String target_genre = "None";
@@ -37,7 +38,6 @@ void setup(){
    createQuiz = new Quiz();
    createLinearBeat = new LinearBeatCreation(beats, this);
    dashImg = loadImage("Dashboard.png");
-   
 }
 
 void draw(){ 
@@ -46,7 +46,6 @@ void draw(){
   pushMatrix();
   translate(5.50573, -1.295466);
   rotate(0.0);
-  image(dashImg, 0, 0, 1300, 800);
   popMatrix();
   
   if (renderQuiz){
@@ -56,12 +55,17 @@ void draw(){
 
   if(createQuiz.isGoClicked()){
     renderQuiz = false;
-    renderLinearBeat = true;
+    renderDash = true;
     target_genre = createQuiz.getGenre();
     target_speed = createQuiz.getSpeed();
     target_time_sig = createQuiz.getTimeSig();
     target_syncopation = createQuiz.isSyncopated();
     target_beats = createQuiz.getTargetBeats();
+  }
+  
+  if (renderDash) {
+    image(dashImg, 0, 0, 1300, 800);
+    renderAddABeat = true;
   }
   
   if (renderAddABeat) {
