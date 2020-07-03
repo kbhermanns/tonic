@@ -46,12 +46,10 @@ class LinearBeatCreation {
   Boolean showBeatTooltip = false;
     
   
-  LinearBeatCreation(DrumBeats beats, PApplet papp) {
-    
+  LinearBeatCreation(DrumBeats beats, PApplet papp) {    
     //Setup the name input for the song
     area = new GTextArea(papp,15, 15, 350, 50, G4P.SCROLLBARS_NONE);
     name = "";
-    area.appendText(name);
     area.setVisible(false);
     
      Beats = beats;
@@ -75,17 +73,19 @@ class LinearBeatCreation {
   DrumBeats update() {
     //update the status of the buttons
     for (int i = 0; i < kickButtons.size() - 1; i++){
+      if (Beats.getBeat(0,i)) showBeatTooltip = false;
       kickButtons.get(i).setSelected(Beats.getBeat(0, i));
     }
     for (int j = 0; j < snareButtons.size() - 1; j++){
+      if (Beats.getBeat(0,j)) showBeatTooltip = false;
       snareButtons.get(j).setSelected(Beats.getBeat(1, j));
     }
     for (int k = 0; k < hatButtons.size() - 1; k++){
+      if (Beats.getBeat(0,k)) showBeatTooltip = false;
       hatButtons.get(k).setSelected(Beats.getBeat(2, k));
     }
     
-    println("Moue X" + mouseX);
-    println(" Mouse Y" + mouseY);
+
     if (mousePressed == true && mouseButton == LEFT && Pressed == false) {
       Pressed = true;
       if (((mouseX >= kickX && mouseX <= kickX + 100) || (mouseX >= kickX - 100 && mouseX <= kickX)) && ((mouseY >= kickY && mouseY <= kickY + 100) || (mouseY >= kickY - 100 && mouseY <= kickY))) {
@@ -113,6 +113,7 @@ class LinearBeatCreation {
       // layout toggle check
       else if (mouseX >= 1075 && mouseX <= 1135 && mouseY >= 25 && mouseY <= 70){
         circularLayoutToggle = true;
+        area.setVisible(false);
         linearLayoutToggle = false; 
       }
       //kick buttons check
@@ -191,10 +192,14 @@ class LinearBeatCreation {
     area.setLocalColor(7, color(66,65,62)); //background color
     area.setFont(new Font("Gothic A1", Font.PLAIN, 30));
     
+    if ((area.getText().trim()).equals("")){
+      area.setText(name);
+    }
+    
     // Show tooltips
     if (showNameTooltip) {
       Tooltip beatTooltip = new Tooltip("Add a name for your beat","T",25,80,300,30);   
-     beatTooltip.drawTooltip();
+      beatTooltip.drawTooltip();
     } else if (showInstrumentTooltip) {
       Tooltip instrumentTooltip = new Tooltip("Select an instrument to add to your beat","T",25,710,300,30);
       instrumentTooltip.drawTooltip();
@@ -206,7 +211,7 @@ class LinearBeatCreation {
       else if(hatSelected) {
         y = 400;
       }
-      Tooltip beatTooltip = new Tooltip("Click on a segment to add the instruments to the beat", "B", 25,y,300,30);
+      Tooltip beatTooltip = new Tooltip("Click on a segment to add the instruments to the beat", "T", 25,y,300,30);
       beatTooltip.drawTooltip();
     }
     
@@ -237,6 +242,7 @@ class LinearBeatCreation {
     cancelButton.renderWithText();
     saveButton.renderWithText();
     algorithmButton.renderWithText();
+    
   
   }
   
@@ -316,10 +322,9 @@ class LinearBeatCreation {
     stroke(-14079703);
     line(1155.8794, 49.227703, 1184.3796, 49.227703);
   }
-  
-   // Set the name of the beat
-  void setName() {
-    name = area.getText();
+
+  void updateName(String n) {
+    name = n;
     showNameTooltip = false;
     showInstrumentTooltip = true;
   }

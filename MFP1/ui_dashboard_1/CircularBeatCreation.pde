@@ -30,7 +30,21 @@ class CircularBeatCreation {
   RectangularButton snareButton; 
   RectangularButton hatButton; 
   
-  CircularBeatCreation(DrumBeats beats) {
+  String name;
+  GTextArea area;
+
+  Boolean showNameTooltip = true;
+  Boolean showInstrumentTooltip = false;
+  Boolean showBeatTooltip = false;
+  
+  CircularBeatCreation(DrumBeats beats, PApplet papp) {
+    //Setup the name input for the song
+    area = new GTextArea(papp,15, 15, 350, 50, G4P.SCROLLBARS_NONE);
+    name = "";
+    //area.appendText("");
+    //area.appendText(name);
+    area.setVisible(false);
+    
    kickFilled = new Boolean[16];
    snareFilled = new Boolean[16];
    hatFilled = new Boolean[16];
@@ -52,12 +66,24 @@ class CircularBeatCreation {
       if (mouseX >= kickX && mouseX <= kickX + 100 && mouseY >= kickY && mouseY <= kickY + 100 && kickSelected == false) {
         Clicked = true;
         kickSelected = true; 
+        if (showInstrumentTooltip) {
+          showInstrumentTooltip = false;
+          showBeatTooltip = true;
+        }
       } else if (mouseX >= hatX && mouseX <= hatX + 100 && mouseY >= hatY && mouseY <= hatY + 100 && hatSelected == false) {
         Clicked = true;
         hatSelected = true; 
+        if (showInstrumentTooltip) {
+          showInstrumentTooltip = false;
+          showBeatTooltip = true;
+        }
       } else if (mouseX >= snareX && mouseX <= snareX + 100 && mouseY >= snareY && mouseY <= snareY + 100 && snareSelected == false) {
-        Clicked = true;
-        snareSelected = true;
+        Clicked = true; //<>//
+        snareSelected = true; //<>//
+        if (showInstrumentTooltip) {
+          showInstrumentTooltip = false;
+          showBeatTooltip = true;
+        }
       }else if (mouseX >= kickX && mouseX <= kickX + 100 && mouseY >= kickY && mouseY <= kickY + 100 && kickSelected == true) {
         Clicked = true;
         kickSelected = false; 
@@ -71,6 +97,7 @@ class CircularBeatCreation {
       // layout toggle check
       else if (mouseX >= 1140 && mouseX <= 1200 && mouseY >= 25 && mouseY <= 70){
         linearLayoutToggle = true;
+        area.setVisible(false);
         circularLayoutToggle = false;
       }
       else if (mouseX >= 613 && mouseX <= 640 && mouseY >= 198 && mouseY <= 263) {
@@ -304,6 +331,7 @@ class CircularBeatCreation {
   }
   
   void render(DrumBeats beats) {
+    
     Beats = beats;
     kickFilled = Beats.getRow(0);
     snareFilled = Beats.getRow(1);
@@ -313,6 +341,38 @@ class CircularBeatCreation {
     strokeWeight(5);
     stroke(-1);
     line(1.6193323, 570, 1297.0852, 570);
+    
+    // Text Input for Name of Song
+    area.setVisible(true);
+    area.setOpaque(true);
+    area.setLocalColor(2, color(252,252,252)); //text color
+    area.setLocalColor(6, color(66,65,62)); //border colour
+    area.setLocalColor(7, color(66,65,62)); //background color
+    area.setFont(new Font("Gothic A1", Font.PLAIN, 30));
+    
+    if ((area.getText().trim()).equals("")){
+      area.setText(name);
+      println("name" + name);
+    }
+    
+    // Show tooltips
+    if (showNameTooltip) {
+      Tooltip beatTooltip = new Tooltip("Add a name for your beat","T",25,80,300,30);   
+      beatTooltip.drawTooltip();
+    } else if (showInstrumentTooltip && !kickSelected && !hatSelected && !snareSelected) {
+      Tooltip instrumentTooltip = new Tooltip("Select an instrument to add to your beat","T",25,710,300,30);
+      instrumentTooltip.drawTooltip();
+    } else if (showBeatTooltip) {
+      int y = 200;
+      if (snareSelected){
+        y = 300;
+      }
+      else if(hatSelected) {
+        y = 400;
+      }
+      Tooltip beatTooltip = new Tooltip("Click on a segment to add the instruments to the beat", "R", 60,y,300,30);
+      beatTooltip.drawTooltip();
+    }
     
     renderToggleButton();
     
@@ -347,6 +407,7 @@ class CircularBeatCreation {
     cancelButton.renderWithText();
     saveButton.renderWithText();
     algorithmButton.renderWithText();
+    
   
   }
    
@@ -383,7 +444,7 @@ class CircularBeatCreation {
     strokeWeight(9.338843);
     stroke(-14079703);
     line(1155.8794, 49.227703, 1184.3796, 49.227703);
-  }
+ }
   
   void renderKickCircle() {
 
@@ -1318,7 +1379,15 @@ class CircularBeatCreation {
       vertex(-149.44109, 115.96231);
       endShape(CLOSE);
       popMatrix();
+   }
+ }
+
+  void updateName(String n) {
+    name = n;
+    showNameTooltip = false;
+    if (!kickSelected && !hatSelected && !snareSelected)
+    showInstrumentTooltip = true;
   }
 
-}
+
 }
