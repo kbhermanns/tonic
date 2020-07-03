@@ -5,6 +5,7 @@ CircleButton addABeatButton;
 LinearBeatCreation createLinearBeat;
 CircularBeatCreation createCircularBeat;
 DrumBeats beats;
+Quiz createQuiz;
 
 color addABeatHighlight; 
 color addABeatColor; 
@@ -14,7 +15,14 @@ int addABeatRadius = 80;
 color testColor = color(204);
 boolean renderAddABeat = true;
 boolean renderLinearBeat = false;
+boolean renderQuiz = true;
 PImage dashImg;
+
+String target_genre = "None";
+String target_speed = "None";
+String target_time_sig = "None";
+Boolean target_syncopation = false;
+Boolean[][] target_beats;
 
 boolean kickSelected = false;
 boolean snareSelected = false;
@@ -29,6 +37,8 @@ void setup(){
    addABeatButton = new CircleButton(addABeatX, addABeatY, addABeatRadius);
    createLinearBeat = new LinearBeatCreation(beats, this);
    createCircularBeat = new CircularBeatCreation(beats);
+   
+   createQuiz = new Quiz();
    dashImg = loadImage("Dashboard.png");
    
 }
@@ -60,6 +70,21 @@ void draw(){
   
   if (createCircularBeat.isLinearLayoutSelected()) {
    renderLinearBeat = true;
+  }
+
+    if (renderQuiz){
+    createQuiz.render();
+    createQuiz.update();
+  }
+
+  if(createQuiz.isGoClicked()){
+    renderQuiz = false;
+    renderLinearBeat = true;
+    target_genre = createQuiz.getGenre();
+    target_speed = createQuiz.getSpeed();
+    target_time_sig = createQuiz.getTimeSig();
+    target_syncopation = createQuiz.isSyncopated();
+    target_beats = createQuiz.getTargetBeats();
   }
   
  if (renderLinearBeat || createCircularBeat.isLinearLayoutSelected()) {
