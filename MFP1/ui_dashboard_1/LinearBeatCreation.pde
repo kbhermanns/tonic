@@ -27,9 +27,8 @@ class LinearBeatCreation {
   color linearToggleFill = color(-16524602);
   // what I added - dekete kater 
   Boolean algorithmButtonSelected = false;
-  float algorithmButtonX = 1078.1515;
-  float algorithmButtonY = 497.4589;
-  
+  float algorithmButtonX = 970;
+  float algorithmButtonY = 450;
   DrumBeats Beats;
   ArrayList<RectangularButton> kickButtons;
   ArrayList<RectangularButton> snareButtons;
@@ -121,7 +120,7 @@ class LinearBeatCreation {
       } else if (mouseX >= snareX && mouseX <= snareX + 100 && mouseY >= snareY && mouseY <= snareY + 100 && snareSelected == true) {
         Clicked = true;
         snareSelected = false;
-      } else if (mouseX >= algorithmButtonX && mouseX <= algorithmButtonX + 100 && mouseY >= algorithmButtonY && mouseY <= algorithmButtonY + 100) {
+      } else if (mouseX >= algorithmButtonX && mouseX <= algorithmButtonX + 200 && mouseY >= algorithmButtonY && mouseY <= algorithmButtonY + 200) {
         // TODO: Update - this is temp route into LikeOrDislikeBeatPage
         area.setVisible(false);
         area.setOpaque(false);
@@ -199,7 +198,7 @@ class LinearBeatCreation {
     line(1.6193323, 570, 1297.0852, 570);
     
     renderToggleButton();
-    
+  
     algorithmButton = new RectangularButton(-16524602, 7.933884, -16524602, 1078.1515, 497.4589, 1.5648444, -34.9776, -189.1425, 24.9776, 100.195866, "Get Help From Algorithm", 1123.74, 490.98, 24);
     saveButton = new RectangularButton(-10241491, 7.933884, -10241491, 949.9004, 737.1201, 1.5707965, -34.9776, -110.114624, 34.9776, 34.9776, "Save", 983.582, 737.30, 24);
     cancelButton = new RectangularButton(-1094570, 7.933884, -1094570, 1159.7659, 737.1201, 1.5707965, -34.9776, -110.114624, 34.9776, 34.9776, "Cancel", 1196.04, 737.30, 24);
