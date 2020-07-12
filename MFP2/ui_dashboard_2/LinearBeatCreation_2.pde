@@ -127,7 +127,7 @@ class LinearBeatCreation {
       for(int k = 0; k < hatButtons.size() - 1; ++k) {
         hatButtons.get(k).pressed();
         if (Beats.getBeat(2,k)) showBeatTooltip = false;
-        Beats.updateBeats(2, k, kickButtons.get(k).getSelected());
+        Beats.updateBeats(2, k, hatButtons.get(k).getSelected());
       }
     }
       else {

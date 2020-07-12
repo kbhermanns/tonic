@@ -48,9 +48,9 @@ class DrumBeats {
   
   void noteOn( float dur )
   {
-    if ( beats[0][curBeat] ) hat.trigger();
+    if ( beats[0][curBeat] ) kick.trigger();
     if ( beats[1][curBeat] ) snare.trigger();
-    if ( beats[2][curBeat] ) kick.trigger();
+    if ( beats[2][curBeat] ) hat.trigger();
   }
   
   void noteOff()
