@@ -93,6 +93,7 @@ class ThisOrThat {
         beats2.beats = population.getSecondBestBeat();
         firstPairCreated = true;
       }
+      if (mousePressed == true && mouseButton == LEFT) {
       if (((mouseX >= leftPlayButtonx && mouseX <= leftPlayButtonx + 100) || (mouseX >= leftPlayButtonx - 100 && mouseX <= leftPlayButtonx)) 
       && ((mouseY >= leftPlayButtony && mouseY <= leftPlayButtony + 120) || (mouseY >= leftPlayButtony - 120 && mouseY <= leftPlayButtony))) {
          // user wants to play left beat (teal)
@@ -137,6 +138,7 @@ class ThisOrThat {
         // TODO: are we going to handle this in prototype?? 
       }  else if (((mouseX >= useThisBeatRightButtonx && mouseX <= useThisBeatRightButtonx + 300) || (mouseX >= useThisBeatRightButtonx - 300 && mouseX <= useThisBeatRightButtonx)) 
       && ((mouseY >= useThisBeatRightButtony && mouseY <= useThisBeatRightButtony + 60) || (mouseY >= useThisBeatRightButtony - 60 && mouseY <= useThisBeatRightButtony))) {
+      }
       }
   }
   
@@ -379,6 +381,11 @@ class ThisOrThat {
     return changedText;
   }
   
-  DrumBeats getBeat1() {return beats1;}
-  DrumBeats getBeat2() {return beats2;}
+  DrumBeats getBeat1() {
+    return beats1;
+  }
+  
+  DrumBeats getBeat2() {
+    return beats2;
+  }
 }
