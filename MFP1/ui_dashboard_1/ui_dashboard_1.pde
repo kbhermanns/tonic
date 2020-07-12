@@ -13,8 +13,9 @@ int addABeatX;
 int addABeatY;
 int addABeatRadius = 85; 
 color testColor = color(204);
-boolean renderAddABeat = false;;
+boolean renderAddABeat = false;
 boolean renderLinearBeat = false;
+boolean renderCircularBeat = false;
 boolean renderDash = false;
 boolean renderLikeOrDislikeBeat = false;
 boolean renderQuiz = true;
@@ -94,15 +95,17 @@ void draw(){
     renderLinearBeat = true;
     addABeatButton.reset();
     createLinearBeat.render(beats);
-  }
-  
- if (createLinearBeat.isCircularLayoutSelected()) {
-   renderLinearBeat = false;
-  }
-  
-  if (createCircularBeat.isLinearLayoutSelected()) {
-   renderLinearBeat = true;
-  }
+  }  
+   
+     if (renderLinearBeat && !createLinearBeat.getRenderLinear()) {
+       renderLinearBeat = false;
+       renderCircularBeat = true;
+       createCircularBeat.setRenderCircular(true);       
+     } else if (renderCircularBeat && !createCircularBeat.getRenderCircular()) {
+       renderCircularBeat = false;
+       renderLinearBeat = true;
+       createLinearBeat.setRenderLinear(true);
+     }
 
     if (renderQuiz){
     createQuiz.render();
@@ -120,7 +123,7 @@ void draw(){
     target_beats = createQuiz.getTargetBeats();
   }
   
- if (renderLinearBeat || createCircularBeat.isLinearLayoutSelected()) {
+ if (renderLinearBeat) {
    createLinearBeat.render(beats);
    beats = createLinearBeat.update();
    if (!createLinearBeat.isAlgorithmButtonSelected()) playButton.setVisible(true);
@@ -144,7 +147,7 @@ void draw(){
    }
  }
  
-  else if (createLinearBeat.isCircularLayoutSelected()){
+  else if (renderCircularBeat){
     createCircularBeat.render(beats);
     beats = createCircularBeat.update();
     if (!createCircularBeat.isAlgorithmButtonSelected()) {
@@ -168,7 +171,7 @@ void draw(){
   }
 
 public void handleTextEvents(GEditableTextControl textControl, GEvent event) { 
-    if (createLinearBeat.isCircularLayoutSelected()) {
+    if (renderCircularBeat) {
         createLinearBeat.updateName(textControl.getText());
         createCircularBeat.updateName(textControl.getText());
         } else {

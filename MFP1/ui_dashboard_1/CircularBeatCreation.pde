@@ -18,8 +18,7 @@ class CircularBeatCreation {
   Boolean algorithmButtonSelected = false;
   float algorithmButtonX = 970;
   float algorithmButtonY = 450;
-  boolean linearLayoutToggle = false;
-  boolean circularLayoutToggle = true;
+  boolean renderCircular = false;
   
   DrumBeats Beats;
   Boolean[] kickFilled;
@@ -45,8 +44,6 @@ class CircularBeatCreation {
     //Setup the name input for the song
     area = new GTextArea(papp,15, 15, 350, 50, G4P.SCROLLBARS_NONE);
     name = "";
-    //area.appendText("");
-    //area.appendText(name);
     area.setVisible(false);
    kickFilled = new Boolean[16];
    snareFilled = new Boolean[16];
@@ -65,8 +62,8 @@ class CircularBeatCreation {
   }
   
   DrumBeats update() {
-    println("ABBY - CIRCLE on this screen - x " + mouseX);
-    println("ABBY - CIRCLE on this screen - y " + mouseY);
+    //println("ABBY - CIRCLE on this screen - x " + mouseX);
+    //println("ABBY - CIRCLE on this screen - y " + mouseY);
     if (mousePressed == true && mouseButton == LEFT && Pressed == false) {
       Pressed = true;
       if (mouseX >= kickX && mouseX <= kickX + 100 && mouseY >= kickY && mouseY <= kickY + 100 && kickSelected == false) {
@@ -80,11 +77,11 @@ class CircularBeatCreation {
         Clicked = true;
         hatSelected = true; 
         if (showInstrumentTooltip) {
-          showInstrumentTooltip = false; //<>// //<>// //<>// //<>//
-          showBeatTooltip = true; //<>// //<>// //<>// //<>//
+          showInstrumentTooltip = false;
+          showBeatTooltip = true;
         }
-      } else if (mouseX >= snareX && mouseX <= snareX + 100 && mouseY >= snareY && mouseY <= snareY + 100 && snareSelected == false) {
-        Clicked = true;
+      } else if (mouseX >= snareX && mouseX <= snareX + 100 && mouseY >= snareY && mouseY <= snareY + 100 && snareSelected == false) { //<>//
+        Clicked = true; //<>//
         snareSelected = true;
         if (showInstrumentTooltip) {
           showInstrumentTooltip = false;
@@ -102,209 +99,254 @@ class CircularBeatCreation {
       }
       // layout toggle check
       else if (mouseX >= 1140 && mouseX <= 1200 && mouseY >= 25 && mouseY <= 70){
-        linearLayoutToggle = true;
+        renderCircular = false;
         area.setVisible(false);
-        circularLayoutToggle = false;
       }
       else if (mouseX >= 613 && mouseX <= 640 && mouseY >= 198 && mouseY <= 263) {
-        kickFilled[0] = !kickFilled[0]; //<>//
-        Beats.updateBeats(0, 0, !kickFilled[0]); //<>//
+        kickFilled[0] = !kickFilled[0];
+        Beats.updateBeats(0, 0, !kickFilled[0]);
+        showBeatTooltip = false;
       }
-      else if (mouseX >= 645 && mouseX <= 680 && mouseY >= 209 && mouseY <= 276) {
+      else if (mouseX >= 645 && mouseX <= 680 && mouseY >= 209 && mouseY <= 276) { //<>//
         kickFilled[1] = !kickFilled[1]; //<>//
-        Beats.updateBeats(0, 1, kickFilled[1]); //<>//
-      }
-      else if (mouseX >= 648 && mouseX <= 724 && mouseY >= 255 && mouseY <= 285) {
+        Beats.updateBeats(0, 1, kickFilled[1]);
+        showBeatTooltip = false;
+      } //<>//
+      else if (mouseX >= 648 && mouseX <= 724 && mouseY >= 255 && mouseY <= 285) { //<>//
         kickFilled[2] = !kickFilled[2];
         Beats.updateBeats(0, 2, kickFilled[2]);
+        showBeatTooltip = false;
       }
       else if (mouseX >= 658 && mouseX <= 727 && mouseY >= 275 && mouseY <= 313) {
         kickFilled[3] = !kickFilled[3];
         Beats.updateBeats(0, 3, kickFilled[3]);
+        showBeatTooltip = false;
       }
       else if (mouseX >= 653 && mouseX <= 729 && mouseY >= 312 && mouseY <= 360) {
         kickFilled[4] = !kickFilled[4];
         Beats.updateBeats(0, 4, kickFilled[4]);
+        showBeatTooltip = false;
       }
       else if (mouseX >= 642 && mouseX <= 718 && mouseY >= 334 && mouseY <= 380) {
         kickFilled[5] = !kickFilled[5];
         Beats.updateBeats(0, 5, kickFilled[5]);
+        showBeatTooltip = false;
       }
       else if (mouseX >= 635 && mouseX <= 664 && mouseY >= 343 && mouseY <= 411) {
         kickFilled[6] = !kickFilled[6];
         Beats.updateBeats(0, 6, kickFilled[6]);
+        showBeatTooltip = false;
       }
       else if (mouseX >= 618 && mouseX <= 654 && mouseY >= 358 && mouseY <= 422) {
         kickFilled[7] = !kickFilled[7];
         Beats.updateBeats(0, 7, kickFilled[7]);
+        showBeatTooltip = false;
       }
       else if (mouseX >= 600 && mouseX <= 644 && mouseY >= 352 && mouseY <= 425) {
         kickFilled[8] = !kickFilled[8];
         Beats.updateBeats(0, 8, kickFilled[8]);
+        showBeatTooltip = false;
       }
       else if (mouseX >= 536 && mouseX <= 593 && mouseY >= 344 && mouseY <= 417) {
         kickFilled[9] = !kickFilled[9];
         Beats.updateBeats(0, 9, kickFilled[9]);
+        showBeatTooltip = false;
       }
       else if (mouseX >= 509 && mouseX <= 580 && mouseY >= 327 && mouseY <= 392) {
         kickFilled[10] = !kickFilled[10];
         Beats.updateBeats(0, 10, kickFilled[10]);
+        showBeatTooltip = false;
       }
       else if (mouseX >= 496 && mouseX <= 567 && mouseY >= 316 && mouseY <= 361) {
         kickFilled[11] = !kickFilled[11];
         Beats.updateBeats(0, 11, kickFilled[11]);
+        showBeatTooltip = false;
       }
       else if (mouseX >= 496 && mouseX <= 567 && mouseY >= 275 && mouseY <= 313) {
         kickFilled[12] = !kickFilled[12];
         Beats.updateBeats(0, 12, kickFilled[12]);
+        showBeatTooltip = false;
       }
       else if (mouseX >= 504 && mouseX <= 571 && mouseY >= 230 && mouseY <= 294) {
         kickFilled[13] = !kickFilled[13];
         Beats.updateBeats(0, 13, kickFilled[13]);
+        showBeatTooltip = false;
       }
       else if (mouseX >= 535 && mouseX <= 584 && mouseY >= 205 && mouseY <= 278) {
         kickFilled[14] = !kickFilled[14];
         Beats.updateBeats(0, 14, kickFilled[14]);
+        showBeatTooltip = false;
       }
       else if (mouseX >= 570 && mouseX <= 610 && mouseY >= 196 && mouseY <= 266) {
         kickFilled[15] = !kickFilled[15];
         Beats.updateBeats(0, 15, kickFilled[15]);
+        showBeatTooltip = false;
       }
       else if (mouseX >= 612.5 && mouseX <= 690 && mouseY >= 139 && mouseY <= 202) {
         snareFilled[0] = !snareFilled[0];
         Beats.updateBeats(1, 0, snareFilled[0]);
+        showBeatTooltip = false;
       }
       else if (mouseX >= 672 && mouseX <= 748 && mouseY >= 158 && mouseY <= 229) {
         snareFilled[1] = !snareFilled[1];
         Beats.updateBeats(1, 1, snareFilled[1]);
+        showBeatTooltip = false;
       }
       else if (mouseX >= 706 && mouseX <= 779 && mouseY >= 200 && mouseY <= 270) {
         snareFilled[2] = !snareFilled[2];
         Beats.updateBeats(1, 2, snareFilled[2]);
+        showBeatTooltip = false;
       }
       else if (mouseX >= 734 && mouseX <= 796 && mouseY >= 269 && mouseY <= 312) {
         snareFilled[3] = !snareFilled[3];
         Beats.updateBeats(1, 3, snareFilled[3]);
+        showBeatTooltip = false;
       }
       else if (mouseX >= 728 && mouseX <= 791 && mouseY >= 319 && mouseY <= 374) {
         snareFilled[4] = !snareFilled[4];
         Beats.updateBeats(1, 4, snareFilled[4]);
+        showBeatTooltip = false;
       }
       else if (mouseX >= 702 && mouseX <= 773 && mouseY >= 362 && mouseY <= 425) {
         snareFilled[5] = !snareFilled[5];
         Beats.updateBeats(1, 5, snareFilled[5]);
+        showBeatTooltip = false;
       }
       else if (mouseX >= 667 && mouseX <= 731 && mouseY >= 399 && mouseY <= 460) {
         snareFilled[6] = !snareFilled[6];
         Beats.updateBeats(1, 6, snareFilled[6]);
+        showBeatTooltip = false;
       }
       else if (mouseX >= 617 && mouseX <= 673 && mouseY >= 425 && mouseY <= 480) {
         snareFilled[7] = !snareFilled[7];
         Beats.updateBeats(1, 7, snareFilled[7]);
+        showBeatTooltip = false;
       }
       else if (mouseX >= 558 && mouseX <= 614 && mouseY >= 428 && mouseY <= 484) {
         snareFilled[8] = !snareFilled[8];
         Beats.updateBeats(1, 8, snareFilled[8]);
+        showBeatTooltip = false;
       }
       else if (mouseX >= 505 && mouseX <= 566 && mouseY >= 408 && mouseY <= 467) {
         snareFilled[9] = !snareFilled[9];
         Beats.updateBeats(1, 9, snareFilled[9]);
+        showBeatTooltip = false;
       }
       else if (mouseX >= 457 && mouseX <= 526 && mouseY >= 370 && mouseY <= 436) {
         snareFilled[10] = !snareFilled[10];
         Beats.updateBeats(1, 10, snareFilled[10]);
+        showBeatTooltip = false;
       }
       else if (mouseX >= 435 && mouseX <= 501 && mouseY >= 318 && mouseY <= 378) {
         snareFilled[11] = !snareFilled[11];
         Beats.updateBeats(1, 11, snareFilled[11]);
+        showBeatTooltip = false;
       }
       else if (mouseX >= 434 && mouseX <= 495 && mouseY >= 262 && mouseY <= 316) {
         snareFilled[12] = !snareFilled[12];
         Beats.updateBeats(1, 12, snareFilled[12]);
+        showBeatTooltip = false;
       }
       else if (mouseX >= 452 && mouseX <= 522 && mouseY >= 195 && mouseY <= 261) {
         snareFilled[13] = !snareFilled[13];
         Beats.updateBeats(1, 13, snareFilled[13]);
+        showBeatTooltip = false;
       }
       else if (mouseX >= 487 && mouseX <= 558 && mouseY >= 156 && mouseY <= 221) {
         snareFilled[14] = !snareFilled[14];
         Beats.updateBeats(1, 14, snareFilled[14]);
+        showBeatTooltip = false;
       }
       else if (mouseX >= 552 && mouseX <= 605 && mouseY >= 138 && mouseY <= 191) {
         snareFilled[15] = !snareFilled[15];
         Beats.updateBeats(1, 15, snareFilled[15]);
+        showBeatTooltip = false;
       }
       else if (mouseX >= 615 && mouseX <= 719 && mouseY >= 66 && mouseY <= 134) {
         hatFilled[0] = !hatFilled[0];
         Beats.updateBeats(2, 0, hatFilled[0]);
+        showBeatTooltip = false;
       }
       else if (mouseX >= 703 && mouseX <= 799 && mouseY >= 98 && mouseY <= 174) {
         hatFilled[1] = !hatFilled[1];
         Beats.updateBeats(2, 1, hatFilled[1]);
+        showBeatTooltip = false;
       }
       else if (mouseX >= 764 && mouseX <= 851 && mouseY >= 155 && mouseY <= 247) {
         hatFilled[2] = !hatFilled[2];
         Beats.updateBeats(2, 2, hatFilled[2]);
+        showBeatTooltip = false;
       }
       else if (mouseX >= 798 && mouseX <= 860 && mouseY >= 244 && mouseY <= 314) {
         hatFilled[3] = !hatFilled[3];
         Beats.updateBeats(2, 3, hatFilled[3]);
+        showBeatTooltip = false;
       }
       else if (mouseX >= 791 && mouseX <= 863 && mouseY >= 321 && mouseY <= 400) {
         hatFilled[4] = !hatFilled[4];
         Beats.updateBeats(2, 4, hatFilled[4]);
+        showBeatTooltip = false;
       }
       else if (mouseX >= 755 && mouseX <= 837 && mouseY >= 386 && mouseY <= 470) {
         hatFilled[5] = !hatFilled[5];
         Beats.updateBeats(2, 5, hatFilled[5]);
+        showBeatTooltip = false;
       }
       else if (mouseX >= 693 && mouseX <= 784 && mouseY >= 444 && mouseY <= 519) {
         hatFilled[6] = !hatFilled[6];
         Beats.updateBeats(2, 6, hatFilled[6]);
+        showBeatTooltip = false;
       }
       else if (mouseX >= 615 && mouseX <= 699 && mouseY >= 485 && mouseY <= 544) {
         hatFilled[7] = !hatFilled[7];
         Beats.updateBeats(2, 7, hatFilled[7]);
+        showBeatTooltip = false;
       }
       else if (mouseX >= 540 && mouseX <= 611 && mouseY >= 485 && mouseY <= 544) {
         hatFilled[8] = !hatFilled[8];
         Beats.updateBeats(2, 8, hatFilled[8]);
+        showBeatTooltip = false;
       }
       else if (mouseX >= 466 && mouseX <= 547 && mouseY >= 462 && mouseY <= 522) {
         hatFilled[9] = !hatFilled[9];
         Beats.updateBeats(2, 9, hatFilled[9]);
+        showBeatTooltip = false;
       }
       else if (mouseX >= 396 && mouseX <= 493 && mouseY >= 399 && mouseY <= 484) {
         hatFilled[10] = !hatFilled[10];
         Beats.updateBeats(2, 10, hatFilled[10]);
+        showBeatTooltip = false;
       }
       else if (mouseX >= 369 && mouseX <= 435 && mouseY >= 322 && mouseY <= 411) {
         hatFilled[11] = !hatFilled[11];
         Beats.updateBeats(2, 11, hatFilled[11]);
+        showBeatTooltip = false;
       }
       else if (mouseX >= 369 && mouseX <= 434 && mouseY >= 229 && mouseY <= 312) {
         hatFilled[12] = !hatFilled[12];
         Beats.updateBeats(2, 12, hatFilled[12]);
+        showBeatTooltip = false;
       }
       else if (mouseX >= 385 && mouseX <= 474 && mouseY >= 148 && mouseY <= 242) {
         hatFilled[13] = !hatFilled[13];
         Beats.updateBeats(2, 13, hatFilled[13]);
+        showBeatTooltip = false;
       }
       else if (mouseX >= 436 && mouseX <= 535 && mouseY >= 88 && mouseY <= 176) {
         hatFilled[14] = !hatFilled[14];
         Beats.updateBeats(2, 14, hatFilled[14]);
+        showBeatTooltip = false;
       }
       else if (mouseX >= 521 && mouseX <= 605 && mouseY >= 69 && mouseY <= 133) {
         hatFilled[15] = !hatFilled[15];
         Beats.updateBeats(2, 15, hatFilled[15]);
+        showBeatTooltip = false;
       } else if (mouseX >= algorithmButtonX && mouseX <= algorithmButtonX + 200 && mouseY >= algorithmButtonY && mouseY <= algorithmButtonY + 200) {
         // TODO: Update - this is temp route into LikeOrDislikeBeatPage
         area.setVisible(false);
         area.setOpaque(false);
         Clicked = true;
         algorithmButtonSelected = true;
-        circularLayoutToggle = false;
-        linearLayoutToggle = false; 
       }
       else {
       Clicked = false;
@@ -328,10 +370,6 @@ class CircularBeatCreation {
     return snareSelected;
   }
   
-  Boolean isLinearLayoutSelected() {
-    return linearLayoutToggle;
-  }
-  
   void setKickSelected(boolean s) {
     kickSelected = s;
   }
@@ -349,7 +387,7 @@ class CircularBeatCreation {
   }
   
   void render(DrumBeats beats) {
-    if (circularLayoutToggle){
+    if (renderCircular && !algorithmButtonSelected){
     Beats = beats;
     kickFilled = Beats.getRow(0);
     snareFilled = Beats.getRow(1);
@@ -376,8 +414,8 @@ class CircularBeatCreation {
     
     // Show tooltips
     if (showNameTooltip) {
-      Tooltip beatTooltip = new Tooltip("Add a name for your beat","T",25,80,300,30);   
-      beatTooltip.drawTooltip();
+      Tooltip nameTooltip = new Tooltip("Add a name for your beat","T",25,80,300,30);   
+      nameTooltip.drawTooltip();
     } else if (showInstrumentTooltip && !kickSelected && !hatSelected && !snareSelected) {
       Tooltip instrumentTooltip = new Tooltip("Select an instrument to add to your beat","T",25,710,300,30);
       instrumentTooltip.drawTooltip();
@@ -1411,6 +1449,11 @@ class CircularBeatCreation {
     if (!kickSelected && !hatSelected && !snareSelected)
     showInstrumentTooltip = true;
   }
+  
+  void setRenderCircular(boolean b) {
+    renderCircular = b;
+  }
+  boolean getRenderCircular() {return renderCircular;}
 
 
 }
