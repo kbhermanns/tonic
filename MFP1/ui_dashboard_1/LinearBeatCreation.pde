@@ -21,8 +21,7 @@ class LinearBeatCreation {
   int snareFill;  
   float snareX = 328; 
   float snareY = 638.66; 
-  boolean linearLayoutToggle = true;
-  boolean circularLayoutToggle = false;
+  boolean renderLinear = true;
   color circleToggleFill = color(-16524602);
   color linearToggleFill = color(-16524602);
   Boolean algorithmButtonSelected = false;
@@ -125,14 +124,11 @@ class LinearBeatCreation {
         area.setOpaque(false);
         Clicked = true;
         algorithmButtonSelected = true;
-        circularLayoutToggle = true;
-        linearLayoutToggle = false; 
       }
       // layout toggle check
       else if (mouseX >= 1075 && mouseX <= 1135 && mouseY >= 25 && mouseY <= 70){
-        circularLayoutToggle = true;
         area.setVisible(false);
-        linearLayoutToggle = false; 
+        renderLinear = false;
       }
       //kick buttons check
       for(int i = 0; i < kickButtons.size() - 1; ++i) {
@@ -173,14 +169,6 @@ class LinearBeatCreation {
     return snareSelected;
   }
   
-  Boolean isCircularLayoutSelected() {
-    return circularLayoutToggle;
-  }
-  
-  //Boolean isLinearLayoutSelected() {
-  
-  //}
-  
   Boolean isAlgorithmButtonSelected() {
     return algorithmButtonSelected;
   }
@@ -198,7 +186,7 @@ class LinearBeatCreation {
   }
   
   void render(DrumBeats beats) {
-   if (linearLayoutToggle){
+   if (renderLinear && !algorithmButtonSelected){
       println("linear rendered");
     Beats = beats;
     background(-14079703);
@@ -363,6 +351,11 @@ class LinearBeatCreation {
     showNameTooltip = false;
     showInstrumentTooltip = true;
   }
+  
+  void setRenderLinear(boolean b) {
+    renderLinear = b; 
+  }
+  boolean getRenderLinear() {return renderLinear;}
   DrumBeats getBeats() { return Beats;}
   LikeOrDislikeBeat getLikeOrDislike() {return createLikeOrDislikeBeat;}
 }
