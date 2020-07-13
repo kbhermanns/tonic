@@ -49,7 +49,7 @@ void setup(){
    createLinearBeat = new LinearBeatCreation(beats, this);
    createCircularBeat = new CircularBeatCreation(beats, this);
    
-   createQuiz = new Quiz();
+   createQuiz = new Quiz(this);
    dashImg = loadImage("Dashboard.png");
    
    playButton = new GButton(this, 380, 30, 80, 30, "PLAY");
@@ -129,7 +129,6 @@ void draw(){
 
     if (renderQuiz){
     createQuiz.render();
-    createQuiz.update();
   }
 
   if(createQuiz.isGoClicked()){
