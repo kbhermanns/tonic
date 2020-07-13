@@ -34,6 +34,8 @@ boolean stopPlay = true;
 GButton playButton;
 GButton playGA1;
 GButton playGA2;
+GButton save; 
+GButton cancel;
 DrumBeats gaBeat1;
 DrumBeats gaBeat2;
 
@@ -63,6 +65,22 @@ void setup(){
    playGA2.addEventHandler(this, "playGA2Handler");
    playGA2.setVisible(false);
    
+   save = new GButton(this, 950, 700, 160, 80, "Save");
+   save.addEventHandler(this, "saveHandler");
+   save.setLocalColor(2, color(41,41,41)); //text color
+   save.setLocalColor(3, color(51,174,100)); //border colour
+   save.setLocalColor(4, color(51,174,100)); //background color
+   save.setFont(new Font("Gothic A1", Font.PLAIN, 30));
+   save.setVisible(false);
+   
+   cancel = new GButton(this, 1125, 700, 160, 80, "Cancel");
+   cancel.addEventHandler(this, "cancelHandler");
+   cancel.setLocalColor(2, color(41,41,41)); //text color
+   cancel.setLocalColor(3, color(239,76,86)); //border colour
+   cancel.setLocalColor(4, color(239,76,86)); //background colour
+   cancel.setFont(new Font("Gothic A1", Font.PLAIN, 30));
+   cancel.setVisible(false);
+   
    gaBeat1 = new DrumBeats(this,3,16);
    gaBeat1.audioSetup();
    gaBeat1.mute();
@@ -87,7 +105,6 @@ void draw(){
   
   }
 
-  
   if (renderQuiz){
     createQuiz.render();
     createQuiz.update();
@@ -116,6 +133,8 @@ void draw(){
   if (addABeatButton.isClicked()) {
     renderAddABeat = false;
     renderLinearBeat = true;
+    save.setVisible(true);
+    cancel.setVisible(true);
     addABeatButton.reset();
     createLinearBeat.render();
   }
@@ -170,4 +189,10 @@ public void playGA2Handler(GButton button, GEvent event) {
   if (gaBeat2.isMuted()) gaBeat2.unMute();
   else gaBeat2.mute();
   gaBeat2.setBeats(thisOrThat.getBeat2().getEntireBeat());
+}
+
+public void cancelHandler(GButton button, GEvent event) {  
+}
+
+public void saveHandler(GButton button, GEvent event) {  
 }
