@@ -103,9 +103,8 @@ class LinearBeatCreation {
         circularLayoutToggle = false;
         linearLayoutToggle = false; 
         algorithmButtonSelected = true;
-      }
-      // layout toggle check
-      else if (mouseX >= 1075 && mouseX <= 1135 && mouseY >= 25 && mouseY <= 70){
+      } else if (mouseX >= 1075 && mouseX <= 1135 && mouseY >= 25 && mouseY <= 70){
+        // layout toggle check
         circularLayoutToggle = true;
         linearLayoutToggle = false; 
       }
@@ -176,7 +175,7 @@ class LinearBeatCreation {
     stroke(-1);
     line(1.6193323, 570, 1297.0852, 570);
     
-    algorithmButton = new RectangularButton(-16524602, 7.933884, -16524602, 1078.1515, 497.4589, 1.5648444, -34.9776, -189.1425, 24.9776, 100.195866, "Get Help From Algorithm", 1123.74, 490.98, 24);
+   algorithmButton = new RectangularButton(-16524602, 7.933884, -16524602, 1078.1515, 497.4589, 1.5648444, -34.9776, -189.1425, 24.9776, 100.195866, "Get Help From Algorithm", 1123.74, 490.98, 24);
 
     // Text Input for Name of Song
     area.setVisible(true);

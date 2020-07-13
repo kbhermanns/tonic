@@ -66,22 +66,17 @@ class ThisOrThat {
       beats1.beats.length, beats1.beats[0].length
     );
     
-    
-    // create linear beats - TODO update to grab the beat we have 
     kickButtons = new ArrayList<RectangularButton>();
     for (int k = 0; k < 17; k++) {
       kickButtons.add(new RectangularButton(-13421259, -2039584, 3.553719, -2039584, (178 + 70*k), 630, 1.5728104, -27.204773, -24.613892, 24, 24));
-      //kickButtons.get(k).setSelected(Beats.getBeatValue(1,k));
     }
     snareButtons = new ArrayList<RectangularButton>();
     for (int m = 0; m < 17; m++) {
       snareButtons.add(new RectangularButton(-13421259, -2039584, 3.553719, -2039584, (178 + 70*m), 690, 1.5728104, -25.909317, -24.749884, 24, 24));
-      //snareButtons.get(m).setSelected(Beats.getBeatValue(2,m));
     }
     hatButtons = new ArrayList<RectangularButton>();
     for (int n = 0; n < 17; n++) {
       hatButtons.add(new RectangularButton(-13421259, -2039584, 3.553719, -2039584, (178 + 70*n), 750, 1.5728104, -25.909317, -24.749884, 24, 24));
-      //hatButtons.get(n).setSelected(Beats.getBeatValue(1,n));
     }
   }
 
@@ -93,70 +88,9 @@ class ThisOrThat {
         beats2.beats = population.getSecondBestBeat();
         firstPairCreated = true;
       }
-       if (mousePressed == true && mouseButton == LEFT) {
-      if (((mouseX >= leftPlayButtonx && mouseX <= leftPlayButtonx + 100) || (mouseX >= leftPlayButtonx - 100 && mouseX <= leftPlayButtonx)) 
-      && ((mouseY >= leftPlayButtony && mouseY <= leftPlayButtony + 120) || (mouseY >= leftPlayButtony - 120 && mouseY <= leftPlayButtony))) {
-         // user wants to play left beat (teal)
-        // TODO: link up to play button 
-        //println("Abby clicked left play button");
-        playBeatOutLoud();
-      } else if (((mouseX >= rightPlayButtonx && mouseX <= rightPlayButtonx + 100) || (mouseX >= rightPlayButtonx - 100 && mouseX <= rightPlayButtonx)) 
-      && ((mouseY >= rightPlayButtony && mouseY <= rightPlayButtony + 100) || (mouseY >= rightPlayButtony - 100 && mouseY <= rightPlayButtony))) {
-        // user wants to play right beat (purple)
-        // TODO: link up to play button 
-        //println("Abby clicked right play button");
-        playBeatOutLoud();
-      } else if (((mouseX >= leftIPreferThisButtonx && mouseX <= leftIPreferThisButtonx + 270) || (mouseX >= leftIPreferThisButtonx - 270 && mouseX <= leftIPreferThisButtonx)) 
-      && ((mouseY >= leftIPreferThisButtony && mouseY <= leftIPreferThisButtony + 70) || (mouseY >= leftIPreferThisButtony - 70 && mouseY <= leftIPreferThisButtony))) {
-        // user prefers left beat (teal)
-        //println("Abby clicked prefer left beat");
-        // TODO - let the GA know that the user likes the beat
-        // TODO - get a new beat from GA - will this by calling fittestbeat()?
-        // 
-        population.run(beats1.beats, beats2.beats, originalBeat.beats, target_beats, 100);
-        beats1.beats = population.getBestBeat();
-        beats2.beats = population.getSecondBestBeat();
-      } else if (((mouseX >= rightIPreferThisButtonx && mouseX <= rightIPreferThisButtonx + 270) || (mouseX >= rightIPreferThisButtonx - 270 && mouseX <= rightIPreferThisButtonx)) 
-      && ((mouseY >= rightIPreferThisButtony && mouseY <= rightIPreferThisButtony + 70) || (mouseY >= rightIPreferThisButtony - 70 && mouseY <= rightIPreferThisButtony))) {
-         // user prefers right beat (purple)
-         //println("Abby clicked prefer right beat");
-        // TODO - let the GA know that the user does not like the beat the beat 
-        // TODO - get a new beat from GA - will this by calling fittestbeat()?
-        //
-        population.run(beats2.beats, beats1.beats, originalBeat.beats, target_beats, 100);
-        beats1.beats = population.getBestBeat();
-        beats2.beats = population.getSecondBestBeat();
-      } else if (((mouseX >= useThisBeatLeftButtonx && mouseX <= useThisBeatLeftButtonx + 300) || (mouseX >= useThisBeatLeftButtonx - 300 && mouseX <= useThisBeatLeftButtonx)) 
-      && ((mouseY >= useThisBeatLeftButtony && mouseY <= useThisBeatLeftButtony + 60) || (mouseY >= useThisBeatLeftButtony - 60 && mouseY <= useThisBeatLeftButtony))) {
-        // user wants to use left beat in song (teal)
-        //println("Abby clicked  use left beat in song (teal)");
-        // TODO: are we going to handle this in prototype?? 
-      } else if (((mouseX >= useThisBeatRightButtonx && mouseX <= useThisBeatRightButtonx + 300) || (mouseX >= useThisBeatRightButtonx - 300 && mouseX <= useThisBeatRightButtonx)) 
-      && ((mouseY >= useThisBeatRightButtony && mouseY <= useThisBeatRightButtony + 60) || (mouseY >= useThisBeatRightButtony - 60 && mouseY <= useThisBeatRightButtony))) {
-        // user wants to use right beat in song (purple)
-        //println("Abby clicked  use right beat in song (purple)");
-        // TODO: are we going to handle this in prototype?? 
-      }  else if (((mouseX >= useThisBeatRightButtonx && mouseX <= useThisBeatRightButtonx + 300) || (mouseX >= useThisBeatRightButtonx - 300 && mouseX <= useThisBeatRightButtonx)) 
-      && ((mouseY >= useThisBeatRightButtony && mouseY <= useThisBeatRightButtony + 60) || (mouseY >= useThisBeatRightButtony - 60 && mouseY <= useThisBeatRightButtony))) {
-      }
-       }
-  }
-  
-  void playBeatOutLoud() {
-    // TODO: Update once we have this functionality
-  }
-  
-  void pauseBeat() {
-    // TODO - add ability to pause 
-  }
-  
-  void selectedPreferredBeat() {
-    // TODO: let GA know which beat was selected so it can update 
-    // TODO: set variable here 
   }
   
   void render() {
-    playBeatOutLoud();
     // Background 
     size(1300, 800);
     background(41, 41, 41);
@@ -277,49 +211,49 @@ class ThisOrThat {
     image(tealMusicPlayingImage, 0, 0, 196.91081, 183.95615);
     popMatrix();
 
-    // I prefer this button purple
-    noFill();
-    noStroke();
-    pushMatrix();
-    translate(828.1266, 501.3453);
-    rotate(0.0);
-    rectMode(CORNERS);
-    rect(0, 0, 250.0249, 55.705017);
-    image(preferPurpleButtonImage, 0, 0, 250.0249, 55.705017);
-    popMatrix();
+    //// I prefer this button purple
+    //noFill();
+    //noStroke();
+    //pushMatrix();
+    //translate(828.1266, 501.3453);
+    //rotate(0.0);
+    //rectMode(CORNERS);
+    //rect(0, 0, 250.0249, 55.705017);
+    //image(preferPurpleButtonImage, 0, 0, 250.0249, 55.705017);
+    //popMatrix();
     
-    // I prefer this button teal
-    noFill();
-    noStroke();
-    pushMatrix();
-    translate(210.18935, 500.04984);
-    rotate(0.0);
-    rectMode(CORNERS);
-    rect(0, 0, 250.0249, 55.705017);
-    image(preferTealButtonImage, 0, 0, 250.0249, 55.705017);
-    popMatrix();
+    //// I prefer this button teal
+    //noFill();
+    //noStroke();
+    //pushMatrix();
+    //translate(210.18935, 500.04984);
+    //rotate(0.0);
+    //rectMode(CORNERS);
+    //rect(0, 0, 250.0249, 55.705017);
+    //image(preferTealButtonImage, 0, 0, 250.0249, 55.705017);
+    //popMatrix();
     
-    // right use this in song button
-    noFill();
-    noStroke();
-    pushMatrix();
-    translate(806.10364, 573.8914);
-    rotate(0.0);
-    rectMode(CORNERS);
-    rect(0, 0, 292.77533, 53.114136);
-    image(useThisInSongButtonImage, 0, 0, 292.77533, 53.114136);
-    popMatrix();
+    //// right use this in song button
+    //noFill();
+    //noStroke();
+    //pushMatrix();
+    //translate(806.10364, 573.8914);
+    //rotate(0.0);
+    //rectMode(CORNERS);
+    //rect(0, 0, 292.77533, 53.114136);
+    //image(useThisInSongButtonImage, 0, 0, 292.77533, 53.114136);
+    //popMatrix();
     
-    // left use this in song button
-    noFill();
-    noStroke();
-    pushMatrix();
-    translate(179.09816, 572.59595);
-    rotate(0.0);
-    rectMode(CORNERS);
-    rect(0, 0, 301.84354, 53.114075);
-    image(useThisInSongButtonImage, 0, 0, 301.84354, 53.114075);
-    popMatrix();
+    //// left use this in song button
+    //noFill();
+    //noStroke();
+    //pushMatrix();
+    //translate(179.09816, 572.59595);
+    //rotate(0.0);
+    //rectMode(CORNERS);
+    //rect(0, 0, 301.84354, 53.114075);
+    //image(useThisInSongButtonImage, 0, 0, 301.84354, 53.114075);
+    //popMatrix();
     
     calculateWhatHasChangedInBeat1();
     calculateWhatHasChangedInBeat2();
