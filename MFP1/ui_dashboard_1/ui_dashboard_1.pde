@@ -33,6 +33,8 @@ boolean hatSelected = false;
 
 GButton playButton;
 GButton playGA;
+GButton save; 
+GButton cancel;
 DrumBeats gaBeat;
 
 void setup(){
@@ -57,6 +59,22 @@ void setup(){
    playGA = new GButton(this, 600, 200, 80, 30, "PLAY");
    playGA.addEventHandler(this, "playGAHandler");
    playGA.setVisible(false);
+   
+   save = new GButton(this, 950, 700, 160, 80, "Save");
+   save.addEventHandler(this, "saveHandler");
+   save.setLocalColor(2, color(41,41,41)); //text color
+   save.setLocalColor(3, color(51,174,100)); //border colour
+   save.setLocalColor(4, color(51,174,100)); //background color
+   save.setFont(new Font("Gothic A1", Font.PLAIN, 30));
+   save.setVisible(false);
+   
+   cancel = new GButton(this, 1125, 700, 160, 80, "Cancel");
+   cancel.addEventHandler(this, "cancelHandler");
+   cancel.setLocalColor(2, color(41,41,41)); //text color
+   cancel.setLocalColor(3, color(239,76,86)); //border colour
+   cancel.setLocalColor(4, color(239,76,86)); //background colour
+   cancel.setFont(new Font("Gothic A1", Font.PLAIN, 30));
+   cancel.setVisible(false);
    
    gaBeat = new DrumBeats(this);
    gaBeat.audioSetup();
@@ -85,6 +103,8 @@ void draw(){
   if (createLinearBeat.isAlgorithmButtonSelected() || createCircularBeat.isAlgorithmButtonSelected()) {
     playGA.setVisible(true);
     playButton.setVisible(false);
+    save.setVisible(false);
+    cancel.setVisible(false);
     beats.mute();    
   }
   
@@ -124,6 +144,8 @@ void draw(){
   }
   
  if (renderLinearBeat) {
+   save.setVisible(true);
+   cancel.setVisible(true);
    createLinearBeat.render(beats);
    beats = createLinearBeat.update();
    if (!createLinearBeat.isAlgorithmButtonSelected()) playButton.setVisible(true);
@@ -148,6 +170,8 @@ void draw(){
  }
  
   else if (renderCircularBeat){
+    save.setVisible(true);
+    cancel.setVisible(true);
     createCircularBeat.render(beats);
     beats = createCircularBeat.update();
     if (!createCircularBeat.isAlgorithmButtonSelected()) {
@@ -189,4 +213,10 @@ public void playGAHandler(GButton button, GEvent event) {
   else gaBeat.mute();
   LikeOrDislikeBeat likeDislike = createLinearBeat.getLikeOrDislike();
   gaBeat.setBeats(likeDislike.getBeat().getEntireBeat());
+}
+
+public void cancelHandler(GButton button, GEvent event) {  
+}
+
+public void saveHandler(GButton button, GEvent event) {  
 }
