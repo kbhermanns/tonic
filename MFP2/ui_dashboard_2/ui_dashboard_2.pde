@@ -17,6 +17,7 @@ boolean renderAddABeat = false;;
 boolean renderLinearBeat = false;
 boolean renderQuiz = true;
 boolean renderDash = false;
+boolean renderThisOrThat = false;
 PImage dashImg;
 
 String target_genre = "None";
@@ -40,11 +41,15 @@ GButton useThisInSongGA1;
 GButton useThisInSongGA2;
 BeatPopulation gaBeatPopulation1;
 DrumBeats originalGABeat;
+GButton getHelpFromAlgorithm;
 GButton save; 
 GButton cancel;
 DrumBeats gaBeat1;
 DrumBeats gaBeat2;
 
+// main teal color -  3, 218, 198
+// main purple color - 187, 134, 252
+  
 void setup(){
    size(1300, 800);
    beats = new DrumBeats(this,3,16);
@@ -71,26 +76,45 @@ void setup(){
    playGA2.addEventHandler(this, "playGA2Handler");
    playGA2.setVisible(false);
    
-   preferThisBeatGA1 = new GButton(this, 290, 500, 120, 30, "I Prefer this Beat");
+   preferThisBeatGA1 = new GButton(this, 250, 480, 200, 60, "I Prefer this Beat");
    preferThisBeatGA1.addEventHandler(this, "preferThisBeatHandler1");
+   preferThisBeatGA1.setLocalColor(2, color(41,41,41)); //text color
+   preferThisBeatGA1.setLocalColor(3, color(66,65,62)); //border colour
+   preferThisBeatGA1.setLocalColor(4, color(3, 218, 198)); //background color
+   preferThisBeatGA1.setFont(new Font("Gothic A1", Font.PLAIN, 25));
    preferThisBeatGA1.setVisible(false);
-   //preferThisBeatGA1.setLocalColor(2, color(252,252,252)); //text color
-   //preferThisBeatGA1.setLocalColor(6, color(66,65,62)); //border colour
-   //preferThisBeatGA1.setLocalColor(7, color(3, 218, 198)); //background color
-  // main teal color -  3, 218, 198
-  // main purple color - 187, 134, 252
    
-   preferThisBeatGA2 = new GButton(this, 915, 500, 120, 30, "I Prefer this Beat");
+   preferThisBeatGA2 = new GButton(this, 870, 480, 200, 60, "I Prefer this Beat");
    preferThisBeatGA2.addEventHandler(this, "preferThisBeatHandler2");
+   preferThisBeatGA2.setLocalColor(2, color(41,41,41)); //text color
+   preferThisBeatGA2.setLocalColor(3, color(66,65,62)); //border colour
+   preferThisBeatGA2.setLocalColor(4, color(187, 134, 252)); //background color
+   preferThisBeatGA2.setFont(new Font("Gothic A1", Font.PLAIN, 25));
    preferThisBeatGA2.setVisible(false);
    
-   useThisInSongGA1 = new GButton(this, 280, 600, 150, 30, "Use this Beat in Song");
+   useThisInSongGA1 = new GButton(this, 230, 550, 250, 60, "Use this Beat in Song");
    useThisInSongGA1.addEventHandler(this, "useThisInSongBeatHandler1");
+   useThisInSongGA1.setLocalColor(2, color(41,41,41)); //text color
+   useThisInSongGA1.setLocalColor(3, color(66,65,62)); //border colour
+   useThisInSongGA1.setLocalColor(4, color(3, 218, 198)); //background color
+   useThisInSongGA1.setFont(new Font("Gothic A1", Font.PLAIN, 25));
    useThisInSongGA1.setVisible(false);
    
-   useThisInSongGA2 = new GButton(this, 905, 600, 150, 30, "Use this Beat in Song");
+   useThisInSongGA2 = new GButton(this, 850, 550, 250, 60, "Use this Beat in Song");
    useThisInSongGA2.addEventHandler(this, "useThisInSongBeatHandler2");
+   useThisInSongGA2.setLocalColor(2, color(41,41,41)); //text color
+   useThisInSongGA2.setLocalColor(3, color(66,65,62)); //border colour
+   useThisInSongGA2.setLocalColor(4, color(187, 134, 252)); //background color
+   useThisInSongGA2.setFont(new Font("Gothic A1", Font.PLAIN, 25));
    useThisInSongGA2.setVisible(false);
+   
+   getHelpFromAlgorithm = new GButton(this, 950, 450, 320, 60, "Get Help from Algorithm");
+   getHelpFromAlgorithm.addEventHandler(this, "getHelpFromAlgorithmHandler");
+   getHelpFromAlgorithm.setLocalColor(2, color(41,41,41)); //text color
+   getHelpFromAlgorithm.setLocalColor(3, color(51,174,100)); //border colour
+   getHelpFromAlgorithm.setLocalColor(4, color(3, 218, 198)); //background color
+   getHelpFromAlgorithm.setFont(new Font("Gothic A1", Font.PLAIN, 25));
+   getHelpFromAlgorithm.setVisible(false);
 
    save = new GButton(this, 950, 700, 160, 80, "Save");
    save.addEventHandler(this, "saveHandler");
@@ -124,19 +148,6 @@ void draw(){
   translate(5.50573, -1.295466);
   rotate(0.0);
   popMatrix();
-  
-  if (createLinearBeat.isAlgorithmButtonSelected()) {
-  playGA1.setVisible(true); 
-  playGA2.setVisible(true); 
-  useThisInSongGA1.setVisible(true);
-  useThisInSongGA2.setVisible(true);
-  preferThisBeatGA1.setVisible(true);
-  preferThisBeatGA2.setVisible(true);
-  playButton.setVisible(false);
-  save.setVisible(false);
-  cancel.setVisible(false);
-  beats.mute();
-  }
 
   if (renderQuiz){
     createQuiz.render();
@@ -165,10 +176,27 @@ void draw(){
   if (addABeatButton.isClicked()) {
     renderAddABeat = false;
     renderLinearBeat = true;
+    playButton.setVisible(false);
+    //getHelpFromAlgorithm.setVisible(true);
     save.setVisible(true);
     cancel.setVisible(true);
-    addABeatButton.reset();
-    createLinearBeat.render();
+    beats.mute();
+  }
+  
+  // TODO: having issues with this so fix later - Abby
+  if (renderThisOrThat) {
+    thisOrThat.render();
+    thisOrThat.update();
+    playButton.setVisible(false);
+    save.setVisible(false);
+    cancel.setVisible(false);
+    getHelpFromAlgorithm.setVisible(false);
+    playGA1.setVisible(true); 
+    playGA2.setVisible(true);
+    preferThisBeatGA1.setVisible(true);
+    preferThisBeatGA2.setVisible(true);
+    useThisInSongGA1.setVisible(true);
+    useThisInSongGA2.setVisible(true);
   }
  
  if (renderLinearBeat) {
@@ -191,8 +219,18 @@ void draw(){
      }
    }  else {
      // algorithm button was selected 
-     thisOrThat.render();
-     thisOrThat.update();
+    playButton.setVisible(false);
+    save.setVisible(false);
+    cancel.setVisible(false);
+    getHelpFromAlgorithm.setVisible(false);
+    playGA1.setVisible(true); 
+    playGA2.setVisible(true);
+    preferThisBeatGA1.setVisible(true);
+    preferThisBeatGA2.setVisible(true);
+    useThisInSongGA1.setVisible(true);
+    useThisInSongGA2.setVisible(true);
+    thisOrThat.render();
+    thisOrThat.update();
    }
   }
  }
@@ -227,6 +265,11 @@ public void cancelHandler(GButton button, GEvent event) {
 }
 
 public void saveHandler(GButton button, GEvent event) {  
+}
+
+public void getHelpFromAlgorithmHandler(GButton button, GEvent event) {
+    renderThisOrThat = true;
+    beats.mute();
 }
 
 public void preferThisBeatHandler1(GButton button, GEvent event) {  
