@@ -48,7 +48,7 @@ void setup(){
    addABeatY = height/2 - 105;
    addABeatHighlight = color(204);
    addABeatButton = new CircleButton(addABeatX, addABeatY, addABeatRadius);
-   createQuiz = new Quiz();
+   createQuiz = new Quiz(this);
    createLinearBeat = new LinearBeatCreation(beats, this);
    thisOrThat = new ThisOrThat(beats, this);
    dashImg = loadImage("Dashboard.png");
@@ -107,7 +107,6 @@ void draw(){
 
   if (renderQuiz){
     createQuiz.render();
-    createQuiz.update();
   }
 
   if(createQuiz.isGoClicked()){
