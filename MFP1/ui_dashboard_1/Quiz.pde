@@ -68,7 +68,7 @@ class Quiz{
     hipHopButton.setVisible(true);
     hipHopButton.setLocalColor(4, color(85,254,255)); //Background Colour
     hipHopButton.setLocalColor(6, color(170,255,255)); //Background Hover Colour
-    hipHopButton.setLocalColor(14, color(255,255,255)); //Background Selected Colour
+    hipHopButton.setLocalColor(14, color(170,255,255)); //Background Selected Colour
     hipHopButton.setLocalColor(3, color(40,230,255)); //Boarder Colour
     hipHopButton.setFont(new Font("Gothic A1", Font.PLAIN, 30));
     
@@ -77,7 +77,7 @@ class Quiz{
     discoPopButton.setVisible(true);
     discoPopButton.setLocalColor(4, color(85,254,255)); //Background Colour
     discoPopButton.setLocalColor(6, color(170,255,255)); //Background Hover Colour
-    discoPopButton.setLocalColor(14, color(255,255,255)); //Background Selected Colour
+    discoPopButton.setLocalColor(14, color(170,255,255)); //Background Selected Colour
     discoPopButton.setLocalColor(3, color(40,230,255)); //Boarder Colour
     discoPopButton.setFont(new Font("Gothic A1", Font.PLAIN, 30));
     
@@ -86,7 +86,7 @@ class Quiz{
     dubstepButton.setVisible(true);
     dubstepButton.setLocalColor(4, color(85,254,255)); //Background Colour
     dubstepButton.setLocalColor(6, color(170,255,255)); //Background Hover Colour
-    dubstepButton.setLocalColor(14, color(255,255,255)); //Background Selected Colour
+    dubstepButton.setLocalColor(14, color(170,255,255)); //Background Selected Colour
     dubstepButton.setLocalColor(3, color(40,230,255)); //Boarder Colour
     dubstepButton.setFont(new Font("Gothic A1", Font.PLAIN, 30));
     
@@ -95,7 +95,7 @@ class Quiz{
     rockButton.setVisible(true);
     rockButton.setLocalColor(4, color(85,254,255)); //Background Colour
     rockButton.setLocalColor(6, color(170,255,255)); //Background Hover Colour
-    rockButton.setLocalColor(14, color(255,255,255)); //Background Selected Colour
+    rockButton.setLocalColor(14, color(170,255,255)); //Background Selected Colour
     rockButton.setLocalColor(3, color(40,230,255)); //Boarder Colour
     rockButton.setFont(new Font("Gothic A1", Font.PLAIN, 30));
     
@@ -104,7 +104,7 @@ class Quiz{
     slowButton.setVisible(true);
     slowButton.setLocalColor(4, color(85,254,255)); //Background Colour
     slowButton.setLocalColor(6, color(170,255,255)); //Background Hover Colour
-    slowButton.setLocalColor(14, color(255,255,255)); //Background Selected Colour
+    slowButton.setLocalColor(14, color(170,255,255)); //Background Selected Colour
     slowButton.setLocalColor(3, color(40,230,255)); //Boarder Colour
     slowButton.setFont(new Font("Gothic A1", Font.PLAIN, 30));
     
@@ -113,7 +113,7 @@ class Quiz{
     walkingButton.setVisible(true);
     walkingButton.setLocalColor(4, color(85,254,255)); //Background Colour
     walkingButton.setLocalColor(6, color(170,255,255)); //Background Hover Colour
-    walkingButton.setLocalColor(14, color(255,255,255)); //Background Selected Colour
+    walkingButton.setLocalColor(14, color(170,255,255)); //Background Selected Colour
     walkingButton.setLocalColor(3, color(40,230,255)); //Boarder Colour
     walkingButton.setFont(new Font("Gothic A1", Font.PLAIN, 30));
     
@@ -122,7 +122,7 @@ class Quiz{
     moderateButton.setVisible(true);
     moderateButton.setLocalColor(4, color(85,254,255)); //Background Colour
     moderateButton.setLocalColor(6, color(170,255,255)); //Background Hover Colour
-    moderateButton.setLocalColor(14, color(255,255,255)); //Background Selected Colour
+    moderateButton.setLocalColor(14, color(170,255,255)); //Background Selected Colour
     moderateButton.setLocalColor(3, color(40,230,255)); //Boarder Colour
     moderateButton.setFont(new Font("Gothic A1", Font.PLAIN, 30));
     
@@ -131,7 +131,7 @@ class Quiz{
     heartbeatButton.setVisible(true);
     heartbeatButton.setLocalColor(4, color(85,254,255)); //Background Colour
     heartbeatButton.setLocalColor(6, color(170,255,255)); //Background Hover Colour
-    heartbeatButton.setLocalColor(14, color(255,255,255)); //Background Selected Colour
+    heartbeatButton.setLocalColor(14, color(170,255,255)); //Background Selected Colour
     heartbeatButton.setLocalColor(3, color(40,230,255)); //Boarder Colour
     heartbeatButton.setFont(new Font("Gothic A1", Font.PLAIN, 30));
     
@@ -140,7 +140,7 @@ class Quiz{
     fastButton.setVisible(true);
     fastButton.setLocalColor(4, color(85,254,255)); //Background Colour
     fastButton.setLocalColor(6, color(170,255,255)); //Background Hover Colour
-    fastButton.setLocalColor(14, color(255,255,255)); //Background Selected Colour
+    fastButton.setLocalColor(14, color(170,255,255)); //Background Selected Colour
     fastButton.setLocalColor(3, color(40,230,255)); //Boarder Colour
     fastButton.setFont(new Font("Gothic A1", Font.PLAIN, 30));
     
@@ -149,7 +149,7 @@ class Quiz{
     twoFourButton.setVisible(true);
     twoFourButton.setLocalColor(4, color(85,254,255)); //Background Colour
     twoFourButton.setLocalColor(6, color(170,255,255)); //Background Hover Colour
-    twoFourButton.setLocalColor(14, color(255,255,255)); //Background Selected Colour
+    twoFourButton.setLocalColor(14, color(170,255,255)); //Background Selected Colour
     twoFourButton.setLocalColor(3, color(40,230,255)); //Boarder Colour
     twoFourButton.setFont(new Font("Gothic A1", Font.PLAIN, 30));
     
@@ -158,7 +158,7 @@ class Quiz{
     threeFourButton.setVisible(true);
     threeFourButton.setLocalColor(4, color(85,254,255)); //Background Colour
     threeFourButton.setLocalColor(6, color(170,255,255)); //Background Hover Colour
-    threeFourButton.setLocalColor(14, color(255,255,255)); //Background Selected Colour
+    threeFourButton.setLocalColor(14, color(170,255,255)); //Background Selected Colour
     threeFourButton.setLocalColor(3, color(40,230,255)); //Boarder Colour
     threeFourButton.setFont(new Font("Gothic A1", Font.PLAIN, 30));
     
@@ -167,7 +167,7 @@ class Quiz{
     fourFourButton.setVisible(true);
     fourFourButton.setLocalColor(4, color(85,254,255)); //Background Colour
     fourFourButton.setLocalColor(6, color(170,255,255)); //Background Hover Colour
-    fourFourButton.setLocalColor(14, color(255,255,255)); //Background Selected Colour
+    fourFourButton.setLocalColor(14, color(170,255,255)); //Background Selected Colour
     fourFourButton.setLocalColor(3, color(40,230,255)); //Boarder Colour
     fourFourButton.setFont(new Font("Gothic A1", Font.PLAIN, 30));
     
@@ -176,7 +176,7 @@ class Quiz{
     yesSyncoButton.setVisible(true);
     yesSyncoButton.setLocalColor(4, color(85,254,255)); //Background Colour
     yesSyncoButton.setLocalColor(6, color(170,255,255)); //Background Hover Colour
-    yesSyncoButton.setLocalColor(14, color(255,255,255)); //Background Selected Colour
+    yesSyncoButton.setLocalColor(14, color(170,255,255)); //Background Selected Colour
     yesSyncoButton.setLocalColor(3, color(40,230,255)); //Boarder Colour
     yesSyncoButton.setFont(new Font("Gothic A1", Font.PLAIN, 30));
   
@@ -185,7 +185,7 @@ class Quiz{
     noSyncoButton.setVisible(true);
     noSyncoButton.setLocalColor(4, color(85,254,255)); //Background Colour
     noSyncoButton.setLocalColor(6, color(170,255,255)); //Background Hover Colour
-    noSyncoButton.setLocalColor(14, color(255,255,255)); //Background Selected Colour
+    noSyncoButton.setLocalColor(14, color(170,255,255)); //Background Selected Colour
     noSyncoButton.setLocalColor(3, color(40,230,255)); //Boarder Colour
     noSyncoButton.setFont(new Font("Gothic A1", Font.PLAIN, 30));
     
@@ -194,7 +194,7 @@ class Quiz{
     goButton.setVisible(true);
     goButton.setLocalColor(4, color(152,50,255)); //Background Colour
     goButton.setLocalColor(6, color(177,126,254)); //Background Hover Colour
-    goButton.setLocalColor(14, color(255,255,255)); //Background Selected Colour
+    goButton.setLocalColor(14, color(177,126,254)); //Background Selected Colour
     goButton.setLocalColor(3, color(83,75,255)); //Boarder Colour
     goButton.setFont(new Font("Gothic A1", Font.PLAIN, 30));
 }
