@@ -139,6 +139,12 @@ void setup(){
    gaBeat2 = new DrumBeats(this,3,16);
    gaBeat2.audioSetup();
    gaBeat2.mute();
+   
+   originalGABeat = new DrumBeats(this,3,16);
+   gaBeatPopulation1 = new BeatPopulation(
+      0.01, 50,
+      gaBeat1.beats.length, gaBeat1.beats[0].length
+    );
 }
 
 void draw(){ 
@@ -274,13 +280,16 @@ public void getHelpFromAlgorithmHandler(GButton button, GEvent event) {
 
 public void preferThisBeatHandler1(GButton button, GEvent event) {  
    // user prefers left beat (teal)
+      originalGABeat = gaBeat1;
    gaBeatPopulation1.run(gaBeat1.beats, gaBeat2.beats, originalGABeat.beats, target_beats, 100);
    gaBeat1.beats = gaBeatPopulation1.getBestBeat();
    gaBeat2.beats = gaBeatPopulation1.getSecondBestBeat();
+
 }
 
 public void preferThisBeatHandler2(GButton button, GEvent event) {  
    // user prefers left beat (teal)
+      originalGABeat = gaBeat2;
    gaBeatPopulation1.run(gaBeat2.beats, gaBeat1.beats, originalGABeat.beats, target_beats, 100);
    gaBeat1.beats = gaBeatPopulation1.getBestBeat();
    gaBeat2.beats = gaBeatPopulation1.getSecondBestBeat();
