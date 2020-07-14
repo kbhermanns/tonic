@@ -10,7 +10,7 @@ Boolean glob_go = false;
 
 class Quiz{
   
-    boolean[][] target_beats;
+    int[][] target_beats;
     int shiftx = 125;
     int shifty = -80;
     
@@ -53,16 +53,16 @@ class Quiz{
     
   
   Quiz(PApplet papp){
-    target_beats = new boolean[3][16];
+    target_beats = new int[3][16];
     for (int i = 0; i < 3; i++) {
       for (int j = 0; j < 16; j++) {
-        target_beats[i][j] = false;
+        target_beats[i][j] = 0;
       }
     }
     
     hipHopButton = new GButton(papp, 182.3423 + shiftx, 223.37125+ shifty, 150, 70, "808 Beats");
     hipHopButton.addEventHandler(papp, "genreHandler");
-    hipHopButton.setVisible(true);
+    hipHopButton.setVisible(false);
     hipHopButton.setLocalColor(4, color(85,254,255)); //Background Colour
     hipHopButton.setLocalColor(6, color(170,255,255)); //Background Hover Colour
     hipHopButton.setLocalColor(14, color(170,255,255)); //Background Selected Colour
@@ -71,7 +71,7 @@ class Quiz{
     
     discoPopButton = new GButton(papp, 362.28024 + shiftx, 221.82005 + shifty, 150, 70, "Radio Hits");
     discoPopButton.addEventHandler(papp, "genreHandler");
-    discoPopButton.setVisible(true);
+    discoPopButton.setVisible(false);
     discoPopButton.setLocalColor(4, color(85,254,255)); //Background Colour
     discoPopButton.setLocalColor(6, color(170,255,255)); //Background Hover Colour
     discoPopButton.setLocalColor(14, color(170,255,255)); //Background Selected Colour
@@ -80,7 +80,7 @@ class Quiz{
     
     dubstepButton = new GButton(papp, 542.2182 + shiftx, 223.37125+ shifty, 150, 70, "Dance Club");
     dubstepButton.addEventHandler(papp, "genreHandler");
-    dubstepButton.setVisible(true);
+    dubstepButton.setVisible(false);
     dubstepButton.setLocalColor(4, color(85,254,255)); //Background Colour
     dubstepButton.setLocalColor(6, color(170,255,255)); //Background Hover Colour
     dubstepButton.setLocalColor(14, color(170,255,255)); //Background Selected Colour
@@ -89,7 +89,7 @@ class Quiz{
     
     rockButton = new GButton(papp, 723.70734 + shiftx,  221.82005 + shifty, 150, 70, "Rock'n Roll");
     rockButton.addEventHandler(papp, "genreHandler");
-    rockButton.setVisible(true);
+    rockButton.setVisible(false);
     rockButton.setLocalColor(4, color(85,254,255)); //Background Colour
     rockButton.setLocalColor(6, color(170,255,255)); //Background Hover Colour
     rockButton.setLocalColor(14, color(170,255,255)); //Background Selected Colour
@@ -98,7 +98,7 @@ class Quiz{
     
     slowButton = new GButton(papp, 104.78284 + shiftx,  403.3092+ shifty, 150, 70,"Slow");
     slowButton.addEventHandler(papp, "speedHandler");
-    slowButton.setVisible(true);
+    slowButton.setVisible(false);
     slowButton.setLocalColor(4, color(85,254,255)); //Background Colour
     slowButton.setLocalColor(6, color(170,255,255)); //Background Hover Colour
     slowButton.setLocalColor(14, color(170,255,255)); //Background Selected Colour
@@ -107,7 +107,7 @@ class Quiz{
     
     walkingButton = new GButton(papp, 272.31128 + shiftx,  403.3092 + shifty, 150, 70,"Walking Pace");
     walkingButton.addEventHandler(papp, "speedHandler");
-    walkingButton.setVisible(true);
+    walkingButton.setVisible(false);
     walkingButton.setLocalColor(4, color(85,254,255)); //Background Colour
     walkingButton.setLocalColor(6, color(170,255,255)); //Background Hover Colour
     walkingButton.setLocalColor(14, color(170,255,255)); //Background Selected Colour
@@ -116,7 +116,7 @@ class Quiz{
     
     moderateButton = new GButton(papp, 450.698 + shiftx,  403.3092 + shifty, 150, 70,"Moderate");
     moderateButton.addEventHandler(papp, "speedHandler");
-    moderateButton.setVisible(true);
+    moderateButton.setVisible(false);
     moderateButton.setLocalColor(4, color(85,254,255)); //Background Colour
     moderateButton.setLocalColor(6, color(170,255,255)); //Background Hover Colour
     moderateButton.setLocalColor(14, color(170,255,255)); //Background Selected Colour
@@ -125,7 +125,7 @@ class Quiz{
     
     heartbeatButton = new GButton(papp, 632.18713 + shiftx,  403.3092 + shifty, 150, 70,"Heartbeat Pace");
     heartbeatButton.addEventHandler(papp, "speedHandler");
-    heartbeatButton.setVisible(true);
+    heartbeatButton.setVisible(false);
     heartbeatButton.setLocalColor(4, color(85,254,255)); //Background Colour
     heartbeatButton.setLocalColor(6, color(170,255,255)); //Background Hover Colour
     heartbeatButton.setLocalColor(14, color(170,255,255)); //Background Selected Colour
@@ -134,7 +134,7 @@ class Quiz{
     
     fastButton = new GButton(papp, 812.1251 + shiftx,  403.3092 + shifty, 150, 70,"Fast");
     fastButton.addEventHandler(papp, "speedHandler");
-    fastButton.setVisible(true);
+    fastButton.setVisible(false);
     fastButton.setLocalColor(4, color(85,254,255)); //Background Colour
     fastButton.setLocalColor(6, color(170,255,255)); //Background Hover Colour
     fastButton.setLocalColor(14, color(170,255,255)); //Background Selected Colour
@@ -143,7 +143,7 @@ class Quiz{
     
     twoFourButton = new GButton(papp, 272.31128 + shiftx, 581.696+ shifty, 150, 70,"2:4");
     twoFourButton.addEventHandler(papp, "timeSigHandler");
-    twoFourButton.setVisible(true);
+    twoFourButton.setVisible(false);
     twoFourButton.setLocalColor(4, color(85,254,255)); //Background Colour
     twoFourButton.setLocalColor(6, color(170,255,255)); //Background Hover Colour
     twoFourButton.setLocalColor(14, color(170,255,255)); //Background Selected Colour
@@ -152,7 +152,7 @@ class Quiz{
     
     threeFourButton = new GButton(papp, 452.2492 + shiftx, 581.696+ shifty, 150, 70,"3:4");
     threeFourButton.addEventHandler(papp, "timeSigHandler");
-    threeFourButton.setVisible(true);
+    threeFourButton.setVisible(false);
     threeFourButton.setLocalColor(4, color(85,254,255)); //Background Colour
     threeFourButton.setLocalColor(6, color(170,255,255)); //Background Hover Colour
     threeFourButton.setLocalColor(14, color(170,255,255)); //Background Selected Colour
@@ -161,7 +161,7 @@ class Quiz{
     
     fourFourButton = new GButton(papp, 632.18713 + shiftx, 581.696+ shifty, 150, 70,"4:4");
     fourFourButton.addEventHandler(papp, "timeSigHandler");
-    fourFourButton.setVisible(true);
+    fourFourButton.setVisible(false);
     fourFourButton.setLocalColor(4, color(85,254,255)); //Background Colour
     fourFourButton.setLocalColor(6, color(170,255,255)); //Background Hover Colour
     fourFourButton.setLocalColor(14, color(170,255,255)); //Background Selected Colour
@@ -170,7 +170,7 @@ class Quiz{
     
     yesSyncoButton = new GButton(papp,360.72906 + shiftx, 763.1851 + shifty, 150, 70,"Off Beat");
     yesSyncoButton.addEventHandler(papp, "syncoHandler");
-    yesSyncoButton.setVisible(true);
+    yesSyncoButton.setVisible(false);
     yesSyncoButton.setLocalColor(4, color(85,254,255)); //Background Colour
     yesSyncoButton.setLocalColor(6, color(170,255,255)); //Background Hover Colour
     yesSyncoButton.setLocalColor(14, color(170,255,255)); //Background Selected Colour
@@ -179,7 +179,7 @@ class Quiz{
   
     noSyncoButton = new GButton(papp, 542.2182 + shiftx, 763.1851 + shifty, 150, 70, "Strong Beat");
     noSyncoButton.addEventHandler(papp, "syncoHandler");
-    noSyncoButton.setVisible(true);
+    noSyncoButton.setVisible(false);
     noSyncoButton.setLocalColor(4, color(85,254,255)); //Background Colour
     noSyncoButton.setLocalColor(6, color(170,255,255)); //Background Hover Colour
     noSyncoButton.setLocalColor(14, color(170,255,255)); //Background Selected Colour
@@ -188,7 +188,7 @@ class Quiz{
     
     goButton = new GButton(papp, 812.1251 + shiftx, 808.8232 + shifty, 150, 70, "Go!");
     goButton.addEventHandler(papp, "goHandler");
-    goButton.setVisible(true);
+    goButton.setVisible(false);
     goButton.setLocalColor(4, color(152,50,255)); //Background Colour
     goButton.setLocalColor(6, color(177,126,254)); //Background Hover Colour
     goButton.setLocalColor(14, color(177,126,254)); //Background Selected Colour
@@ -224,6 +224,22 @@ class Quiz{
       yesSyncoButton.setVisible(false);
       noSyncoButton.setVisible(false); 
       goButton.setVisible(false);
+    } else {
+       hipHopButton.setVisible(true);
+      discoPopButton.setVisible(true);
+      dubstepButton.setVisible(true);
+      rockButton.setVisible(true);
+      slowButton.setVisible(true);
+      walkingButton.setVisible(true);
+      moderateButton.setVisible(true);
+      heartbeatButton.setVisible(true);
+      fastButton.setVisible(true);
+      twoFourButton.setVisible(true);
+      threeFourButton.setVisible(true);
+      fourFourButton.setVisible(true);
+      yesSyncoButton.setVisible(true);
+      noSyncoButton.setVisible(true); 
+      goButton.setVisible(true);
     }
     
     if(glob_genre == "Hip-Hop"){
@@ -313,11 +329,11 @@ class Quiz{
   }
  
   
-  boolean[][] getTargetBeats(){
+  int[][] getTargetBeats(){
     if (glob_genre == "Hip-Hop"){
-        boolean[][] copy_beats = {{true,false,false,false,false,false,false,false,true,false,true,false,false,false,false,false},
-          {false,false,false,false,true,false,false,false,false,false,false,false,true,false,false,false}, 
-          {false,false,true,false,false,false,true,false,false,false,false,false,false,false,true,false}};
+        int[][] copy_beats = {{1,0,0,0,0,0,0,0,1,0,1,0,0,0,0,0},
+          {0,0,0,0,1,0,0,0,0,0,0,0,1,0,0,0}, 
+          {0,0,1,0,0,0,1,0,0,0,0,0,0,0,1,0}};
         for (int i = 0; i < 3; i++) {
         for (int j = 0; j < 16; j++) {
           target_beats[i][j] = copy_beats[i][j];
@@ -325,9 +341,9 @@ class Quiz{
         }  
       }
       if(glob_genre == "Disco/Pop"){
-        boolean[][] copy_beats = {{true,false,false,false,false,false,false,false,true,false,false,false,false,false,false,false},
-          {false,false,false,false,true,false,false,false,false,false,false,false,true,false,false,false},
-          {true,false,true,false,false,false,true,false,true,false,true,false,false,false,true,false}};
+        int[][] copy_beats = {{1,0,0,0,0,0,0,0,1,0,0,0,0,0,0,0},
+          {0,0,0,0,1,0,0,0,0,0,0,0,1,0,0,0},
+          {1,0,1,0,0,0,1,0,1,0,1,0,0,0,1,0}};
         for (int i = 0; i < 3; i++) {
         for (int j = 0; j < 16; j++) {
           target_beats[i][j] = copy_beats[i][j];
@@ -335,9 +351,9 @@ class Quiz{
         }  
       }
       if(glob_genre == "Dubstep"){
-        boolean[][] copy_beats = {{true,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false},
-          {false,false,false,false,false,false,false,false,true,false,false,false,false,false,false,false},
-          {false,false,false,false,true,false,false,false,false,false,false,false,true,false,false,false}};
+        int[][] copy_beats = {{1,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0},
+          {0,0,0,0,0,0,0,0,1,0,0,0,0,0,0,0},
+          {0,0,0,0,1,0,0,0,0,0,0,0,1,0,0,0}};
         for (int i = 0; i < 3; i++) {
         for (int j = 0; j < 16; j++) {
           target_beats[i][j] = copy_beats[i][j];
@@ -345,9 +361,9 @@ class Quiz{
         }  
       }
        if(glob_genre == "Rock"){
-        boolean[][] copy_beats = {{true,false,true,false,false,false,true,false,true,false,true,false,false,false,true,false},
-          {false,false,false,false,true,false,false,false,false,false,false,false,true,false,false,false},
-          {true,false,true,false,true,false,true,false,true,false,true,false,true,false,true,false}};
+        int[][] copy_beats = {{1,0,1,0,0,0,1,0,1,0,1,0,0,0,1,0},
+          {0,0,0,0,1,0,0,0,0,0,0,0,1,0,0,0},
+          {1,0,1,0,1,0,1,0,1,0,1,0,1,0,1,0}};
         for (int i = 0; i < 3; i++) {
         for (int j = 0; j < 16; j++) {
           target_beats[i][j] = copy_beats[i][j];

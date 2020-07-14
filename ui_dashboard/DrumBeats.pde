@@ -16,30 +16,39 @@ class DrumBeats {
   int snareRow = 2;
   int hatRow = 3;
   
-  boolean[][] beats;
+  int[][] beats;
+  int[] holder;
   int bpm = 120;
   int curBeat;
   PApplet pa;
   
   DrumBeats(PApplet papp, int numIns, int numBeats) {
-    beats = new boolean[numIns][numBeats];
+    beats = new int[numIns][numBeats];
     pa = papp;
     minim = new Minim(pa);
     out   = minim.getLineOut();
   }
   
-  void updateBeats(int row, int column, boolean value) {
+  void updateBeats(int row, int column, int value) {
     beats[row][column] = value;
   }
-  void setEntireBeat(boolean[][] newBeat) {beats = newBeat;}
+  void setEntireBeat(int[][] newBeat) {beats = newBeat;}
   
-  boolean getBeat(int row, int column) {
+  int getBeat(int row, int column) {
     return beats[row][column];
   }
-  boolean[][] getEntireBeat(){
+  
+  int[] getRow(int row) {
+    holder = new int[16];
+    for (int i = 0; i < 16; i ++) {
+      holder[i] = beats[row][i];
+    }
+    return holder;
+  }
+  int[][] getEntireBeat(){
     return beats;
   }
-  void setBeats(boolean[][] newBeat) {
+  void setBeats(int[][] newBeat) {
     beats = newBeat;
   }
   
@@ -48,9 +57,9 @@ class DrumBeats {
   
   void noteOn( float dur )
   {
-    if ( beats[0][curBeat] ) kick.trigger();
-    if ( beats[1][curBeat] ) snare.trigger();
-    if ( beats[2][curBeat] ) hat.trigger();
+    if ( beats[0][curBeat] > 0) kick.trigger();
+    if ( beats[1][curBeat] > 0) snare.trigger();
+    if ( beats[2][curBeat] > 0) hat.trigger();
   }
   
   void noteOff()
@@ -63,8 +72,7 @@ class DrumBeats {
   
 }
 
-void audioSetup() {  
-    println("here");
+void audioSetup() {
     
     kick  = new Sampler( "BD.wav", 4, minim );
     snare = new Sampler( "SD.wav", 4, minim );
@@ -74,8 +82,7 @@ void audioSetup() {
     snare.patch( out );
     hat.patch( out );
   
-    curBeat = 0;
-    
+    curBeat = 0;    
   
     out.setTempo( bpm );
     out.playNote( 0, 0.25f, new Tick() );

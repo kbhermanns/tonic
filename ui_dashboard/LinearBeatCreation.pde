@@ -1,11 +1,9 @@
 
 import java.awt.Font;
 import java.awt.Rectangle;
-LikeOrDislikeBeat likeOrDislikeBeat;
 
 class LinearBeatCreation {
-  Boolean[] Beat;
-  LikeOrDislikeBeat createLikeOrDislikeBeat;
+  int[] Beat;
   PImage img17;
   Boolean Pressed = false; 
   Boolean Clicked = false;
@@ -55,7 +53,6 @@ class LinearBeatCreation {
     name = "";
     area.setVisible(false);
      Beats = beats;
-     createLikeOrDislikeBeat = new LikeOrDislikeBeat(Beats, true);
      kickButtons = new ArrayList<RectangularButton>();
      for (int k = 0; k < 17; k++) {
        kickButtons.add(new RectangularButton(-13421259, -2039584, 3.553719, -2039584, (178 + 70*k), 150, 1.5728104, -27.235615, -22.174805, 30.242954, 34.977585));
@@ -76,16 +73,16 @@ class LinearBeatCreation {
   DrumBeats update() {
     //update the status of the buttons
     for (int i = 0; i < kickButtons.size() - 1; i++){
-      if (Beats.getBeat(0,i)) showBeatTooltip = false;
-      kickButtons.get(i).setSelected(Beats.getBeat(0, i));
+      if (Beats.getBeat(0,i) > 0) showBeatTooltip = false;
+      kickButtons.get(i).setSelected(Beats.getBeat(0, i) > 0 ? true : false);
     }
     for (int j = 0; j < snareButtons.size() - 1; j++){
-      if (Beats.getBeat(0,j)) showBeatTooltip = false;
-      snareButtons.get(j).setSelected(Beats.getBeat(1, j));
+      if (Beats.getBeat(0,j) > 0) showBeatTooltip = false;
+      snareButtons.get(j).setSelected(Beats.getBeat(1, j)  > 0 ? true : false);
     }
     for (int k = 0; k < hatButtons.size() - 1; k++){
-      if (Beats.getBeat(0,k)) showBeatTooltip = false;
-      hatButtons.get(k).setSelected(Beats.getBeat(2, k));
+      if (Beats.getBeat(0,k) > 0) showBeatTooltip = false;
+      hatButtons.get(k).setSelected(Beats.getBeat(2, k)  > 0 ? true : false);
     }
     
 
@@ -131,17 +128,17 @@ class LinearBeatCreation {
       //kick buttons check
       for(int i = 0; i < kickButtons.size() - 1; ++i) {
         kickButtons.get(i).pressed();
-        Beats.updateBeats(0, i, kickButtons.get(i).getSelected());
+        Beats.updateBeats(0, i, int(kickButtons.get(i).getSelected() ? true : false));
       }
       //snare buttons check 
       for(int j = 0; j < snareButtons.size() - 1; ++j) {
         snareButtons.get(j).pressed();
-        Beats.updateBeats(1, j, snareButtons.get(j).getSelected());
+        Beats.updateBeats(1, j, int(snareButtons.get(j).getSelected() ? true : false));
       }
       //hat buttons check
       for(int k = 0; k < hatButtons.size() - 1; ++k) {
         hatButtons.get(k).pressed();
-        Beats.updateBeats(2, k, hatButtons.get(k).getSelected());
+        Beats.updateBeats(2, k, int(hatButtons.get(k).getSelected() ? true : false));
       }
     }
       else {
@@ -185,7 +182,6 @@ class LinearBeatCreation {
   
   void render(DrumBeats beats) {
    if (renderLinear && !algorithmButtonSelected){
-      println("linear rendered");
     Beats = beats;
     background(-14079703);
     strokeWeight(5);
@@ -256,7 +252,6 @@ class LinearBeatCreation {
     
   
     if (algorithmButtonSelected) {
-      createLikeOrDislikeBeat.render();
       save.setVisible(false);
       cancel.setVisible(false);
     }
@@ -353,5 +348,4 @@ class LinearBeatCreation {
   }
   boolean getRenderLinear() {return renderLinear;}
   DrumBeats getBeats() { return Beats;}
-  LikeOrDislikeBeat getLikeOrDislike() {return createLikeOrDislikeBeat;}
 }

@@ -30,10 +30,10 @@ class BeatPopulation {
   // completely random population
   void generateRandomPopulation() {
     for (int i = 0; i < population.length; i++) {
-      boolean[][] baseBeat = new boolean[numInstruments][beatLength];
+      int[][] baseBeat = new int[numInstruments][beatLength];
       for (int j = 0; j < numInstruments; j++) {
         for (int k = 0; k < beatLength; k++) {
-          boolean x = boolean(int(random(0,2)));
+          int x = int(random(0,2));
           baseBeat[j][k] = x;
         }
       }
@@ -47,10 +47,10 @@ class BeatPopulation {
   void generateStylePopulation() {
     population[0] = styleTarget;
     for (int i = 1; i < population.length; i++) {
-      boolean[][] baseBeat = new boolean[numInstruments][beatLength];
+      int[][] baseBeat = new int[numInstruments][beatLength];
       for (int j = 0; j < numInstruments; j++) {
         for (int k = 0; k < beatLength; k++) {
-          boolean x = boolean(int(random(0,2)));
+          int x = int(random(0,2));
           baseBeat[j][k] = x;
         }
       }
@@ -62,10 +62,10 @@ class BeatPopulation {
   void generateStartingBeatPopulation() {
     population[0] = originalBeat;
     for (int i = 1; i < population.length; i++) {
-      boolean[][] baseBeat = new boolean[numInstruments][beatLength];
+      int[][] baseBeat = new int[numInstruments][beatLength];
       for (int j = 0; j < numInstruments; j++) {
         for (int k = 0; k < beatLength; k++) {
-          boolean x = boolean(int(random(0,2)));
+          int x = int(random(0,2));
           baseBeat[j][k] = x;
         }
       }
@@ -74,8 +74,8 @@ class BeatPopulation {
     }
   }
 
-  void run(boolean[][] liked, boolean[][] other, boolean[][] original, boolean[][] styleBeats, int numGens) {
-    print("RUN CALLED");
+  void run(int[][] liked, int[][] other, int[][] original, int[][] styleBeats, int numGens) {
+    //print("RUN CALLED");
     Beat likedBeat = liked != null ? new Beat(new BeatDNA(liked)) : null;
     Beat otherBeat = other != null ? new Beat(new BeatDNA(other)) : null;
 
@@ -170,7 +170,7 @@ class BeatPopulation {
     return record;
   }
 
-  boolean[][] getBestBeat() {
+  int[][] getBestBeat() {
     Arrays.sort(population);
     print("BEST BEAT: " + generations + " - ");
     population[0].print();
@@ -178,7 +178,7 @@ class BeatPopulation {
     return population[0].dna.beat;
   }
 
-  boolean[][] getSecondBestBeat() {
+  int[][] getSecondBestBeat() {
     Arrays.sort(population);
     print("2nd BEAT: " + generations + " - ");
     population[1].print();
