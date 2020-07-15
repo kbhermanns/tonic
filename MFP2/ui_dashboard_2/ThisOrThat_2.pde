@@ -21,6 +21,12 @@ class ThisOrThat {
   RectangularButton xButton;
   RectangularButton cancelButton; 
   RectangularButton useThisButton;
+  GButton playGA1;
+  GButton playGA2;
+  GButton preferThisBeatGA1;
+  GButton preferThisBeatGA2;
+  GButton useThisInSongGA1;
+  GButton useThisInSongGA2;
   
   Float leftPlayButtonx = 307.34927;
   Float leftPlayButtony = 361.435;
@@ -78,6 +84,54 @@ class ThisOrThat {
     for (int n = 0; n < 17; n++) {
       hatButtons.add(new RectangularButton(-13421259, -2039584, 3.553719, -2039584, (178 + 70*n), 750, 1.5728104, -25.909317, -24.749884, 24, 24));
     }
+    
+       playGA1 = new GButton(pa, 310, 400, 80, 30, "PLAY");
+   playGA1.addEventHandler(pa, "playGA1Handler");
+   playGA1.setVisible(false);
+   
+   playGA2 = new GButton(pa, 935, 400, 80, 30, "PLAY");
+   playGA2.addEventHandler(pa, "playGA2Handler");
+   playGA2.setVisible(false);
+   
+   preferThisBeatGA1 = new GButton(pa, 250, 480, 200, 60, "I Prefer this Beat");
+   preferThisBeatGA1.addEventHandler(pa, "preferThisBeatHandler1");
+   preferThisBeatGA1.setLocalColor(2, color(41,41,41)); //text color
+   preferThisBeatGA1.setLocalColor(3, color(66,65,62)); //border colour
+   preferThisBeatGA1.setLocalColor(4, color(3, 218, 198)); //background color
+   preferThisBeatGA1.setFont(new Font("Gothic A1", Font.PLAIN, 25));
+   preferThisBeatGA1.setVisible(false);
+   
+   preferThisBeatGA2 = new GButton(pa, 870, 480, 200, 60, "I Prefer this Beat");
+   preferThisBeatGA2.addEventHandler(pa, "preferThisBeatHandler2");
+   preferThisBeatGA2.setLocalColor(2, color(41,41,41)); //text color
+   preferThisBeatGA2.setLocalColor(3, color(66,65,62)); //border colour
+   preferThisBeatGA2.setLocalColor(4, color(187, 134, 252)); //background color
+   preferThisBeatGA2.setFont(new Font("Gothic A1", Font.PLAIN, 25));
+   preferThisBeatGA2.setVisible(false);
+   
+   useThisInSongGA1 = new GButton(pa, 230, 550, 250, 60, "Use this Beat in Song");
+   useThisInSongGA1.addEventHandler(pa, "useThisInSongBeatHandler1");
+   useThisInSongGA1.setLocalColor(2, color(41,41,41)); //text color
+   useThisInSongGA1.setLocalColor(3, color(66,65,62)); //border colour
+   useThisInSongGA1.setLocalColor(4, color(3, 218, 198)); //background color
+   useThisInSongGA1.setFont(new Font("Gothic A1", Font.PLAIN, 25));
+   useThisInSongGA1.setVisible(false);
+   
+   useThisInSongGA2 = new GButton(pa, 850, 550, 250, 60, "Use this Beat in Song");
+   useThisInSongGA2.addEventHandler(pa, "useThisInSongBeatHandler2");
+   useThisInSongGA2.setLocalColor(2, color(41,41,41)); //text color
+   useThisInSongGA2.setLocalColor(3, color(66,65,62)); //border colour
+   useThisInSongGA2.setLocalColor(4, color(187, 134, 252)); //background color
+   useThisInSongGA2.setFont(new Font("Gothic A1", Font.PLAIN, 25));
+   useThisInSongGA2.setVisible(false);
+   
+   getHelpFromAlgorithm = new GButton(pa, 950, 450, 320, 60, "Get Help from Algorithm");
+   getHelpFromAlgorithm.addEventHandler(pa, "getHelpFromAlgorithmHandler");
+   getHelpFromAlgorithm.setLocalColor(2, color(41,41,41)); //text color
+   getHelpFromAlgorithm.setLocalColor(3, color(51,174,100)); //border colour
+   getHelpFromAlgorithm.setLocalColor(4, color(3, 218, 198)); //background color
+   getHelpFromAlgorithm.setFont(new Font("Gothic A1", Font.PLAIN, 25));
+   getHelpFromAlgorithm.setVisible(false);
   }
 
   void update() {
@@ -91,6 +145,13 @@ class ThisOrThat {
   }
   
   void render() {
+    playGA1.setVisible(true); 
+    playGA2.setVisible(true);
+    preferThisBeatGA1.setVisible(true);
+    preferThisBeatGA2.setVisible(true);
+    useThisInSongGA1.setVisible(true);
+    useThisInSongGA2.setVisible(true);
+    
     // Background 
     size(1300, 800);
     background(41, 41, 41);
@@ -211,50 +272,6 @@ class ThisOrThat {
     image(tealMusicPlayingImage, 0, 0, 196.91081, 183.95615);
     popMatrix();
 
-    //// I prefer this button purple
-    //noFill();
-    //noStroke();
-    //pushMatrix();
-    //translate(828.1266, 501.3453);
-    //rotate(0.0);
-    //rectMode(CORNERS);
-    //rect(0, 0, 250.0249, 55.705017);
-    //image(preferPurpleButtonImage, 0, 0, 250.0249, 55.705017);
-    //popMatrix();
-    
-    //// I prefer this button teal
-    //noFill();
-    //noStroke();
-    //pushMatrix();
-    //translate(210.18935, 500.04984);
-    //rotate(0.0);
-    //rectMode(CORNERS);
-    //rect(0, 0, 250.0249, 55.705017);
-    //image(preferTealButtonImage, 0, 0, 250.0249, 55.705017);
-    //popMatrix();
-    
-    //// right use this in song button
-    //noFill();
-    //noStroke();
-    //pushMatrix();
-    //translate(806.10364, 573.8914);
-    //rotate(0.0);
-    //rectMode(CORNERS);
-    //rect(0, 0, 292.77533, 53.114136);
-    //image(useThisInSongButtonImage, 0, 0, 292.77533, 53.114136);
-    //popMatrix();
-    
-    //// left use this in song button
-    //noFill();
-    //noStroke();
-    //pushMatrix();
-    //translate(179.09816, 572.59595);
-    //rotate(0.0);
-    //rectMode(CORNERS);
-    //rect(0, 0, 301.84354, 53.114075);
-    //image(useThisInSongButtonImage, 0, 0, 301.84354, 53.114075);
-    //popMatrix();
-    
     calculateWhatHasChangedInBeat1();
     calculateWhatHasChangedInBeat2();
 
@@ -321,5 +338,33 @@ class ThisOrThat {
 
   DrumBeats getBeat2() {
     return beats2;
+  }
+  
+  public void preferThisBeatHandler1(GButton button, GEvent event) {  
+   // user prefers left beat (teal)
+   population.run(beats1.beats, beats2.beats, originalBeat.beats, target_beats, 100);
+   beats1.beats = gaBeatPopulation1.getBestBeat();
+   beats2.beats = gaBeatPopulation1.getSecondBestBeat();
+  }
+
+  public void preferThisBeatHandler2(GButton button, GEvent event) {  
+     // user prefers left beat (teal)
+     population.run(beats2.beats, beats1.beats, originalBeat.beats, target_beats, 100);
+     beats1.beats = gaBeatPopulation1.getBestBeat();
+     beats.beats = gaBeatPopulation1.getSecondBestBeat();
+  }
+  
+  public void useThisInSongBeatHandler1(GButton button, GEvent event) {  
+     // user prefers left beat (teal)
+     //gaBeatPopulation1.run(gaBeat1.beats, gaBeat2.beats, originalGABeat.beats, target_beats, 100);
+     //gaBeat1.beats = gaBeatPopulation1.getBestBeat();
+     //gaBeat2.beats = gaBeatPopulation1.getSecondBestBeat();
+  }
+  
+  public void useThisInSongBeatHandler2(GButton button, GEvent event) {  
+     // user prefers left beat (teal)
+     //gaBeatPopulation1.run(gaBeat2.beats, gaBeat1.beats, originalGABeat.beats, target_beats, 100);
+     //gaBeat1.beats = gaBeatPopulation1.getBestBeat();
+     //gaBeat2.beats = gaBeatPopulation1.getSecondBestBeat();
   }
 }
