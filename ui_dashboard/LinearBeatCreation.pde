@@ -251,7 +251,6 @@ class LinearBeatCreation {
     if (algorithmButtonSelected) {
       save.setVisible(false);
       cancel.setVisible(false);
-      getHelpFromAlgorithm.setVisible(false);
     }
   }
  
@@ -347,7 +346,7 @@ class LinearBeatCreation {
   
   void setAlgorithmSelected(boolean s) {
     algorithmButtonSelected = s; //<>//
-  }
+  } //<>//
   
   void hideTextArea() {
     area.setVisible(false);

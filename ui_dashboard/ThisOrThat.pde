@@ -64,7 +64,7 @@ class ThisOrThat {
   PImage preferPurpleButtonImage = loadImage("IPreferThisButtonPurple.png");
   PImage preferTealButtonImage = loadImage("IPreferThisButtonTeal.png");
   PImage useThisInSongButtonImage = loadImage("UseThisInSongButton.png");
-    PImage img0 = loadImage("HiHat.png");
+  PImage img0 = loadImage("HiHat.png");
   PImage img1 = loadImage("Kick.png");
   PImage img2 = loadImage("Snare.png");
   
@@ -157,15 +157,53 @@ class ThisOrThat {
         firstPairCreated = true;
       }
       
-      // See if user has clicked within the card region 
       if (mousePressed == true && mouseButton == LEFT){
+        
+        // See if user has clicked within the card region 
         if ((mouseX >= leftCardLeftBound && mouseX <= leftCardRightBound) && (mouseY >= leftCardTopBound && mouseY <= leftCardBottomBound)) {
           cardSelected = "left";
         }
         else if ((mouseX >= rightCardLeftBound && mouseX <= rightCardRightBound) && (mouseY >= rightCardTopBound && mouseY <= rightCardBottomBound)) {
           cardSelected = "right";
         }
+        
+        // See if a beat has been clicked on
+        //Update the beat display
+       if (cardSelected == "left") {
+        //kick buttons check
+        for(int i = 0; i < kickButtons.size() - 1; ++i) {
+          kickButtons.get(i).pressed();
+          beats1.updateBeats(0, i, int(kickButtons.get(i).getSelected() ? true : false));
+        }
+        //snare buttons check 
+        for(int j = 0; j < snareButtons.size() - 1; ++j) {
+          snareButtons.get(j).pressed();
+          beats1.updateBeats(1, j, int(snareButtons.get(j).getSelected() ? true : false));
+        }
+        //hat buttons check
+        for(int k = 0; k < hatButtons.size() - 1; ++k) {
+          hatButtons.get(k).pressed();
+          beats1.updateBeats(2, k, int(hatButtons.get(k).getSelected() ? true : false));
+        }
       }
+      else if (cardSelected == "right") {
+        //kick buttons check
+        for(int i = 0; i < kickButtons.size() - 1; ++i) {
+          kickButtons.get(i).pressed();
+          beats2.updateBeats(0, i, int(kickButtons.get(i).getSelected() ? true : false));
+        }
+        //snare buttons check 
+        for(int j = 0; j < snareButtons.size() - 1; ++j) {
+          snareButtons.get(j).pressed();
+          beats2.updateBeats(1, j, int(snareButtons.get(j).getSelected() ? true : false));
+        }
+        //hat buttons check
+        for(int k = 0; k < hatButtons.size() - 1; ++k) {
+          hatButtons.get(k).pressed();
+          beats2.updateBeats(2, k, int(hatButtons.get(k).getSelected() ? true : false));
+        }
+      }
+    }
   }
   
   void render() {
@@ -176,12 +214,12 @@ class ThisOrThat {
     useThisInSongGA1.setVisible(true);
     useThisInSongGA2.setVisible(true);
     
-    //Beat Selector
-    renderBeatSelector();
-    
     // Background 
     size(1300, 800);
     background(41, 41, 41);
+    
+    //Beat Selector
+    renderBeatSelector();
     
     //pancake stacked cards
     fill(-13421259);
@@ -264,7 +302,7 @@ class ThisOrThat {
     ellipse(0,0,148.67973, 148.67973);
     popMatrix();
   
-   //colour changing bar 
+   //colour changing bar  //<>//
     strokeWeight(15.0);
     if (cardSelected == "right") {
       stroke(-4487428);
@@ -273,9 +311,6 @@ class ThisOrThat {
       stroke(-16524602);
     }
     line(1.6193323, 563.52765, 1302.2676, 558.3458);
-
-    calculateWhatHasChangedInBeat1();
-    calculateWhatHasChangedInBeat2();
 
     // Left buttons context sentances
     String generateAgainLabel1 = "I like where this is going... \n";
@@ -305,9 +340,9 @@ class ThisOrThat {
     //Kick selector
     noFill();
     pushMatrix();
-    translate(30, 90);
+    translate(40, 580);
     rotate(0.0);
-    image(img1, 0, 0, 80, 95);
+    image(img1, 0, 0, 60, 75);
     popMatrix();
     
     for (int i = 0; i < kickButtons.size() - 1; i++){
@@ -317,9 +352,9 @@ class ThisOrThat {
     //Snare buttons
     noFill();
     pushMatrix();
-    translate(30, 225);
+    translate(40, 660);
     rotate(0.0);
-    image(img2, 0, 0, 80, 70);
+    image(img2, 0, 0, 50, 60);
     popMatrix();
 
     for (int i = 0; i < snareButtons.size() - 1; i++){
@@ -329,9 +364,9 @@ class ThisOrThat {
     //Hat buttons
     noFill();
     pushMatrix();
-    translate(20, 330);
+    translate(30, 720);
     rotate(0.0);
-    image(img0, 0, 0, 100, 80);
+    image(img0, 0, 0, 75, 65);
     popMatrix();
 
     for (int i = 0; i < hatButtons.size() - 1; i++){
