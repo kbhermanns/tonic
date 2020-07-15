@@ -1,6 +1,6 @@
-
 import java.awt.Font;
 import java.awt.Rectangle;
+import g4p_controls.*;
 
 class LinearBeatCreation {
   int[] Beat;
@@ -38,6 +38,8 @@ class LinearBeatCreation {
   PImage img0 = loadImage("HiHat.png");
   PImage img1 = loadImage("Kick.png");
   PImage img2 = loadImage("Snare.png");
+  
+  GButton getHelpFromAlgorithm;
   
   // Vars for setting beat name
   String name;
@@ -178,6 +180,10 @@ class LinearBeatCreation {
   
   void setSnareSelected(boolean s) {
     snareSelected = s;
+  }
+  
+  void setAlgorithmSelected(boolean s) {
+    algorithmButtonSelected = s;
   }
   
   void render(DrumBeats beats) {
