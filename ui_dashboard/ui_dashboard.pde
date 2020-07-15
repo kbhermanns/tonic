@@ -176,6 +176,7 @@ void draw(){
  if (renderLinearBeat && !createLinearBeat.isAlgorithmButtonSelected()) {
    save.setVisible(true);
    cancel.setVisible(true);
+   getHelpFromAlgorithm.setVisible(true);
    createLinearBeat.render(beats);
    beats = createLinearBeat.update();
    if (!createLinearBeat.isAlgorithmButtonSelected()) playButton.setVisible(true);
@@ -200,6 +201,7 @@ void draw(){
  } else if (renderCircularBeat && !createCircularBeat.isAlgorithmButtonSelected()){
     save.setVisible(true);
     cancel.setVisible(true);
+    getHelpFromAlgorithm.setVisible(true);
     createCircularBeat.render(beats);
     beats = createCircularBeat.update();
     if (!createCircularBeat.isAlgorithmButtonSelected()) {
@@ -267,6 +269,12 @@ public void saveHandler(GButton button, GEvent event) {
 }
 
 public void getHelpFromAlgorithmHandler(GButton button, GEvent event) {
+    renderLinearBeat = false;
+    renderCircularBeat = false;
+    createLinearBeat.setAlgorithmSelected(true);
+    createCircularBeat.setAlgorithmSelected(true);
+    createLinearBeat.hideTextArea();
+    createCircularBeat.hideTextArea();
     renderThisOrThat = true;
     beats.mute();
 }

@@ -7,6 +7,9 @@ class ThisOrThat {
   boolean[] whatHasChangedInBeat1; // kick - 0, snare - 1, hi-hat - 2
   boolean[] whatHasChangedInBeat2;
   Integer beatNumber;
+  
+  //Tracks which beat is selected by user
+  String cardSelected = "left";
 
   BeatPopulation population;
   boolean firstPairCreated = false;
@@ -42,6 +45,14 @@ class ThisOrThat {
   Float useThisBeatRightButtony = 573.8914;
   Float topRightXButtonx = 2306.4026;
   Float topRightXButtony = 10.363728;
+  Float leftCardLeftBound = 98.0;
+  Float leftCardRightBound = 571.0;
+  Float leftCardTopBound = 76.0;
+  Float leftCardBottomBound = 515.0;
+  Float rightCardLeftBound = 725.0;
+  Float rightCardRightBound = 1198.0;
+  Float rightCardTopBound = 76.43;
+  Float rightCardBottomBound = 521.0;
 
   PImage closeButtonImage = loadImage("lightGreyCloseButton.png");
   PImage purplePlayButtonImage = loadImage("PlayButtonPurple.png");
@@ -85,44 +96,44 @@ class ThisOrThat {
       hatButtons.add(new RectangularButton(-13421259, -2039584, 3.553719, -2039584, (178 + 70*n), 750, 1.5728104, -25.909317, -24.749884, 24, 24));
     }
     
-       playGA1 = new GButton(pa, 310, 400, 80, 30, "PLAY");
+   playGA1 = new GButton(pa, 300, 150, 80, 30, "PLAY");
    playGA1.addEventHandler(pa, "playGA1Handler");
    playGA1.setVisible(false);
    
-   playGA2 = new GButton(pa, 935, 400, 80, 30, "PLAY");
+   playGA2 = new GButton(pa, 935, 150, 80, 30, "PLAY");
    playGA2.addEventHandler(pa, "playGA2Handler");
    playGA2.setVisible(false);
    
-   preferThisBeatGA1 = new GButton(pa, 250, 480, 200, 60, "I Prefer this Beat");
+   preferThisBeatGA1 = new GButton(pa, 250, 310, 200, 60, "Generate Again");
    preferThisBeatGA1.addEventHandler(pa, "preferThisBeatHandler1");
    preferThisBeatGA1.setLocalColor(2, color(41,41,41)); //text color
    preferThisBeatGA1.setLocalColor(3, color(66,65,62)); //border colour
    preferThisBeatGA1.setLocalColor(4, color(3, 218, 198)); //background color
-   preferThisBeatGA1.setFont(new Font("Gothic A1", Font.PLAIN, 25));
+   preferThisBeatGA1.setFont(new Font("Gothic A1", Font.PLAIN, 18));
    preferThisBeatGA1.setVisible(false);
    
-   preferThisBeatGA2 = new GButton(pa, 870, 480, 200, 60, "I Prefer this Beat");
+   preferThisBeatGA2 = new GButton(pa, 870, 310, 200, 60, "Generate Again");
    preferThisBeatGA2.addEventHandler(pa, "preferThisBeatHandler2");
    preferThisBeatGA2.setLocalColor(2, color(41,41,41)); //text color
    preferThisBeatGA2.setLocalColor(3, color(66,65,62)); //border colour
    preferThisBeatGA2.setLocalColor(4, color(187, 134, 252)); //background color
-   preferThisBeatGA2.setFont(new Font("Gothic A1", Font.PLAIN, 25));
+   preferThisBeatGA2.setFont(new Font("Gothic A1", Font.PLAIN, 18));
    preferThisBeatGA2.setVisible(false);
    
-   useThisInSongGA1 = new GButton(pa, 230, 550, 250, 60, "Use this Beat in Song");
+   useThisInSongGA1 = new GButton(pa, 230, 420, 250, 60, "Use this in my Beat");
    useThisInSongGA1.addEventHandler(pa, "useThisInSongBeatHandler1");
    useThisInSongGA1.setLocalColor(2, color(41,41,41)); //text color
    useThisInSongGA1.setLocalColor(3, color(66,65,62)); //border colour
    useThisInSongGA1.setLocalColor(4, color(3, 218, 198)); //background color
-   useThisInSongGA1.setFont(new Font("Gothic A1", Font.PLAIN, 25));
+   useThisInSongGA1.setFont(new Font("Gothic A1", Font.PLAIN, 18));
    useThisInSongGA1.setVisible(false);
    
-   useThisInSongGA2 = new GButton(pa, 850, 550, 250, 60, "Use this Beat in Song");
+   useThisInSongGA2 = new GButton(pa, 850, 420, 250, 60, "Use this in my Beat");
    useThisInSongGA2.addEventHandler(pa, "useThisInSongBeatHandler2");
    useThisInSongGA2.setLocalColor(2, color(41,41,41)); //text color
    useThisInSongGA2.setLocalColor(3, color(66,65,62)); //border colour
    useThisInSongGA2.setLocalColor(4, color(187, 134, 252)); //background color
-   useThisInSongGA2.setFont(new Font("Gothic A1", Font.PLAIN, 25));
+   useThisInSongGA2.setFont(new Font("Gothic A1", Font.PLAIN, 18));
    useThisInSongGA2.setVisible(false);
    
    getHelpFromAlgorithm = new GButton(pa, 950, 450, 320, 60, "Get Help from Algorithm");
@@ -142,6 +153,16 @@ class ThisOrThat {
         beats2.beats = population.getSecondBestBeat();
         firstPairCreated = true;
       }
+      
+      // See if user has clicked within the card region 
+      if (mousePressed == true && mouseButton == LEFT){
+        if ((mouseX >= leftCardLeftBound && mouseX <= leftCardRightBound) && (mouseY >= leftCardTopBound && mouseY <= leftCardBottomBound)) {
+          cardSelected = "left";
+        }
+        else if ((mouseX >= rightCardLeftBound && mouseX <= rightCardRightBound) && (mouseY >= rightCardTopBound && mouseY <= rightCardBottomBound)) {
+          cardSelected = "right";
+        }
+      }
   }
   
   void render() {
@@ -156,136 +177,121 @@ class ThisOrThat {
     size(1300, 800);
     background(41, 41, 41);
     
-    // close button top right
-    noFill();
-    noStroke();
+    //pancake stacked cards
+    fill(-13421259);
+    strokeWeight(5.0);
+    stroke(-2039584);
     pushMatrix();
-    translate(1206.4026, 10.363728);
+    translate(933.0593, 111.410065);
     rotate(0.0);
     rectMode(CORNERS);
-    rect(0, 0, 76.00952, 79.57245);
-    image(closeButtonImage, 0, 0, 50, 50);
+    rect(-145.79027, -84.24513, 329.0509, 360.1768);
     popMatrix();
-    
-    // Right background card 
-    fill(-13421773);
-    strokeWeight(3.0);
-    stroke(-6710887);
+  
+    fill(-13421259);
+    strokeWeight(5.0);
+    stroke(-2039584);
     pushMatrix();
-    translate(861.80865, 183.95616);
-    rotate(-9.162426E-4);
-    rectMode(CORNERS);
-    rect(-173.61174, -119.29545, 347.53275, 466.36768, 7);
-    popMatrix();
-
-    // Right circle 
-    fill(-3881788);
-    noStroke();
-    pushMatrix();
-    translate(961.5596, 213.75188);
-    rotate(0.0);
-    ellipse(0,0,249.59152, 254.7164);
-    popMatrix();
-    
-    // Right box under card
-    fill(-3881788);
-    noStroke();
-    pushMatrix();
-    translate(723.19385, 703.438);
-    rotate(3.8194656E-4);
-    rectMode(CORNERS);
-    rect(-32.38664, -31.198956, 492.33835, 76.47633, 7);
-    popMatrix();
-
-    // Purple play button 
-    noFill();
-    noStroke();
-    pushMatrix();
-    translate(923.991, 365.32138);
-    rotate(-0.019580245);
-    rectMode(CORNERS);
-    rect(0, 0, 91.92437, 106.6844);
-    image(purplePlayButtonImage, 0, 0, 91.92437, 106.6844);
-    popMatrix();
-    
-    // Left background card 
-    fill(-13421773);
-    strokeWeight(3.0);
-    stroke(-6710887);
-    pushMatrix();
-    translate(356.577, 305.72995);
+    translate(901.96814, 134.72845);
     rotate(0.0);
     rectMode(CORNERS);
-    rect(-270.963, -238.6507, 250.1457, 342.02515, 7);
+    rect(-145.79027, -84.24513, 329.0509, 360.1768);
     popMatrix();
-    
-    // Left circle
-    fill(-3881788);
-    strokeWeight(1.0);
-    stroke(-16777216);
+  
+    fill(-13421259);
+    strokeWeight(5.0);
+    stroke(-4487428);
     pushMatrix();
-    translate(342.32687, 218.93373);
-    rotate(0.044894785);
-    ellipse(0,0,245.37363, 245.37363);
-    popMatrix();
-    
-    // Left box under card 
-    fill(-3881788);
-    noStroke();
-    pushMatrix();
-    translate(334.55408, 725.4609);
-    rotate(3.141593);
-    rectMode(CORNERS);
-    rect(-277.47473, -56.88257, 246.67317, 50.055923, 7);
-    popMatrix();
-    
-    // Teal play button 
-    noFill();
-    noStroke();
-    pushMatrix();
-    translate(307.34927, 361.435);
+    translate(872.1724, 158.04684);
     rotate(0.0);
     rectMode(CORNERS);
-    rect(0, 0, 97.15997, 111.410065);
-    image(tealPlayButtonImage, 0, 0, 97.15997, 111.410065);
+    rect(-145.79027, -84.24513, 329.0509, 360.1768);
     popMatrix();
-    
-    // Music playing purple
-    noFill();
-    noStroke();
+  
+    fill(-13421259);
+    strokeWeight(5.0);
+    stroke(-2039584);
     pushMatrix();
-    translate(860.51324, 120.478325);
-    rotate(0.0012323856);
-    rectMode(CORNERS);
-    rect(0, 0, 203.38818, 189.138);
-    image(purpleMusicPlayingImage, 0, 0, 203.38818, 189.138);
-    popMatrix();
-    
-    // Music playing teal
-    noFill();
-    noStroke();
-    pushMatrix();
-    translate(246.46239, 132.13753);
+    translate(316.41754, 111.410065);
     rotate(0.0);
     rectMode(CORNERS);
-    rect(0, 0, 196.91081, 183.95615);
-    image(tealMusicPlayingImage, 0, 0, 196.91081, 183.95615);
+    rect(-145.79027, -84.24513, 329.0509, 360.1768);
     popMatrix();
+  
+    fill(-13421259);
+    strokeWeight(5.0);
+    stroke(-2039584);
+    pushMatrix();
+    translate(285.32635, 134.72845);
+    rotate(0.0);
+    rectMode(CORNERS);
+    rect(-145.79027, -84.24513, 329.0509, 360.1768);
+    popMatrix();
+  
+    fill(-13421259);
+    strokeWeight(5.0);
+    stroke(-16524602);
+    pushMatrix();
+    translate(245.16692, 156.75137);
+    rotate(-0.0012458563);
+    rectMode(CORNERS);
+    rect(-145.79027, -84.24513, 329.0509, 360.1768);
+    popMatrix();
+  
+    //grey circle
+    fill(-4342339);
+    strokeWeight(5.0);
+    stroke(-4342339);
+    pushMatrix();
+    translate(338.44046, 165.81964);
+    rotate(0.0023088455);
+    ellipse(0,0,148.67973, 148.67973);
+    popMatrix();
+  
+    //grey circle
+    fill(-4342339);
+    strokeWeight(5.0);
+    stroke(-4342339);
+    pushMatrix();
+    translate(974.5142, 165.81964);
+    rotate(0.0);
+    ellipse(0,0,148.67973, 148.67973);
+    popMatrix();
+  
+   //colour changing bar 
+    strokeWeight(15.0);
+    if (cardSelected == "right") {
+      stroke(-4487428);
+    }
+    else if (cardSelected == "left") {
+      stroke(-16524602);
+    }
+    line(1.6193323, 563.52765, 1302.2676, 558.3458);
 
     calculateWhatHasChangedInBeat1();
     calculateWhatHasChangedInBeat2();
 
-    // Left text in bottom box 
-    String changedTextInBeat1 = "This changed: \n" + formatTextForWhatHasChanged(whatHasChangedInBeat1);
-    fill(-13421773);
+    // Left buttons context sentances
+    String generateAgainLabel1 = "I like where this is going... \n";
+    fill(-4342339);
     textSize(20);
-    text(changedTextInBeat1, 200, 730);  // Text wraps within text box
+    text(generateAgainLabel1, 240, 300);  // Text wraps within text box
     
-    // Right text in bottom box 
-    String changedTextInBeat2 = "This changed: \n" + formatTextForWhatHasChanged(whatHasChangedInBeat2);
-    fill(-13421773);
+    String useThisLabel1 = "I like this! \n";
+    fill(-4342339);
     textSize(20);
-    text(changedTextInBeat2, 800, 730);  // Text wraps within text box
+    text(useThisLabel1, 170, 420);  // Text wraps within text box
+    
+    // Right buttons context sentances
+    String generateAgainLabel2 = "I like where this is going... \n";
+    fill(-4342339);
+    textSize(20);
+    text(generateAgainLabel2, 860, 300);  // Text wraps within text box
+    
+    String useThisLabel2 = "I like this! \n";
+    fill(-4342339);
+    textSize(20);
+    text(useThisLabel2, 790, 420);  // Text wraps within text box
   } 
   
   void calculateWhatHasChangedInBeat1() {
