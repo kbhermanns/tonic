@@ -1,5 +1,5 @@
 class CircularBeatCreation {
-  Boolean[] Beat;
+  int[] Beat;
   PImage img17;
   Boolean Pressed = false; 
   Boolean Clicked = false;
@@ -21,11 +21,10 @@ class CircularBeatCreation {
   boolean renderCircular = false;
   
   DrumBeats Beats;
-  Boolean[] kickFilled;
-  Boolean[] snareFilled;
-  Boolean[] hatFilled;
+  int[] kickFilled;
+  int[] snareFilled;
+  int[] hatFilled;
   
-  LikeOrDislikeBeat createLikeOrDislikeBeat;
   RectangularButton algorithmButton;
   RectangularButton kickButton;
   RectangularButton snareButton; 
@@ -43,19 +42,18 @@ class CircularBeatCreation {
     area = new GTextArea(papp,15, 15, 350, 50, G4P.SCROLLBARS_NONE);
     name = "";
     area.setVisible(false);
-   kickFilled = new Boolean[16];
-   snareFilled = new Boolean[16];
-   hatFilled = new Boolean[16];
+   kickFilled = new int[16];
+   snareFilled = new int[16];
+   hatFilled = new int[16];
    Beats = beats;
-   createLikeOrDislikeBeat = new LikeOrDislikeBeat(Beats, false);
    for (int i = 0; i < 16; i++) {
-     kickFilled[i] = false;
+     kickFilled[i] = 0;
    }
    for (int j = 0; j < 16; j++) {
-    snareFilled[j] = false;
+    snareFilled[j] = 0;
    }
    for (int k = 0; k < 16; k++) {
-    hatFilled[k] = false;
+    hatFilled[k] = 0;
    }
   }
   
@@ -78,8 +76,8 @@ class CircularBeatCreation {
           showInstrumentTooltip = false;
           showBeatTooltip = true;
         }
-      } else if (mouseX >= snareX && mouseX <= snareX + 100 && mouseY >= snareY && mouseY <= snareY + 100 && snareSelected == false) { //<>//
-        Clicked = true; //<>//
+      } else if (mouseX >= snareX && mouseX <= snareX + 100 && mouseY >= snareY && mouseY <= snareY + 100 && snareSelected == false) { //<>// //<>//
+        Clicked = true;
         snareSelected = true;
         if (showInstrumentTooltip) {
           showInstrumentTooltip = false;
@@ -101,242 +99,242 @@ class CircularBeatCreation {
         area.setVisible(false);
       }
       else if (mouseX >= 613 && mouseX <= 640 && mouseY >= 198 && mouseY <= 263) {
-        kickFilled[0] = !kickFilled[0];
-        Beats.updateBeats(0, 0, !kickFilled[0]);
+        kickFilled[0] = kickFilled[0] > 0 ? 0 : 1;
+        Beats.updateBeats(0, 0, kickFilled[0]);
         showBeatTooltip = false;
       }
-      else if (mouseX >= 645 && mouseX <= 680 && mouseY >= 209 && mouseY <= 276) { //<>//
-        kickFilled[1] = !kickFilled[1]; //<>//
+      else if (mouseX >= 645 && mouseX <= 680 && mouseY >= 209 && mouseY <= 276) {
+        kickFilled[1] = kickFilled[1] > 0 ? 0 : 1;
         Beats.updateBeats(0, 1, kickFilled[1]);
         showBeatTooltip = false;
-      } //<>//
-      else if (mouseX >= 648 && mouseX <= 724 && mouseY >= 255 && mouseY <= 285) { //<>//
-        kickFilled[2] = !kickFilled[2];
+      }
+      else if (mouseX >= 648 && mouseX <= 724 && mouseY >= 255 && mouseY <= 285) {
+        kickFilled[2] = kickFilled[2] > 0 ? 0 : 1;
         Beats.updateBeats(0, 2, kickFilled[2]);
         showBeatTooltip = false;
       }
       else if (mouseX >= 658 && mouseX <= 727 && mouseY >= 275 && mouseY <= 313) {
-        kickFilled[3] = !kickFilled[3];
+        kickFilled[3] = kickFilled[3] > 0 ? 0 : 1;
         Beats.updateBeats(0, 3, kickFilled[3]);
         showBeatTooltip = false;
       }
       else if (mouseX >= 653 && mouseX <= 729 && mouseY >= 312 && mouseY <= 360) {
-        kickFilled[4] = !kickFilled[4];
+        kickFilled[4] = kickFilled[4] > 0 ? 0 : 1;
         Beats.updateBeats(0, 4, kickFilled[4]);
         showBeatTooltip = false;
       }
       else if (mouseX >= 642 && mouseX <= 718 && mouseY >= 334 && mouseY <= 380) {
-        kickFilled[5] = !kickFilled[5];
+        kickFilled[5] = kickFilled[5] > 0 ? 0 : 1;
         Beats.updateBeats(0, 5, kickFilled[5]);
         showBeatTooltip = false;
       }
       else if (mouseX >= 635 && mouseX <= 664 && mouseY >= 343 && mouseY <= 411) {
-        kickFilled[6] = !kickFilled[6];
+        kickFilled[6] = kickFilled[6] > 0 ? 0 : 1;
         Beats.updateBeats(0, 6, kickFilled[6]);
         showBeatTooltip = false;
       }
       else if (mouseX >= 618 && mouseX <= 654 && mouseY >= 358 && mouseY <= 422) {
-        kickFilled[7] = !kickFilled[7];
+        kickFilled[7] = kickFilled[7] > 0 ? 0 : 1;
         Beats.updateBeats(0, 7, kickFilled[7]);
         showBeatTooltip = false;
       }
       else if (mouseX >= 600 && mouseX <= 644 && mouseY >= 352 && mouseY <= 425) {
-        kickFilled[8] = !kickFilled[8];
+        kickFilled[8] = kickFilled[8] > 0 ? 0 : 1;
         Beats.updateBeats(0, 8, kickFilled[8]);
         showBeatTooltip = false;
       }
       else if (mouseX >= 536 && mouseX <= 593 && mouseY >= 344 && mouseY <= 417) {
-        kickFilled[9] = !kickFilled[9];
+        kickFilled[9] = kickFilled[9] > 0 ? 0 : 1;
         Beats.updateBeats(0, 9, kickFilled[9]);
         showBeatTooltip = false;
       }
       else if (mouseX >= 509 && mouseX <= 580 && mouseY >= 327 && mouseY <= 392) {
-        kickFilled[10] = !kickFilled[10];
+        kickFilled[10] = kickFilled[10] > 0 ? 0 : 1;
         Beats.updateBeats(0, 10, kickFilled[10]);
         showBeatTooltip = false;
       }
       else if (mouseX >= 496 && mouseX <= 567 && mouseY >= 316 && mouseY <= 361) {
-        kickFilled[11] = !kickFilled[11];
+        kickFilled[11] = kickFilled[11] > 0 ? 0 : 1;
         Beats.updateBeats(0, 11, kickFilled[11]);
         showBeatTooltip = false;
       }
       else if (mouseX >= 496 && mouseX <= 567 && mouseY >= 275 && mouseY <= 313) {
-        kickFilled[12] = !kickFilled[12];
+        kickFilled[12] = kickFilled[12] > 0 ? 0 : 1;
         Beats.updateBeats(0, 12, kickFilled[12]);
         showBeatTooltip = false;
       }
       else if (mouseX >= 504 && mouseX <= 571 && mouseY >= 230 && mouseY <= 294) {
-        kickFilled[13] = !kickFilled[13];
+        kickFilled[13] = kickFilled[13] > 0 ? 0 : 1;
         Beats.updateBeats(0, 13, kickFilled[13]);
         showBeatTooltip = false;
       }
       else if (mouseX >= 535 && mouseX <= 584 && mouseY >= 205 && mouseY <= 278) {
-        kickFilled[14] = !kickFilled[14];
+        kickFilled[14] = kickFilled[14] > 0 ? 0 : 1;
         Beats.updateBeats(0, 14, kickFilled[14]);
         showBeatTooltip = false;
       }
       else if (mouseX >= 570 && mouseX <= 610 && mouseY >= 196 && mouseY <= 266) {
-        kickFilled[15] = !kickFilled[15];
+        kickFilled[15] = kickFilled[15] > 0 ? 0 : 1;
         Beats.updateBeats(0, 15, kickFilled[15]);
         showBeatTooltip = false;
       }
       else if (mouseX >= 612.5 && mouseX <= 690 && mouseY >= 139 && mouseY <= 202) {
-        snareFilled[0] = !snareFilled[0];
+        snareFilled[0] = snareFilled[0] > 0 ? 0 : 1;
         Beats.updateBeats(1, 0, snareFilled[0]);
         showBeatTooltip = false;
       }
       else if (mouseX >= 672 && mouseX <= 748 && mouseY >= 158 && mouseY <= 229) {
-        snareFilled[1] = !snareFilled[1];
+        snareFilled[1] = snareFilled[1] > 0 ? 0 : 1;
         Beats.updateBeats(1, 1, snareFilled[1]);
         showBeatTooltip = false;
       }
       else if (mouseX >= 706 && mouseX <= 779 && mouseY >= 200 && mouseY <= 270) {
-        snareFilled[2] = !snareFilled[2];
+        snareFilled[2] = snareFilled[2] > 0 ? 0 : 1;
         Beats.updateBeats(1, 2, snareFilled[2]);
         showBeatTooltip = false;
       }
       else if (mouseX >= 734 && mouseX <= 796 && mouseY >= 269 && mouseY <= 312) {
-        snareFilled[3] = !snareFilled[3];
+        snareFilled[3] = snareFilled[3] > 0 ? 0 : 1;
         Beats.updateBeats(1, 3, snareFilled[3]);
         showBeatTooltip = false;
       }
       else if (mouseX >= 728 && mouseX <= 791 && mouseY >= 319 && mouseY <= 374) {
-        snareFilled[4] = !snareFilled[4];
+        snareFilled[4] = snareFilled[4] > 0 ? 0 : 1;
         Beats.updateBeats(1, 4, snareFilled[4]);
         showBeatTooltip = false;
       }
       else if (mouseX >= 702 && mouseX <= 773 && mouseY >= 362 && mouseY <= 425) {
-        snareFilled[5] = !snareFilled[5];
+        snareFilled[5] = snareFilled[5] > 0 ? 0 : 1;
         Beats.updateBeats(1, 5, snareFilled[5]);
         showBeatTooltip = false;
       }
       else if (mouseX >= 667 && mouseX <= 731 && mouseY >= 399 && mouseY <= 460) {
-        snareFilled[6] = !snareFilled[6];
+        snareFilled[6] = snareFilled[6] > 0 ? 0 : 1;
         Beats.updateBeats(1, 6, snareFilled[6]);
         showBeatTooltip = false;
       }
       else if (mouseX >= 617 && mouseX <= 673 && mouseY >= 425 && mouseY <= 480) {
-        snareFilled[7] = !snareFilled[7];
+        snareFilled[7] = snareFilled[7] > 0 ? 0 : 1;
         Beats.updateBeats(1, 7, snareFilled[7]);
         showBeatTooltip = false;
       }
       else if (mouseX >= 558 && mouseX <= 614 && mouseY >= 428 && mouseY <= 484) {
-        snareFilled[8] = !snareFilled[8];
+        snareFilled[8] = snareFilled[8] > 0 ? 0 : 1;
         Beats.updateBeats(1, 8, snareFilled[8]);
         showBeatTooltip = false;
       }
       else if (mouseX >= 505 && mouseX <= 566 && mouseY >= 408 && mouseY <= 467) {
-        snareFilled[9] = !snareFilled[9];
+        snareFilled[9] = snareFilled[9] > 0 ? 0 : 1;
         Beats.updateBeats(1, 9, snareFilled[9]);
         showBeatTooltip = false;
       }
       else if (mouseX >= 457 && mouseX <= 526 && mouseY >= 370 && mouseY <= 436) {
-        snareFilled[10] = !snareFilled[10];
+        snareFilled[10] = snareFilled[10] > 0 ? 0 : 1;
         Beats.updateBeats(1, 10, snareFilled[10]);
         showBeatTooltip = false;
       }
       else if (mouseX >= 435 && mouseX <= 501 && mouseY >= 318 && mouseY <= 378) {
-        snareFilled[11] = !snareFilled[11];
+        snareFilled[11] = snareFilled[11] > 0 ? 0 : 1;
         Beats.updateBeats(1, 11, snareFilled[11]);
         showBeatTooltip = false;
       }
       else if (mouseX >= 434 && mouseX <= 495 && mouseY >= 262 && mouseY <= 316) {
-        snareFilled[12] = !snareFilled[12];
+        snareFilled[12] = snareFilled[12] > 0 ? 0 : 1;
         Beats.updateBeats(1, 12, snareFilled[12]);
         showBeatTooltip = false;
       }
       else if (mouseX >= 452 && mouseX <= 522 && mouseY >= 195 && mouseY <= 261) {
-        snareFilled[13] = !snareFilled[13];
+        snareFilled[13] = snareFilled[13] > 0 ? 0 : 1;
         Beats.updateBeats(1, 13, snareFilled[13]);
         showBeatTooltip = false;
       }
       else if (mouseX >= 487 && mouseX <= 558 && mouseY >= 156 && mouseY <= 221) {
-        snareFilled[14] = !snareFilled[14];
+        snareFilled[14] = snareFilled[14] > 0 ? 0 : 1;
         Beats.updateBeats(1, 14, snareFilled[14]);
         showBeatTooltip = false;
       }
       else if (mouseX >= 552 && mouseX <= 605 && mouseY >= 138 && mouseY <= 191) {
-        snareFilled[15] = !snareFilled[15];
+        snareFilled[15] = snareFilled[15] > 0 ? 0 : 1;
         Beats.updateBeats(1, 15, snareFilled[15]);
         showBeatTooltip = false;
       }
       else if (mouseX >= 615 && mouseX <= 719 && mouseY >= 66 && mouseY <= 134) {
-        hatFilled[0] = !hatFilled[0];
+        hatFilled[0] = hatFilled[0] > 0 ? 0 : 1;
         Beats.updateBeats(2, 0, hatFilled[0]);
         showBeatTooltip = false;
       }
       else if (mouseX >= 703 && mouseX <= 799 && mouseY >= 98 && mouseY <= 174) {
-        hatFilled[1] = !hatFilled[1];
+        hatFilled[1] = hatFilled[1] > 0 ? 0 : 1;
         Beats.updateBeats(2, 1, hatFilled[1]);
         showBeatTooltip = false;
       }
       else if (mouseX >= 764 && mouseX <= 851 && mouseY >= 155 && mouseY <= 247) {
-        hatFilled[2] = !hatFilled[2];
+        hatFilled[2] = hatFilled[2] > 0 ? 0 : 1;
         Beats.updateBeats(2, 2, hatFilled[2]);
         showBeatTooltip = false;
       }
       else if (mouseX >= 798 && mouseX <= 860 && mouseY >= 244 && mouseY <= 314) {
-        hatFilled[3] = !hatFilled[3];
+        hatFilled[3] = hatFilled[3] > 0 ? 0 : 1;
         Beats.updateBeats(2, 3, hatFilled[3]);
         showBeatTooltip = false;
       }
       else if (mouseX >= 791 && mouseX <= 863 && mouseY >= 321 && mouseY <= 400) {
-        hatFilled[4] = !hatFilled[4];
+        hatFilled[4] = hatFilled[4] > 0 ? 0 : 1;
         Beats.updateBeats(2, 4, hatFilled[4]);
         showBeatTooltip = false;
       }
       else if (mouseX >= 755 && mouseX <= 837 && mouseY >= 386 && mouseY <= 470) {
-        hatFilled[5] = !hatFilled[5];
+        hatFilled[5] = hatFilled[5] > 0 ? 0 : 1;
         Beats.updateBeats(2, 5, hatFilled[5]);
         showBeatTooltip = false;
       }
       else if (mouseX >= 693 && mouseX <= 784 && mouseY >= 444 && mouseY <= 519) {
-        hatFilled[6] = !hatFilled[6];
+        hatFilled[6] = hatFilled[6] > 0 ? 0 : 1;
         Beats.updateBeats(2, 6, hatFilled[6]);
         showBeatTooltip = false;
       }
       else if (mouseX >= 615 && mouseX <= 699 && mouseY >= 485 && mouseY <= 544) {
-        hatFilled[7] = !hatFilled[7];
+        hatFilled[7] = hatFilled[7] > 0 ? 0 : 1;
         Beats.updateBeats(2, 7, hatFilled[7]);
         showBeatTooltip = false;
       }
       else if (mouseX >= 540 && mouseX <= 611 && mouseY >= 485 && mouseY <= 544) {
-        hatFilled[8] = !hatFilled[8];
+        hatFilled[8] = hatFilled[8] > 0 ? 0 : 1;
         Beats.updateBeats(2, 8, hatFilled[8]);
         showBeatTooltip = false;
       }
       else if (mouseX >= 466 && mouseX <= 547 && mouseY >= 462 && mouseY <= 522) {
-        hatFilled[9] = !hatFilled[9];
+        hatFilled[9] = hatFilled[9] > 0 ? 0 : 1;
         Beats.updateBeats(2, 9, hatFilled[9]);
         showBeatTooltip = false;
       }
       else if (mouseX >= 396 && mouseX <= 493 && mouseY >= 399 && mouseY <= 484) {
-        hatFilled[10] = !hatFilled[10];
+        hatFilled[10] = hatFilled[10] > 0 ? 0 : 1;
         Beats.updateBeats(2, 10, hatFilled[10]);
         showBeatTooltip = false;
       }
       else if (mouseX >= 369 && mouseX <= 435 && mouseY >= 322 && mouseY <= 411) {
-        hatFilled[11] = !hatFilled[11];
+        hatFilled[11] = hatFilled[11] > 0 ? 0 : 1;
         Beats.updateBeats(2, 11, hatFilled[11]);
         showBeatTooltip = false;
       }
       else if (mouseX >= 369 && mouseX <= 434 && mouseY >= 229 && mouseY <= 312) {
-        hatFilled[12] = !hatFilled[12];
+        hatFilled[12] = hatFilled[12] > 0 ? 0 : 1;
         Beats.updateBeats(2, 12, hatFilled[12]);
         showBeatTooltip = false;
       }
       else if (mouseX >= 385 && mouseX <= 474 && mouseY >= 148 && mouseY <= 242) {
-        hatFilled[13] = !hatFilled[13];
+        hatFilled[13] = hatFilled[13] > 0 ? 0 : 1;
         Beats.updateBeats(2, 13, hatFilled[13]);
         showBeatTooltip = false;
       }
       else if (mouseX >= 436 && mouseX <= 535 && mouseY >= 88 && mouseY <= 176) {
-        hatFilled[14] = !hatFilled[14];
+        hatFilled[14] = hatFilled[14] > 0 ? 0 : 1;
         Beats.updateBeats(2, 14, hatFilled[14]);
         showBeatTooltip = false;
       }
       else if (mouseX >= 521 && mouseX <= 605 && mouseY >= 69 && mouseY <= 133) {
-        hatFilled[15] = !hatFilled[15];
+        hatFilled[15] = hatFilled[15] > 0 ? 0 : 1;
         Beats.updateBeats(2, 15, hatFilled[15]);
         showBeatTooltip = false;
       } else if (mouseX >= algorithmButtonX && mouseX <= algorithmButtonX + 200 && mouseY >= algorithmButtonY && mouseY <= algorithmButtonY + 200) {
@@ -461,7 +459,6 @@ class CircularBeatCreation {
     }
     
     if (algorithmButtonSelected) {
-      createLikeOrDislikeBeat.render();
       save.setVisible(false);
       cancel.setVisible(false);
     }
@@ -573,7 +570,7 @@ class CircularBeatCreation {
     line(627.32935, 349.7758, 658.42053, 417.14);
   
   
-  if(kickFilled[0]) {
+  if(kickFilled[0] > 0) {
     fill(-4487428);
     strokeWeight(3.9338844);
     stroke(-3355444);
@@ -589,7 +586,7 @@ class CircularBeatCreation {
     popMatrix();
   }
   
-  if(kickFilled[1]) {
+  if(kickFilled[1] > 0) {
     fill(-4487428);
     strokeWeight(3.9338844);
     stroke(-3355444);
@@ -604,7 +601,7 @@ class CircularBeatCreation {
     endShape(CLOSE);
     popMatrix();
   }
-  if(kickFilled[2]) {
+  if(kickFilled[2] > 0) {
     fill(-4487428);
     strokeWeight(3.9338844);
     stroke(-3355444);
@@ -619,7 +616,7 @@ class CircularBeatCreation {
     endShape(CLOSE);
     popMatrix();
   }
-  if(kickFilled[3]) {
+  if(kickFilled[3] > 0) {
     fill(-4487428);
     strokeWeight(3.9338844);
     stroke(-3355444);
@@ -634,7 +631,7 @@ class CircularBeatCreation {
     endShape(CLOSE);
     popMatrix();
   }
-  if(kickFilled[4]) {
+  if(kickFilled[4] > 0) {
     fill(-4487428);
     strokeWeight(3.9338844);
     stroke(-3355444);
@@ -649,7 +646,7 @@ class CircularBeatCreation {
     endShape(CLOSE);
     popMatrix();
   }
-  if(kickFilled[5]) {
+  if(kickFilled[5] > 0) {
     fill(-4487428);
     strokeWeight(3.9338844);
     stroke(-3355444);
@@ -664,7 +661,7 @@ class CircularBeatCreation {
     endShape(CLOSE);
     popMatrix();
   }
-  if(kickFilled[6]) {
+  if(kickFilled[6] > 0) {
     fill(-4487428);
     strokeWeight(3.9338844);
     stroke(-3355444);
@@ -679,7 +676,7 @@ class CircularBeatCreation {
     endShape(CLOSE);
     popMatrix();
   }
-  if(kickFilled[7]) {
+  if(kickFilled[7] > 0) {
     fill(-4487428);
     strokeWeight(3.9338844);
     stroke(-3355444);
@@ -694,7 +691,7 @@ class CircularBeatCreation {
     endShape(CLOSE);
     popMatrix();
   }
-  if(kickFilled[8]) {
+  if(kickFilled[8] > 0) {
     fill(-4487428);
     strokeWeight(3.9338844);
     stroke(-3355444);
@@ -709,7 +706,7 @@ class CircularBeatCreation {
     endShape(CLOSE);
     popMatrix();
   }
-  if(kickFilled[9]) {
+  if(kickFilled[9] > 0) {
     fill(-4487428);
     strokeWeight(3.9338844);
     stroke(-3355444);
@@ -724,7 +721,7 @@ class CircularBeatCreation {
     endShape(CLOSE);
     popMatrix();
   }
-  if(kickFilled[10]) {
+  if(kickFilled[10] > 0) {
     fill(-4487428);
     strokeWeight(3.9338844);
     stroke(-3355444);
@@ -739,7 +736,7 @@ class CircularBeatCreation {
     endShape(CLOSE);
     popMatrix();
   }
-  if(kickFilled[11]) {
+  if(kickFilled[11] > 0) {
     fill(-4487428);
     strokeWeight(3.9338844);
     stroke(-3355444);
@@ -754,7 +751,7 @@ class CircularBeatCreation {
     endShape(CLOSE);
     popMatrix();
   }
-  if(kickFilled[12]) {
+  if(kickFilled[12] > 0) {
     fill(-4487428);
     strokeWeight(3.9338844);
     stroke(-3355444);
@@ -769,7 +766,7 @@ class CircularBeatCreation {
     endShape(CLOSE);
     popMatrix();
   }
-  if(kickFilled[13]) {
+  if(kickFilled[13] > 0)  {
     fill(-4487428);
     strokeWeight(3.9338844);
     stroke(-3355444);
@@ -784,7 +781,7 @@ class CircularBeatCreation {
     endShape(CLOSE);
     popMatrix();
   }
-  if(kickFilled[14]) {
+  if(kickFilled[14] > 0) {
     fill(-4487428);
     strokeWeight(3.9338844);
     stroke(-3355444);
@@ -799,7 +796,7 @@ class CircularBeatCreation {
     endShape(CLOSE);
     popMatrix();
   }
-  if(kickFilled[15]) {
+  if(kickFilled[15] > 0) {
     fill(-4487428);
     strokeWeight(3.9338844);
     stroke(-3355444);
@@ -885,7 +882,7 @@ class CircularBeatCreation {
     stroke(-3355444);
     line(684.32983, 466.3677, 660.83, 419.16156);
     
-   if(snareFilled[0]) {
+   if(snareFilled[0] > 0) {
     fill(-10241491);
     strokeWeight(3.9338844);
     stroke(-3355444);
@@ -900,7 +897,7 @@ class CircularBeatCreation {
     endShape(CLOSE);
     popMatrix();
   }
-  if(snareFilled[1]) {
+  if(snareFilled[1] > 0) {
     fill(-10241491);
     strokeWeight(3.9338844);
     stroke(-3355444);
@@ -915,7 +912,7 @@ class CircularBeatCreation {
     endShape(CLOSE);
     popMatrix();
   }
-  if(snareFilled[2]) {
+  if(snareFilled[2] > 0) {
     fill(-10241491);
     strokeWeight(3.9338844);
     stroke(-3355444);
@@ -930,7 +927,7 @@ class CircularBeatCreation {
     endShape(CLOSE);
     popMatrix();
   }
-    if(snareFilled[3]) {
+    if(snareFilled[3] > 0) {
       fill(-10241491);
       strokeWeight(3.9338844);
       stroke(-3355444);
@@ -945,7 +942,7 @@ class CircularBeatCreation {
       endShape(CLOSE);
       popMatrix();
   }
-  if(snareFilled[4]) {
+  if(snareFilled[4] > 0) {
     fill(-10241491);
     strokeWeight(3.9338844);
     stroke(-3355444);
@@ -960,7 +957,7 @@ class CircularBeatCreation {
     endShape(CLOSE);
     popMatrix();
   }
-  if(snareFilled[5]) {
+  if(snareFilled[5] > 0) {
     fill(-10241491);
     strokeWeight(3.9338844);
     stroke(-3355444);
@@ -975,7 +972,7 @@ class CircularBeatCreation {
     endShape(CLOSE);
     popMatrix();
   }
-  if(snareFilled[6]) {
+  if(snareFilled[6] > 0) {
     fill(-10241491);
     strokeWeight(3.9338844);
     stroke(-3355444);
@@ -990,7 +987,7 @@ class CircularBeatCreation {
     endShape(CLOSE);
     popMatrix();
   }
-  if(snareFilled[7]) {
+  if(snareFilled[7] > 0) {
     fill(-10241491);
     strokeWeight(3.9338844);
     stroke(-3355444);
@@ -1005,7 +1002,7 @@ class CircularBeatCreation {
     endShape(CLOSE);
     popMatrix();
   }
-  if(snareFilled[8]) {
+  if(snareFilled[8] > 0) {
     fill(-10241491);
     strokeWeight(3.9338844);
     stroke(-3355444);
@@ -1020,7 +1017,7 @@ class CircularBeatCreation {
     endShape(CLOSE);
     popMatrix();
   }
-  if(snareFilled[9]) {
+  if(snareFilled[9] > 0) {
     fill(-10241491);
     strokeWeight(3.9338844);
     stroke(-3355444);
@@ -1035,7 +1032,7 @@ class CircularBeatCreation {
     endShape(CLOSE);
     popMatrix();
   }
-  if(snareFilled[10]) {
+  if(snareFilled[10] > 0) {
     fill(-10241491);
     strokeWeight(3.9338844);
     stroke(-3355444);
@@ -1050,7 +1047,7 @@ class CircularBeatCreation {
     endShape(CLOSE);
     popMatrix();
   }
-  if(snareFilled[11]) {
+  if(snareFilled[11] > 0) {
     fill(-10241491);
     strokeWeight(3.9338844);
     stroke(-3355444);
@@ -1065,7 +1062,7 @@ class CircularBeatCreation {
     endShape(CLOSE);
     popMatrix();
   }
-  if(snareFilled[12]) {
+  if(snareFilled[12] > 0) {
     fill(-10241491);
     strokeWeight(3.9338844);
     stroke(-3355444);
@@ -1081,7 +1078,7 @@ class CircularBeatCreation {
     popMatrix();
   }
   
-  if(snareFilled[13]) {
+  if(snareFilled[13] > 0) {
     fill(-10241491);
     strokeWeight(3.9338844);
     stroke(-3355444);
@@ -1096,7 +1093,7 @@ class CircularBeatCreation {
     endShape(CLOSE);
     popMatrix();
   }
-  if(snareFilled[14]) {
+  if(snareFilled[14] > 0) {
     fill(-10241491);
     strokeWeight(3.9338844);
     stroke(-3355444);
@@ -1111,7 +1108,7 @@ class CircularBeatCreation {
     endShape(CLOSE);
     popMatrix();
   }
-  if(snareFilled[15]) {
+  if(snareFilled[15] > 0) {
     fill(-10241491);
     strokeWeight(3.9338844);
     stroke(-3355444);
@@ -1197,7 +1194,7 @@ class CircularBeatCreation {
   stroke(-3355444);
   line(686.9208, 472.84506, 712.8301, 524.6637);
   
-  if(hatFilled[0]) {
+  if(hatFilled[0] > 0) {
     fill(-1157409);
     strokeWeight(3.9338844);
     stroke(-3355444);
@@ -1212,7 +1209,7 @@ class CircularBeatCreation {
     endShape(CLOSE);
     popMatrix();
   }
-  if(hatFilled[1]) {
+  if(hatFilled[1] > 0) {
     fill(-1157409);
     strokeWeight(3.9338844);
     stroke(-3355444);
@@ -1227,7 +1224,7 @@ class CircularBeatCreation {
     endShape(CLOSE);
     popMatrix();
   }
-  if(hatFilled[2]) {
+  if(hatFilled[2] > 0) {
     fill(-1157409);
     strokeWeight(3.9338844);
     stroke(-3355444);
@@ -1242,7 +1239,7 @@ class CircularBeatCreation {
     endShape(CLOSE);
     popMatrix();
   }
-  if(hatFilled[3]) {
+  if(hatFilled[3] > 0) {
     fill(-1157409);
     strokeWeight(3.9338844);
     stroke(-3355444);
@@ -1257,7 +1254,7 @@ class CircularBeatCreation {
     endShape(CLOSE);
     popMatrix();
   }
-  if(hatFilled[4]) {
+  if(hatFilled[4] > 0) {
     fill(-1157409);
     strokeWeight(3.9338844);
     stroke(-3355444);
@@ -1272,7 +1269,7 @@ class CircularBeatCreation {
     endShape(CLOSE);
     popMatrix();
   }
-  if(hatFilled[5]) {
+  if(hatFilled[5] > 0) {
     fill(-1157409);
     strokeWeight(3.9338844);
     stroke(-3355444);
@@ -1287,7 +1284,7 @@ class CircularBeatCreation {
     endShape(CLOSE);
     popMatrix();
   }
-  if(hatFilled[6]) {
+  if(hatFilled[6] > 0) {
     fill(-1157409);
     strokeWeight(3.9338844);
     stroke(-3355444);
@@ -1302,7 +1299,7 @@ class CircularBeatCreation {
     endShape(CLOSE);
     popMatrix();
   }
-  if(hatFilled[7]) {
+  if(hatFilled[7] > 0) {
       fill(-1157409);
       strokeWeight(3.9338844);
       stroke(-3355444);
@@ -1317,7 +1314,7 @@ class CircularBeatCreation {
       endShape(CLOSE);
       popMatrix();
   }
-  if(hatFilled[8]) {
+  if(hatFilled[8] > 0) {
     fill(-1157409);
     strokeWeight(3.9338844);
     stroke(-3355444);
@@ -1332,7 +1329,7 @@ class CircularBeatCreation {
     endShape(CLOSE);
     popMatrix();
   }
-    if(hatFilled[9]) {
+    if(hatFilled[9] > 0) {
       fill(-1157409);
       strokeWeight(3.9338844);
       stroke(-3355444);
@@ -1347,7 +1344,7 @@ class CircularBeatCreation {
       endShape(CLOSE);
       popMatrix();
   }
-   if(hatFilled[10]) {
+   if(hatFilled[10] > 0) {
       fill(-1157409);
       strokeWeight(3.9338844);
       stroke(-3355444);
@@ -1362,7 +1359,7 @@ class CircularBeatCreation {
       endShape(CLOSE);
       popMatrix();
   }
-   if(hatFilled[11]) {
+   if(hatFilled[11] > 0) {
       fill(-1157409);
       strokeWeight(3.9338844);
       stroke(-3355444);
@@ -1377,7 +1374,7 @@ class CircularBeatCreation {
       endShape(CLOSE);
       popMatrix();
   }
-   if(hatFilled[12]) {
+   if(hatFilled[12] > 0) {
       fill(-1157409);
       strokeWeight(3.9338844);
       stroke(-3355444);
@@ -1392,7 +1389,7 @@ class CircularBeatCreation {
       endShape(CLOSE);
       popMatrix();
   }
-   if(hatFilled[13]) {
+   if(hatFilled[13] > 0) {
       fill(-1157409);
       strokeWeight(3.9338844);
       stroke(-3355444);
@@ -1407,7 +1404,7 @@ class CircularBeatCreation {
       endShape(CLOSE);
       popMatrix();
   }
-   if(hatFilled[14]) {
+   if(hatFilled[14] > 0) {
       fill(-1157409);
       strokeWeight(3.9338844);
       stroke(-3355444);
@@ -1422,7 +1419,7 @@ class CircularBeatCreation {
       endShape(CLOSE);
       popMatrix();
   }
-   if(hatFilled[15]) {
+   if(hatFilled[15] > 0) {
       fill(-1157409);
       strokeWeight(3.9338844);
       stroke(-3355444);

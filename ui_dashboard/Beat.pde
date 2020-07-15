@@ -43,8 +43,8 @@ class Beat implements Comparable {
     rectMode(CENTER);
     for (int i = 0; i < dna.numInstruments; i++) {
       for (int j = 0; j < dna.beatLength; j++) {
-        if (dna.beat[i][j] == false) fill(50);
-        else if (dna.beat[i][j] == true) fill(160, 0, 0);
+        if (dna.beat[i][j] == 0) fill(50);
+        else if (dna.beat[i][j] >= 1) fill(160, 0, 0);
         else continue;
         rect(-size/2, -size/2, size, size);
         translate(size + 10, 0);
