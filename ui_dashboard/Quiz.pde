@@ -14,23 +14,6 @@ class Quiz{
     int shiftx = 125;
     int shifty = -80;
     
-    Boolean goClicked = false;
-    Boolean HipHopPrevClick = false;
-    Boolean DiscoPopPrevClick = false;
-    Boolean DubstepPrevClick = false;
-    Boolean RockPrevClick = false;
-    Boolean SlowPrevClick = false;
-    Boolean WalkingPrevClick = false;
-    Boolean ModeratePrevClick = false;
-    Boolean HeartbeatPrevClick = false;
-    Boolean FastPrevClick = false;
-    Boolean TwoFourPrevClick = false;
-    Boolean ThreeFourPrevClick = false;
-    Boolean FourFourPrevClick = false;
-    Boolean YesSyncoPrevClick = false;
-    Boolean NoSyncoPrevClick = false;
-    Boolean GoPrevClick = false;
-    
     GButton hipHopButton;
     GButton discoPopButton;
     GButton dubstepButton;
@@ -189,7 +172,7 @@ class Quiz{
     goButton = new GButton(papp, 812.1251 + shiftx, 808.8232 + shifty, 150, 70, "Go!");
     goButton.addEventHandler(papp, "goHandler");
     goButton.setVisible(false);
-    goButton.setLocalColor(4, color(152,50,255)); //Background Colour
+    goButton.setLocalColor(4, color(187, 134, 252)); //Background Colour
     goButton.setLocalColor(6, color(177,126,254)); //Background Hover Colour
     goButton.setLocalColor(14, color(177,126,254)); //Background Selected Colour
     goButton.setLocalColor(3, color(83,75,255)); //Boarder Colour

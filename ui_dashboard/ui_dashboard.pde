@@ -2,13 +2,13 @@ import g4p_controls.*;
 
 boolean addABeat = false;
 boolean renderLandingPage = true;
-CircleButton addABeatButton;
 LinearBeatCreation createLinearBeat;
 CircularBeatCreation createCircularBeat;
 ThisOrThat thisOrThat;
 
 DrumBeats beats;
 Quiz createQuiz;
+Dashboard createDash;
 
 color addABeatHighlight; 
 color addABeatColor; 
@@ -23,6 +23,8 @@ boolean renderQuiz = false;
 boolean renderDash = false;
 boolean renderLikeOrDislikeBeat = false;
 boolean renderThisOrThat = false;
+Boolean fillBeat = false;
+Boolean addABeatClicked = false;
 
 PImage dashImg;
 PImage landingImg;
@@ -40,11 +42,13 @@ boolean hatSelected = false;
 // Buttons
 GButton startCreating;
 GButton playButton;
+GButton dashPlayButton;
 BeatPopulation gaBeatPopulation1;
 DrumBeats originalGABeat;
 GButton getHelpFromAlgorithm;
 GButton save; 
 GButton cancel;
+GButton addABeatButton;
 DrumBeats gaBeat1;
 DrumBeats gaBeat2;
 
@@ -56,20 +60,31 @@ void setup(){
    beats = new DrumBeats(this,3,16);
    beats.audioSetup();
    beats.mute();
-   addABeatX = width/2;
-   addABeatY = height/2 - 105;
-   addABeatHighlight = color(204);
-   addABeatButton = new CircleButton(addABeatX, addABeatY, addABeatRadius);
+   //addABeatX = width/2;
+   //addABeatY = height/2 - 105;
+   //addABeatHighlight = color(204);
+   //addABeatButton = new CircleButton(addABeatX, addABeatY, addABeatRadius);
    createQuiz = new Quiz(this); 
+   createDash = new Dashboard(this, fillBeat);
    createLinearBeat = new LinearBeatCreation(beats, this);
    createCircularBeat = new CircularBeatCreation(beats, this);
    thisOrThat = new ThisOrThat(beats, this);   
    dashImg = loadImage("Dashboard.png");
-   landingImg = loadImage("LandingPage.png");
+   landingImg = loadImage("TonicLandingPage.PNG");
    
    playButton = new GButton(this, 380, 30, 80, 30, "PLAY");
    playButton.addEventHandler(this, "audioHandler");
    playButton.setVisible(false);
+   
+   dashPlayButton = new GButton(this, 200, 90, 100, 50, "PLAY");
+   dashPlayButton.addEventHandler(this, "audioHandler");
+   dashPlayButton.setFont(new Font("Gothic A1", Font.PLAIN, 25));
+   dashPlayButton.setVisible(false);
+   
+   addABeatButton = new GButton(this, 320, 90, 120, 50, "Add beat");
+   addABeatButton.addEventHandler(this, "addABeatHandler");
+   addABeatButton.setFont(new Font("Gothic A1", Font.PLAIN, 25));
+   addABeatButton.setVisible(false);
 
    save = new GButton(this, 950, 700, 160, 80, "Save");
    save.addEventHandler(this, "saveHandler");
@@ -137,21 +152,19 @@ void draw(){
   }
   
   if (renderDash) {
-    image(dashImg, 0, 0, 1300, 800);
-    renderAddABeat = true;
+   createDash.render();
+   renderAddABeat = true;
+   addABeatButton.setVisible(true);
+   dashPlayButton.setVisible(true);
   }
   
-  if (renderAddABeat) {
-    addABeatButton.renderNoFill(renderAddABeat);
-    addABeatButton.update();
-  }
-  
-  if (addABeatButton.isClicked()) {
-    renderDash = false;
-    renderAddABeat = false;
-    renderLinearBeat = true;
-    addABeatButton.reset();
-    createLinearBeat.render(beats);
+  if (addABeatClicked) {
+   renderDash = false;
+   renderAddABeat = false;
+   renderLinearBeat = true;
+   addABeatButton.setVisible(false);
+   dashPlayButton.setVisible(false);
+   createLinearBeat.render(beats);
      }  
    
      if (renderLinearBeat && !createLinearBeat.getRenderLinear()) {
@@ -275,4 +288,8 @@ public void startCreatingHandler(GButton button, GEvent event) {
   renderQuiz = true;
   renderLandingPage = false;
   startCreating.setVisible(false);  
+}
+
+public void addABeatHandler(GButton button, GEvent event) {
+   addABeatClicked = true;
 }
