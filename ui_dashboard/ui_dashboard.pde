@@ -109,6 +109,14 @@ void setup(){
    startCreating.setLocalColor(4, color(187, 134, 252)); //background color
    startCreating.setFont(new Font("Gothic A1", Font.PLAIN, 24));
    
+   getHelpFromAlgorithm = new GButton(this, 950, 450, 320, 60, "Get Help from Algorithm");
+   getHelpFromAlgorithm.addEventHandler(this, "getHelpFromAlgorithmHandler");
+   getHelpFromAlgorithm.setLocalColor(2, color(41,41,41)); //text color
+   getHelpFromAlgorithm.setLocalColor(3, color(51,174,100)); //border colour
+   getHelpFromAlgorithm.setLocalColor(4, color(3, 218, 198)); //background color
+   getHelpFromAlgorithm.setFont(new Font("Gothic A1", Font.PLAIN, 25));
+   getHelpFromAlgorithm.setVisible(false);
+   
 
    gaBeat1 = new DrumBeats(this,3,16);
    gaBeat1.audioSetup();

@@ -1,35 +1,29 @@
 import java.awt.Rectangle;
-
-class ThisOrThat {
-  DrumBeats originalBeat;
-  DrumBeats beats1;
-  DrumBeats beats2;
-  boolean[] whatHasChangedInBeat1; // kick - 0, snare - 1, hi-hat - 2
-  boolean[] whatHasChangedInBeat2;
-  Integer beatNumber;
-  
-  //Tracks which beat is selected by user
-  String cardSelected = "left";
-
-  BeatPopulation population;
-  boolean firstPairCreated = false;
-
-  //DrumBeats Beats;
-  //BeatPopulation beatPopulation;
-  ArrayList<RectangularButton> kickButtons;
-  ArrayList<RectangularButton> snareButtons;
-  ArrayList<RectangularButton> hatButtons;
-  
-  RectangularButton checkButton;
-  RectangularButton xButton;
-  RectangularButton cancelButton; 
-  RectangularButton useThisButton;
+import g4p_controls.*;
   GButton playGA1;
   GButton playGA2;
   GButton preferThisBeatGA1;
   GButton preferThisBeatGA2;
   GButton useThisInSongGA1;
   GButton useThisInSongGA2;
+  GButton closeButton;
+  DrumBeats beats1;
+  DrumBeats beats2;
+  DrumBeats originalBeat;
+  BeatPopulation population;
+
+class ThisOrThat {
+  boolean[] whatHasChangedInBeat1; // kick - 0, snare - 1, hi-hat - 2
+  boolean[] whatHasChangedInBeat2;
+  Integer beatNumber;
+  
+  //Tracks which beat is selected by user
+  String cardSelected = "left";
+  boolean firstPairCreated = false;
+
+  ArrayList<RectangularButton> kickButtons;
+  ArrayList<RectangularButton> snareButtons;
+  ArrayList<RectangularButton> hatButtons;
   
   Float leftPlayButtonx = 307.34927;
   Float leftPlayButtony = 361.435;
@@ -54,16 +48,10 @@ class ThisOrThat {
   Float rightCardTopBound = 76.43;
   Float rightCardBottomBound = 521.0;
 
-  PImage closeButtonImage = loadImage("lightGreyCloseButton.png");
-  PImage purplePlayButtonImage = loadImage("PlayButtonPurple.png");
-  PImage tealPlayButtonImage = loadImage("PlayButtonTeal.png");
-  PImage purplePauseButtonImage = loadImage("PauseButtonPurple.png");
-  PImage tealPauseButtonImage = loadImage("PauseButtonTeal.png");
+  //PImage purplePlayButtonImage = loadImage("PlayButtonPurple.png");
+  //PImage tealPlayButtonImage = loadImage("PlayButtonTeal.png");
   PImage purpleMusicPlayingImage = loadImage("MusicPlayingPurple.png");
   PImage tealMusicPlayingImage = loadImage("MusicPlayingTeal.png");
-  PImage preferPurpleButtonImage = loadImage("IPreferThisButtonPurple.png");
-  PImage preferTealButtonImage = loadImage("IPreferThisButtonTeal.png");
-  PImage useThisInSongButtonImage = loadImage("UseThisInSongButton.png");
   
   PApplet pa;
   
@@ -136,13 +124,14 @@ class ThisOrThat {
    useThisInSongGA2.setFont(new Font("Gothic A1", Font.PLAIN, 18));
    useThisInSongGA2.setVisible(false);
    
-   getHelpFromAlgorithm = new GButton(pa, 950, 450, 320, 60, "Get Help from Algorithm");
-   getHelpFromAlgorithm.addEventHandler(pa, "getHelpFromAlgorithmHandler");
-   getHelpFromAlgorithm.setLocalColor(2, color(41,41,41)); //text color
-   getHelpFromAlgorithm.setLocalColor(3, color(51,174,100)); //border colour
-   getHelpFromAlgorithm.setLocalColor(4, color(3, 218, 198)); //background color
-   getHelpFromAlgorithm.setFont(new Font("Gothic A1", Font.PLAIN, 25));
-   getHelpFromAlgorithm.setVisible(false);
+   closeButton = new GButton(pa, 10, 10, 60, 60, "X");
+   closeButton.addEventHandler(pa, "closeButtonPressedHandler");
+   closeButton.setLocalColor(2, color(255,255,255)); //text color
+   closeButton.setLocalColor(3, color(66,65,62)); //border colour
+   closeButton.setLocalColor(4, color(66,65,62)); //background color
+   closeButton.setFont(new Font("Gothic A1", Font.PLAIN, 25));
+   closeButton.setVisible(false);
+   
   }
 
   void update() {
@@ -172,6 +161,7 @@ class ThisOrThat {
     preferThisBeatGA2.setVisible(true);
     useThisInSongGA1.setVisible(true);
     useThisInSongGA2.setVisible(true);
+    closeButton.setVisible(true);
     
     // Background 
     size(1300, 800);
@@ -345,6 +335,7 @@ class ThisOrThat {
   DrumBeats getBeat2() {
     return beats2;
   }
+ }
   
   public void preferThisBeatHandler1(GButton button, GEvent event) {  
    // user prefers left beat (teal)
@@ -361,16 +352,34 @@ class ThisOrThat {
   }
   
   public void useThisInSongBeatHandler1(GButton button, GEvent event) {  
-     // user prefers left beat (teal)
-     //gaBeatPopulation1.run(gaBeat1.beats, gaBeat2.beats, originalGABeat.beats, target_beats, 100);
-     //gaBeat1.beats = gaBeatPopulation1.getBestBeat();
-     //gaBeat2.beats = gaBeatPopulation1.getSecondBestBeat();
+    // user wants to use left beat (teal)
+    playGA1.setVisible(false); 
+    playGA2.setVisible(false);
+    preferThisBeatGA1.setVisible(false);
+    preferThisBeatGA2.setVisible(false);
+    useThisInSongGA1.setVisible(false);
+    useThisInSongGA2.setVisible(false);
+    closeButton.setVisible(false);
   }
   
   public void useThisInSongBeatHandler2(GButton button, GEvent event) {  
-     // user prefers left beat (teal)
-     //gaBeatPopulation1.run(gaBeat2.beats, gaBeat1.beats, originalGABeat.beats, target_beats, 100);
-     //gaBeat1.beats = gaBeatPopulation1.getBestBeat();
-     //gaBeat2.beats = gaBeatPopulation1.getSecondBestBeat();
+    // user wants to use right beat (purple)
+    playGA1.setVisible(false); 
+    playGA2.setVisible(false);
+    preferThisBeatGA1.setVisible(false);
+    preferThisBeatGA2.setVisible(false);
+    useThisInSongGA1.setVisible(false);
+    useThisInSongGA2.setVisible(false);
+    closeButton.setVisible(false);
   }
-}
+  
+  public void closeButtonPressedHandler(GButton button, GEvent event) {  
+    // user wants to close what they were doing - stop generating 
+    playGA1.setVisible(false); 
+    playGA2.setVisible(false);
+    preferThisBeatGA1.setVisible(false);
+    preferThisBeatGA2.setVisible(false);
+    useThisInSongGA1.setVisible(false);
+    useThisInSongGA2.setVisible(false);
+    closeButton.setVisible(false);
+  }
