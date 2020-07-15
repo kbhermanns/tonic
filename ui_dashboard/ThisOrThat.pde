@@ -64,6 +64,9 @@ class ThisOrThat {
   PImage preferPurpleButtonImage = loadImage("IPreferThisButtonPurple.png");
   PImage preferTealButtonImage = loadImage("IPreferThisButtonTeal.png");
   PImage useThisInSongButtonImage = loadImage("UseThisInSongButton.png");
+    PImage img0 = loadImage("HiHat.png");
+  PImage img1 = loadImage("Kick.png");
+  PImage img2 = loadImage("Snare.png");
   
   PApplet pa;
   
@@ -172,6 +175,9 @@ class ThisOrThat {
     preferThisBeatGA2.setVisible(true);
     useThisInSongGA1.setVisible(true);
     useThisInSongGA2.setVisible(true);
+    
+    //Beat Selector
+    renderBeatSelector();
     
     // Background 
     size(1300, 800);
@@ -293,6 +299,45 @@ class ThisOrThat {
     textSize(20);
     text(useThisLabel2, 790, 420);  // Text wraps within text box
   } 
+  
+  void renderBeatSelector() {
+    
+    //Kick selector
+    noFill();
+    pushMatrix();
+    translate(30, 90);
+    rotate(0.0);
+    image(img1, 0, 0, 80, 95);
+    popMatrix();
+    
+    for (int i = 0; i < kickButtons.size() - 1; i++){
+      kickButtons.get(i).renderWithoutText();
+    }
+    
+    //Snare buttons
+    noFill();
+    pushMatrix();
+    translate(30, 225);
+    rotate(0.0);
+    image(img2, 0, 0, 80, 70);
+    popMatrix();
+
+    for (int i = 0; i < snareButtons.size() - 1; i++){
+      snareButtons.get(i).renderWithoutText();
+    }
+    
+    //Hat buttons
+    noFill();
+    pushMatrix();
+    translate(20, 330);
+    rotate(0.0);
+    image(img0, 0, 0, 100, 80);
+    popMatrix();
+
+    for (int i = 0; i < hatButtons.size() - 1; i++){
+      hatButtons.get(i).renderWithoutText();
+    }
+  }
   
   void calculateWhatHasChangedInBeat1() {
     // comparing originalBeat to beats1
