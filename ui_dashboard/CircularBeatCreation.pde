@@ -25,7 +25,6 @@ class CircularBeatCreation {
   int[] snareFilled;
   int[] hatFilled;
   
-  RectangularButton algorithmButton;
   RectangularButton kickButton;
   RectangularButton snareButton; 
   RectangularButton hatButton; 
@@ -337,13 +336,7 @@ class CircularBeatCreation {
         hatFilled[15] = hatFilled[15] > 0 ? 0 : 1;
         Beats.updateBeats(2, 15, hatFilled[15]);
         showBeatTooltip = false;
-      } else if (mouseX >= algorithmButtonX && mouseX <= algorithmButtonX + 200 && mouseY >= algorithmButtonY && mouseY <= algorithmButtonY + 200) {
-        // TODO: Update - this is temp route into LikeOrDislikeBeatPage
-        area.setVisible(false);
-        area.setOpaque(false);
-        Clicked = true;
-        algorithmButtonSelected = true;
-      }
+      } 
       else {
       Clicked = false;
     }
@@ -380,6 +373,10 @@ class CircularBeatCreation {
   
   Boolean isAlgorithmButtonSelected() {
     return algorithmButtonSelected;
+  }
+  
+  void setIsAlgorithmButtonSelected(boolean s) {
+    algorithmButtonSelected = s;
   }
   
   void render(DrumBeats beats) {
@@ -429,8 +426,6 @@ class CircularBeatCreation {
     
     renderToggleButton();
     
-    algorithmButton = new RectangularButton(-16524602, 7.933884, -16524602, 1078.1515, 497.4589, 1.5648444, -34.9776, -189.1425, 24.9776, 100.195866, "Get Help From Algorithm", 1123.74, 490.98, 24);
- 
     if (hatSelected) {
       hatFill = -1157409;
     } else {
@@ -455,7 +450,6 @@ class CircularBeatCreation {
     kickButton.renderWithText();
     snareButton.renderWithText();
     hatButton.renderWithText();
-    algorithmButton.renderWithText();
     }
     
     if (algorithmButtonSelected) {
@@ -1446,7 +1440,17 @@ class CircularBeatCreation {
   void setRenderCircular(boolean b) {
     renderCircular = b;
   }
-  boolean getRenderCircular() {return renderCircular;}
-
-
+  
+  boolean getRenderCircular() {
+    return renderCircular;
+  }
+  
+  void setAlgorithmSelected(boolean s) {
+    algorithmButtonSelected = s;
+  }
+  
+  void hideTextArea() {
+    area.setVisible(false);
+    area.setOpaque(false);
+  }
 }

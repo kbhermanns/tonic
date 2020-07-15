@@ -267,17 +267,6 @@ class ThisOrThat {
       stroke(-16524602);
     }
     line(1.6193323, 563.52765, 1302.2676, 558.3458);
-    
-    //purple play button
-   // noFill();
-    //noStroke();
-    //pushMatrix();
-    //translate(923.991, 365.32138);
-    //rotate(-0.019580245);
-    //rectMode(CORNERS);
-    //rect(0, 0, 91.92437, 106.6844);
-    //image(purplePlayButtonImage, 0, 0, 91.92437, 106.6844);
-    //popMatrix();
 
     calculateWhatHasChangedInBeat1();
     calculateWhatHasChangedInBeat2();

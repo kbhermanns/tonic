@@ -30,7 +30,6 @@ class LinearBeatCreation {
   ArrayList<RectangularButton> snareButtons;
   ArrayList<RectangularButton> hatButtons;
   
-  RectangularButton algorithmButton;
   RectangularButton kickButton;
   RectangularButton snareButton; 
   RectangularButton hatButton; 
@@ -87,6 +86,11 @@ class LinearBeatCreation {
       hatButtons.get(k).setSelected(Beats.getBeat(2, k)  > 0 ? true : false);
     }
     
+    //hide test area when algorithm button is selected
+    if (algorithmButtonSelected) {
+      area.setVisible(false);
+      area.setOpaque(false);
+    }
 
     if (mousePressed == true && mouseButton == LEFT && Pressed == false) {
       Pressed = true;
@@ -115,13 +119,7 @@ class LinearBeatCreation {
       } else if (mouseX >= snareX && mouseX <= snareX + 100 && mouseY >= snareY && mouseY <= snareY + 100 && snareSelected == true) {
         Clicked = true;
         snareSelected = false;
-      } else if (mouseX >= algorithmButtonX && mouseX <= algorithmButtonX + 200 && mouseY >= algorithmButtonY && mouseY <= algorithmButtonY + 200) {
-        // TODO: Update - this is temp route into LikeOrDislikeBeatPage
-        area.setVisible(false);
-        area.setOpaque(false);
-        Clicked = true;
-        algorithmButtonSelected = true;
-      }
+      } 
       // layout toggle check
       else if (mouseX >= 1075 && mouseX <= 1135 && mouseY >= 25 && mouseY <= 70){
         area.setVisible(false);
@@ -182,10 +180,6 @@ class LinearBeatCreation {
     snareSelected = s;
   }
   
-  void setAlgorithmSelected(boolean s) {
-    algorithmButtonSelected = s;
-  }
-  
   void render(DrumBeats beats) {
    if (renderLinear && !algorithmButtonSelected){
     Beats = beats;
@@ -196,8 +190,6 @@ class LinearBeatCreation {
     
     renderToggleButton();
   
-    algorithmButton = new RectangularButton(-16524602, 7.933884, -16524602, 1078.1515, 497.4589, 1.5648444, -34.9776, -189.1425, 24.9776, 100.195866, "Get Help From Algorithm", 1123.74, 490.98, 24);
-
     // Text Input for Name of Song
     area.setVisible(true);
     area.setOpaque(true);
@@ -253,13 +245,13 @@ class LinearBeatCreation {
     kickButton.renderWithText();
     snareButton.renderWithText();
     hatButton.renderWithText();
-    algorithmButton.renderWithText();
     }
     
   
     if (algorithmButtonSelected) {
       save.setVisible(false);
       cancel.setVisible(false);
+      getHelpFromAlgorithm.setVisible(false);
     }
   }
  
@@ -352,6 +344,16 @@ class LinearBeatCreation {
   void setRenderLinear(boolean b) {
     renderLinear = b; 
   }
+  
+  void setAlgorithmSelected(boolean s) {
+    algorithmButtonSelected = s; //<>//
+  }
+  
+  void hideTextArea() {
+    area.setVisible(false);
+    area.setOpaque(false);
+  }
+  
   boolean getRenderLinear() {return renderLinear;}
   DrumBeats getBeats() { return Beats;}
 }
