@@ -309,3 +309,12 @@ public void startCreatingHandler(GButton button, GEvent event) {
 public void addABeatHandler(GButton button, GEvent event) {
    addABeatClicked = true;
 }
+
+public void xButtonOnThisThatPressed() {
+    renderLinearBeat = true;
+    renderCircularBeat = false;
+    createLinearBeat.setAlgorithmSelected(false);
+    createCircularBeat.setAlgorithmSelected(false);
+    renderThisOrThat = false;
+    beats.mute();
+}

@@ -375,6 +375,7 @@ class ThisOrThat {
   
   public void closeButtonPressedHandler(GButton button, GEvent event) {  
     // user wants to close what they were doing - stop generating 
+    xButtonOnThisThatPressed();
     playGA1.setVisible(false); 
     playGA2.setVisible(false);
     preferThisBeatGA1.setVisible(false);
