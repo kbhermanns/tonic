@@ -318,3 +318,8 @@ public void xButtonOnThisThatPressed() {
     renderThisOrThat = false;
     beats.mute();
 }
+
+public void useBeatInSong(DrumBeats gaBeats) {
+  createLinearBeat.render(gaBeats);
+  createCircularBeat.render(gaBeats);
+}

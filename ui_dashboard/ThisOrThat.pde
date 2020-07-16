@@ -360,6 +360,8 @@ class ThisOrThat {
     useThisInSongGA1.setVisible(false);
     useThisInSongGA2.setVisible(false);
     closeButton.setVisible(false);
+    useBeatInSong(beats1);
+    xButtonOnThisThatPressed();
   }
   
   public void useThisInSongBeatHandler2(GButton button, GEvent event) {  
@@ -371,6 +373,8 @@ class ThisOrThat {
     useThisInSongGA1.setVisible(false);
     useThisInSongGA2.setVisible(false);
     closeButton.setVisible(false);
+    useBeatInSong(beats2);
+    xButtonOnThisThatPressed();
   }
   
   public void closeButtonPressedHandler(GButton button, GEvent event) {  
