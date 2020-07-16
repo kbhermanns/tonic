@@ -396,10 +396,27 @@ public void playGA2Handler(GButton button, GEvent event) {
   gaBeat2.setBeats(thisOrThat.getBeat2().getEntireBeat());
 }
 
-public void cancelHandler(GButton button, GEvent event) {  
+public void cancelHandler(GButton button, GEvent event) { 
+    // TODO: hide buttons 
+    renderLinearBeat = false;
+    renderCircularBeat = false;
+    createLinearBeat.setAlgorithmSelected(false);
+    createCircularBeat.setAlgorithmSelected(false);
+    renderThisOrThat = false;
+    renderDash = true;
+    beats.mute();
 }
 
-public void saveHandler(GButton button, GEvent event) {  
+public void saveHandler(GButton button, GEvent event) { 
+  // TODO: hide buttons 
+  // TODO: add saving functionality 
+    renderLinearBeat = false;
+    renderCircularBeat = false;
+    createLinearBeat.setAlgorithmSelected(false);
+    createCircularBeat.setAlgorithmSelected(false);
+    renderThisOrThat = false;
+    renderDash = true;
+    beats.mute();
 }
 
 public void getHelpFromAlgorithmHandler(GButton button, GEvent event) {
