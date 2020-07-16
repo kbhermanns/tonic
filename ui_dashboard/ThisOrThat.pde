@@ -20,6 +20,7 @@ class ThisOrThat {
   boolean[] whatHasChangedInBeat1; // kick - 0, snare - 1, hi-hat - 2
   boolean[] whatHasChangedInBeat2;
   Integer beatNumber;
+  boolean clickableAreas;
   
   //Tracks which beat is selected by user
   String cardSelected = "left";
@@ -174,7 +175,7 @@ class ThisOrThat {
         }
        }
       
-      if (mousePressed == true && mouseButton == LEFT){
+      if (mousePressed == true && mouseButton == LEFT && clickableAreas){
         
         // See if user has clicked within the card region 
         if ((mouseX >= leftCardLeftBound && mouseX <= leftCardRightBound) && (mouseY >= leftCardTopBound && mouseY <= leftCardBottomBound)) {
@@ -270,6 +271,7 @@ class ThisOrThat {
     useThisInSongGA1.setVisible(true);
     useThisInSongGA2.setVisible(true);
     closeButton.setVisible(true);
+    clickableAreas = true;
     
     // Background 
     size(1300, 800);
@@ -374,7 +376,7 @@ class ThisOrThat {
     image(tealPlayButtonImage, 0, 0, 90, 90);
     popMatrix();
   
-   //colour changing bar  //<>//
+   //colour changing bar
     strokeWeight(15.0);
     if (cardSelected == "right") {
       stroke(-4487428);
