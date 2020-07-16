@@ -127,8 +127,8 @@ class BeatPopulation {
     //refill pop with children from mating pool
     for (int i = 0; i < population.length; i++) {
       // randomly pick 2 parents
-      int m = int(random(matingPool.size()));
-      int d = int(random(matingPool.size()));
+      int m = int(random(matingPool.size() -1));
+      int d = int(random(matingPool.size() -1));
       Beat mom = matingPool.get(m);
       Beat dad = matingPool.get(d);
 
