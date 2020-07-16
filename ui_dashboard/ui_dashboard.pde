@@ -30,6 +30,8 @@ boolean renderThisOrThat = false;
 boolean renderLoadingBar = false;
 Boolean fillBeat = false;
 Boolean addABeatClicked = false;
+boolean isBeginner = true;
+boolean renderSkillLevelSelect = false;
 
 PImage dashImg;
 PImage landingImg;
@@ -42,6 +44,9 @@ int[][] target_beats;
 
 // Buttons
 GButton startCreating;
+GButton expertButton; 
+GButton beginnerButton;
+GButton switchSkillLevelButton;
 BeatPopulation gaBeatPopulation1;
 DrumBeats originalGABeat;
 GButton getHelpFromAlgorithm;
@@ -78,7 +83,6 @@ void setup(){
    playPause.addEventHandler(this, "audioHandler");
    playPause.setVisible(false);
 
-
    tempoSlider = new GSlider(this, 700,642.5511, 250, 30, 20);
    tempoSlider.setLocalColor(5, color(231, 254, 252));
    tempoSlider.setLocalColor(3, color(3,218,198));
@@ -93,7 +97,7 @@ void setup(){
    beats = new DrumBeats(this,3,16);
    beats.audioSetup();
    beats.mute();
-   createQuiz = new Quiz(this); 
+   createQuiz = new Quiz(this, isBeginner); 
    createDash = new Dashboard(this);
    createLinearBeat = new LinearBeatCreation(beats, this);
    createCircularBeat = new CircularBeatCreation(beats, this);
@@ -113,10 +117,37 @@ void setup(){
    dashPlayButton3.addEventHandler(this, "audioHandler");
    dashPlayButton3.setVisible(false);
    
-   addABeatButton = new GButton(this, 320, 90, 120, 50, "Add beat");
+   addABeatButton = new GButton(this, 310, 90, 120, 50, "Add Beat");
    addABeatButton.addEventHandler(this, "addABeatHandler");
    addABeatButton.setFont(new Font("Gothic A1", Font.PLAIN, 25));
    addABeatButton.setVisible(false);
+   
+   beginnerButton = new GButton(this, 362.28024 + 125, 403.3092 -80, 150, 70, "Beginner");
+   beginnerButton.addEventHandler(this, "beginnerExpertHandler");
+   beginnerButton.setVisible(false);
+   beginnerButton.setLocalColor(4, color(85,254,255)); //Background Colour
+   beginnerButton.setLocalColor(6, color(170,255,255)); //Background Hover Colour
+   beginnerButton.setLocalColor(14, color(170,255,255)); //Background Selected Colour
+   beginnerButton.setLocalColor(3, color(40,230,255)); //Boarder Colour
+   beginnerButton.setFont(new Font("Gothic A1", Font.PLAIN, 30));
+  
+   expertButton = new GButton(this, 542.2182 + 125, 403.3092 -80, 150, 70, "Moderate/Expert");
+   expertButton.addEventHandler(this, "beginnerExpertHandler");
+   expertButton.setVisible(false);
+   expertButton.setLocalColor(4, color(85,254,255)); //Background Colour
+   expertButton.setLocalColor(6, color(170,255,255)); //Background Hover Colour
+   expertButton.setLocalColor(14, color(170,255,255)); //Background Selected Colour
+   expertButton.setLocalColor(3, color(40,230,255)); //Boarder Colour
+   expertButton.setFont(new Font("Gothic A1", Font.PLAIN, 30));
+   
+   switchSkillLevelButton = new GButton(this, 250, 808.8232 -80, 150, 70, "Back");
+   switchSkillLevelButton.addEventHandler(this, "switchSkillLevelHandler");
+   switchSkillLevelButton.setLocalColor(4, color(187, 134, 252)); //Background Colour
+   switchSkillLevelButton.setLocalColor(6, color(177,126,254)); //Background Hover Colour
+   switchSkillLevelButton.setLocalColor(14, color(177,126,254)); //Background Selected Colour
+   switchSkillLevelButton.setLocalColor(3, color(83,75,255)); //Boarder Colour
+   switchSkillLevelButton.setFont(new Font("Gothic A1", Font.PLAIN, 30));
+   switchSkillLevelButton.setVisible(false);
 
    save = new GButton(this, 1010, 720, 120, 50, "Save");
    save.addEventHandler(this, "saveHandler");
@@ -207,8 +238,19 @@ void draw(){  //<>//
   if(renderLandingPage) {
     image(landingImg,0,0,1300,800);
   }
+  if(renderSkillLevelSelect){
+    background(-14079703);
+    textSize(32);
+    fill(225);
+    text("How would you describe you musical skill level?", 300, 275);
+    beginnerButton.setVisible(true);
+    expertButton.setVisible(true);
+  }
+  
   if (renderQuiz){
-    createQuiz.render();
+    renderSkillLevelSelect = false;
+    createQuiz.render(isBeginner);
+    switchSkillLevelButton.setVisible(true);
   }
 
   if(renderQuiz && createQuiz.isGoClicked()){
@@ -222,6 +264,9 @@ void draw(){  //<>//
   }
   
   if (renderDash) {
+   beginnerButton.setVisible(false);
+   expertButton.setVisible(false);
+   switchSkillLevelButton.setVisible(false);
    createDash.render(fillBeat);
    renderAddABeat = true;
    addABeatButton.setVisible(true);
@@ -465,9 +510,25 @@ public void getHelpFromAlgorithmHandler(GButton button, GEvent event) {
 }
 
 public void startCreatingHandler(GButton button, GEvent event) {
-  renderQuiz = true;
+  renderQuiz = false;
+  renderSkillLevelSelect = true;
   renderLandingPage = false;
   startCreating.setVisible(false);  
+}
+
+public void beginnerExpertHandler(GButton button, GEvent event) {
+    beginnerButton.setVisible(false);
+    expertButton.setVisible(false);
+    if (button.getText() == "Beginner"){isBeginner = true;}
+    if (button.getText() == "Moderate/Expert"){isBeginner = false;}
+    renderQuiz = true; 
+  }
+
+public void switchSkillLevelHandler(GButton button, GEvent event) {
+    renderQuiz = false;
+    renderSkillLevelSelect = true;
+    switchSkillLevelButton.setVisible(false);
+    createQuiz.clearButtons();
 }
   public void instrHandler(GButton button, GEvent event) {
   renderAddInstrument = true;
