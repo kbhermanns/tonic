@@ -408,6 +408,12 @@ public void cancelHandler(GButton button, GEvent event) {
     createCircularBeat.setAlgorithmSelected(false);
     renderThisOrThat = false;
     renderDash = true;
+    save.setVisible(false);
+    cancel.setVisible(false);
+    createLinearBeat.hideTextArea();
+    createCircularBeat.hideTextArea();
+    add.clearButtons();
+    getHelpFromAlgorithm.setVisible(false);
     beats.mute();
 }
 
@@ -420,6 +426,13 @@ public void saveHandler(GButton button, GEvent event) {
     createCircularBeat.setAlgorithmSelected(false);
     renderThisOrThat = false;
     renderDash = true;
+    save.setVisible(false);
+    cancel.setVisible(false);
+    createLinearBeat.hideTextArea();
+    createCircularBeat.hideTextArea();
+    getHelpFromAlgorithm.setVisible(false);
+    //playButton.setVisible(false);
+    add.clearButtons();
     beats.mute();
 }
 
