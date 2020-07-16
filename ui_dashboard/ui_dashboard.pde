@@ -178,8 +178,7 @@ void setup(){
    getHelpFromAlgorithm.setLocalColor(3, color(51,174,100)); //border colour
    getHelpFromAlgorithm.setLocalColor(4, color(3, 218, 198)); //background color
    getHelpFromAlgorithm.setFont(new Font("Gothic A1", Font.PLAIN, 25));
-   getHelpFromAlgorithm.setVisible(false);
-   
+   getHelpFromAlgorithm.setVisible(false);   
 
    gaBeat1 = new DrumBeats(this,3,16);
    gaBeat1.audioSetup();
@@ -227,12 +226,12 @@ void setup(){
     addInstrument3.setFont(new Font("Gothic A1", Font.PLAIN, 20));
 }
 
-void draw(){  //<>//
-  background(-14079703); //<>//
+void draw(){
+  background(-14079703);
   noFill();
   pushMatrix();
   translate(5.50573, -1.295466);
-  rotate(0.0); //<>//
+  rotate(0.0);
   popMatrix();
 
   if(renderLandingPage) {
@@ -385,7 +384,24 @@ void draw(){  //<>//
      createCircularBeat.renderInst3Circle();
    }
    }
-  }  if (renderLoadingBar == true) {
+  }  
+  
+  if ((renderCircularBeat && createCircularBeat.isAlgorithmButtonSelected()) || (renderLinearBeat && createLinearBeat.isAlgorithmButtonSelected())) {
+     // algorithm button was selected 
+    playPause.setVisible(false);
+    save.setVisible(false);
+    cancel.setVisible(false);
+    tempoSlider.setVisible(false);
+    createLinearBeat.addAccent.setVisible(false);
+    getHelpFromAlgorithm.setVisible(false);
+    addInstrument1.setVisible(false);
+    addInstrument2.setVisible(false);
+    addInstrument3.setVisible(false);
+    thisOrThat.render();
+    thisOrThat.update();
+    beats.mute();
+   } 
+   if (renderLoadingBar == true) {
       //Loading bar created by https://helloacm.com/processing/
       per = (per + 10) % 100;
       strokeWeight(15.0);
@@ -409,18 +425,6 @@ void draw(){  //<>//
         per = 0;
       }
   }
-  
-  else if ((renderCircularBeat && createCircularBeat.isAlgorithmButtonSelected()) || (renderLinearBeat && createLinearBeat.isAlgorithmButtonSelected())) {
-     // algorithm button was selected 
-    playPause.setVisible(false);
-    save.setVisible(false);
-    cancel.setVisible(false);
-    tempoSlider.setVisible(false);
-    getHelpFromAlgorithm.setVisible(false);
-    thisOrThat.render();
-    thisOrThat.update();
-    beats.mute();
-   } 
  }
   
 // Event Handlers
@@ -496,6 +500,12 @@ public void saveHandler(GButton button, GEvent event) {
     dashPlayButton3.setVisible(true);
     fillBeat = true;
     beats.mute();
+    playPause.setVisible(false);
+    addInstrument3.setVisible(false);
+    addInstrument2.setVisible(false);
+    addInstrument1.setVisible(false);
+    tempoSlider.setVisible(false);
+
 }
 
 public void getHelpFromAlgorithmHandler(GButton button, GEvent event) {
@@ -559,6 +569,5 @@ public void useBeatInSong(DrumBeats gaBeats) {
   beats = gaBeats;
 }
 public void tempoSliderEventHandler(GSlider slider, GEvent event) {
-  println("tempoSliderHandler "+ slider.getValueF());
   beats.setBpm(slider.getValueF());
 }
