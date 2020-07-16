@@ -320,6 +320,5 @@ public void xButtonOnThisThatPressed() {
 }
 
 public void useBeatInSong(DrumBeats gaBeats) {
-  createLinearBeat.render(gaBeats);
-  createCircularBeat.render(gaBeats);
+  beats = gaBeats;
 }
