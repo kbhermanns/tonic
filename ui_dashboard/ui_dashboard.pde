@@ -401,7 +401,6 @@ public void playGA2Handler(GButton button, GEvent event) {
 }
 
 public void cancelHandler(GButton button, GEvent event) { 
-    // TODO: hide buttons 
     renderLinearBeat = false;
     renderCircularBeat = false;
     createLinearBeat.setAlgorithmSelected(false);
@@ -414,11 +413,15 @@ public void cancelHandler(GButton button, GEvent event) {
     createCircularBeat.hideTextArea();
     add.clearButtons();
     getHelpFromAlgorithm.setVisible(false);
+    tempoSlider.setVisible(false);
+    playPause.setVisible(false);
+    addInstrument1.setVisible(false);
+    addInstrument2.setVisible(false);
+    addInstrument3.setVisible(false);
     beats.mute();
 }
 
 public void saveHandler(GButton button, GEvent event) { 
-  // TODO: hide buttons 
   // TODO: add saving functionality 
     renderLinearBeat = false;
     renderCircularBeat = false;
@@ -430,9 +433,13 @@ public void saveHandler(GButton button, GEvent event) {
     cancel.setVisible(false);
     createLinearBeat.hideTextArea();
     createCircularBeat.hideTextArea();
-    getHelpFromAlgorithm.setVisible(false);
-    //playButton.setVisible(false);
     add.clearButtons();
+    getHelpFromAlgorithm.setVisible(false);
+    tempoSlider.setVisible(false);
+    playPause.setVisible(false);
+    addInstrument1.setVisible(false);
+    addInstrument2.setVisible(false);
+    addInstrument3.setVisible(false);
     beats.mute();
 }
 
