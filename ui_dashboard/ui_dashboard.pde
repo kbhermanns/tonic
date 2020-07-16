@@ -12,8 +12,6 @@ Dashboard createDash;
 
 //Variables for loading bar
 int per = 0;
-final int SX = 500;
-final int SY = 400; 
 
 color addABeatHighlight; 
 color addABeatColor; 
@@ -31,7 +29,6 @@ boolean renderThisOrThat = false;
 boolean renderLoadingBar = false;
 Boolean fillBeat = false;
 Boolean addABeatClicked = false;
-
 
 PImage dashImg;
 PImage landingImg;
@@ -287,8 +284,8 @@ void draw(){
     thisOrThat.render();
     thisOrThat.update();
     beats.mute();
-    } 
-  }
+   } 
+ }
   
 // Event Handlers
 

@@ -381,8 +381,6 @@ class ThisOrThat {
     closeButton.setVisible(false);
     useBeatInSong(beats2);
     xButtonOnThisThatPressed();
-    useBeatInSong(beats2);
-    xButtonOnThisThatPressed();
   }
   
   public void closeButtonPressedHandler(GButton button, GEvent event) {  
