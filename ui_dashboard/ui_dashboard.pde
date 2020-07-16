@@ -94,7 +94,7 @@ void setup(){
    beats.audioSetup();
    beats.mute();
    createQuiz = new Quiz(this); 
-   createDash = new Dashboard(this, fillBeat);
+   createDash = new Dashboard(this);
    createLinearBeat = new LinearBeatCreation(beats, this);
    createCircularBeat = new CircularBeatCreation(beats, this);
    thisOrThat = new ThisOrThat(beats, this);   
@@ -222,7 +222,7 @@ void draw(){  //<>//
   }
   
   if (renderDash) {
-   createDash.render();
+   createDash.render(fillBeat);
    renderAddABeat = true;
    addABeatButton.setVisible(true);
    dashPlayButton1.setVisible(true);
@@ -425,11 +425,11 @@ public void cancelHandler(GButton button, GEvent event) {
     addInstrument1.setVisible(false);
     addInstrument2.setVisible(false);
     addInstrument3.setVisible(false);
+    fillBeat = false;
     beats.mute();
 }
 
 public void saveHandler(GButton button, GEvent event) { 
-  // TODO: add saving functionality 
     renderLinearBeat = false;
     renderCircularBeat = false;
     createLinearBeat.setAlgorithmSelected(false);
@@ -449,6 +449,7 @@ public void saveHandler(GButton button, GEvent event) {
     addInstrument3.setVisible(false);
     dashPlayButton2.setVisible(true);
     dashPlayButton3.setVisible(true);
+    fillBeat = true;
     beats.mute();
 }
 

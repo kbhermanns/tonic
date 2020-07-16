@@ -332,6 +332,16 @@ class LinearBeatCreation {
   void setName() {
     name = area.getText();
   }
+  
+  String getName(){
+    if(name != ""){
+      return name;
+    }
+    else{
+      return "Beat 1";
+    }
+    
+  }
 
   void updateName(String n) {
     name = n;
