@@ -358,3 +358,8 @@ public void xButtonOnThisThatPressed() {
 public void showLoadingBar() {
   renderLoadingBar = true;
 }
+
+public void useBeatInSong(DrumBeats gaBeats) {
+  createLinearBeat.render(gaBeats);
+  createCircularBeat.render(gaBeats);
+}
