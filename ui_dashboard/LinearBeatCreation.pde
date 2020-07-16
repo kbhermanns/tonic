@@ -345,7 +345,7 @@ class LinearBeatCreation {
   
   void setAlgorithmSelected(boolean s) {
     algorithmButtonSelected = s; //<>//
-  }
+  } //<>//
   
   void hideTextArea() {
     area.setVisible(false);

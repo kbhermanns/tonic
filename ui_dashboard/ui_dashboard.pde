@@ -249,6 +249,10 @@ void draw(){
     playPause.setVisible(false);
     save.setVisible(false);
     cancel.setVisible(false);
+    addInstrument1.setVisible(false);
+    addInstrument2.setVisible(false);
+    addInstrument3.setVisible(false);
+    tempoSlider.setVisible(false);
     getHelpFromAlgorithm.setVisible(false);
   }
 
