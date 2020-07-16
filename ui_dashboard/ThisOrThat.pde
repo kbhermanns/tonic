@@ -336,19 +336,25 @@ class ThisOrThat {
     return beats2;
   }
  }
-  
+
   public void preferThisBeatHandler1(GButton button, GEvent event) {  
    // user prefers left beat (teal)
    population.run(beats1.beats, beats2.beats, originalBeat.beats, target_beats, 100);
    beats1.beats = gaBeatPopulation1.getBestBeat();
    beats2.beats = gaBeatPopulation1.getSecondBestBeat();
+   
+   //render loading bar
+   showLoadingBar();
   }
 
   public void preferThisBeatHandler2(GButton button, GEvent event) {  
-     // user prefers left beat (teal)
+     // user prefers left beat (purple)
      population.run(beats2.beats, beats1.beats, originalBeat.beats, target_beats, 100);
      beats1.beats = gaBeatPopulation1.getBestBeat();
      beats.beats = gaBeatPopulation1.getSecondBestBeat();
+     
+     //render loading bar
+     showLoadingBar();
   }
   
   public void useThisInSongBeatHandler1(GButton button, GEvent event) {  
