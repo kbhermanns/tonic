@@ -42,7 +42,6 @@ int[][] target_beats;
 
 // Buttons
 GButton startCreating;
-GButton dashPlayButton;
 BeatPopulation gaBeatPopulation1;
 DrumBeats originalGABeat;
 GButton getHelpFromAlgorithm;
@@ -57,6 +56,9 @@ GButton addInstrument2;
 GButton addInstrument3;
 ArrayList<String> instruments = new ArrayList<String>();
 GImageToggleButton playPause;
+GImageToggleButton dashPlayButton1;
+GImageToggleButton dashPlayButton2;
+GImageToggleButton dashPlayButton3;
 GSlider tempoSlider;
 
 boolean kickSelected = false;
@@ -91,10 +93,6 @@ void setup(){
    beats = new DrumBeats(this,3,16);
    beats.audioSetup();
    beats.mute();
-   //addABeatX = width/2;
-   //addABeatY = height/2 - 105;
-   //addABeatHighlight = color(204);
-   //addABeatButton = new CircleButton(addABeatX, addABeatY, addABeatRadius);
    createQuiz = new Quiz(this); 
    createDash = new Dashboard(this, fillBeat);
    createLinearBeat = new LinearBeatCreation(beats, this);
@@ -103,10 +101,17 @@ void setup(){
    dashImg = loadImage("Dashboard.png");
    landingImg = loadImage("TonicLandingPage.PNG");
    
-   dashPlayButton = new GButton(this, 200, 90, 100, 50, "PLAY");
-   dashPlayButton.addEventHandler(this, "audioHandler");
-   dashPlayButton.setFont(new Font("Gothic A1", Font.PLAIN, 25));
-   dashPlayButton.setVisible(false);
+   dashPlayButton1 = new GImageToggleButton(this, 200, 70 ,"PlayPause.png",2);
+   dashPlayButton1.addEventHandler(this, "audioHandler");
+   dashPlayButton1.setVisible(false);
+   
+   dashPlayButton2 = new GImageToggleButton(this, 75, 130 ,"PlayPauseSmall.png",2);
+   dashPlayButton2.addEventHandler(this, "audioHandler");
+   dashPlayButton2.setVisible(false);
+   
+   dashPlayButton3 = new GImageToggleButton(this, 265, 250 ,"PlayPauseSmall.png",2);
+   dashPlayButton3.addEventHandler(this, "audioHandler");
+   dashPlayButton3.setVisible(false);
    
    addABeatButton = new GButton(this, 320, 90, 120, 50, "Add beat");
    addABeatButton.addEventHandler(this, "addABeatHandler");
@@ -187,11 +192,11 @@ void setup(){
     addInstrument3.setLocalColor(4, -1); //Background Colour
     addInstrument3.setLocalColor(6, color(170,255,255)); //Background Hover Colour
     addInstrument3.setLocalColor(14, color(170,255,255)); //Background Selected Colour
-    addInstrument3.setLocalColor(3, color(40,230,255)); //Boarder Colour
+    addInstrument3.setLocalColor(3, color(40,230,255)); //Boarder Colour //<>//
     addInstrument3.setFont(new Font("Gothic A1", Font.PLAIN, 20));
 }
 
-void draw(){ 
+void draw(){  //<>//
   background(-14079703); //<>//
   noFill();
   pushMatrix();
@@ -220,7 +225,7 @@ void draw(){
    createDash.render();
    renderAddABeat = true;
    addABeatButton.setVisible(true);
-   dashPlayButton.setVisible(true);
+   dashPlayButton1.setVisible(true);
   }
   
   if (addABeatClicked) {
@@ -229,7 +234,9 @@ void draw(){
    renderLinearBeat = true;
    addABeatClicked = false;
    addABeatButton.setVisible(false);
-   dashPlayButton.setVisible(false);
+   dashPlayButton1.setVisible(false);
+   dashPlayButton2.setVisible(false);
+   dashPlayButton3.setVisible(false);
    createLinearBeat.render(beats);
   }  
    
@@ -440,6 +447,8 @@ public void saveHandler(GButton button, GEvent event) {
     addInstrument1.setVisible(false);
     addInstrument2.setVisible(false);
     addInstrument3.setVisible(false);
+    dashPlayButton2.setVisible(true);
+    dashPlayButton3.setVisible(true);
     beats.mute();
 }
 
