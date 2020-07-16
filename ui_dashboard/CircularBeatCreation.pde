@@ -1,36 +1,43 @@
 class CircularBeatCreation {
   int[] Beat;
   PImage img17;
+  PImage toggle = loadImage("CircularToggle.png");
   Boolean Pressed = false; 
   Boolean Clicked = false;
-  Boolean kickSelected = false;
-  int kickFill;
-  float kickX = 127.28;
-  float kickY = 638.66;
-  Boolean hatSelected = false;
-  int hatFill;
-  float hatX = 539.23;
-  float hatY = 638.66;
-  Boolean snareSelected = false;
-  int snareFill;  
-  float snareX = 328; 
-  float snareY = 638.66; 
+  Boolean inst1Selected = false;
+  int inst1Fill;
+  float inst1X = 127.28;
+  float inst1Y = 638.66;
+  Boolean inst3Selected = false;
+  int inst3Fill;
+  float inst3X = 539.23;
+  float inst3Y = 638.66;
+  Boolean inst2Selected = false;
+  int inst2Fill;  
+  float inst2X = 328; 
+  float inst2Y = 638.66; 
   Boolean algorithmButtonSelected = false;
   float algorithmButtonX = 970;
   float algorithmButtonY = 450;
   boolean renderCircular = false;
   
   DrumBeats Beats;
-  int[] kickFilled;
-  int[] snareFilled;
-  int[] hatFilled;
+  int[] inst1Filled;
+  int[] inst2Filled;
+  int[] inst3Filled;
   
-  RectangularButton kickButton;
-  RectangularButton snareButton; 
-  RectangularButton hatButton; 
+  RectangularButton algorithmButton;
+  RectangularButton inst1Button;
+  RectangularButton inst2Button; 
+  RectangularButton inst3Button; 
   
   String name;
   GTextArea area;
+
+  String inst1 = "Kick";
+  String inst2 = "Snare";
+  String inst3 = "HiHat";
+  ArrayList<String> instruments;
 
   Boolean showNameTooltip = true;
   Boolean showInstrumentTooltip = false;
@@ -41,19 +48,20 @@ class CircularBeatCreation {
     area = new GTextArea(papp,15, 15, 350, 50, G4P.SCROLLBARS_NONE);
     name = "";
     area.setVisible(false);
-   kickFilled = new int[16];
-   snareFilled = new int[16];
-   hatFilled = new int[16];
+   inst1Filled = new int[16];
+   inst2Filled = new int[16];
+   inst3Filled = new int[16];
    Beats = beats;
    for (int i = 0; i < 16; i++) {
-     kickFilled[i] = 0;
+     inst1Filled[i] = 0;
    }
    for (int j = 0; j < 16; j++) {
-    snareFilled[j] = 0;
+    inst2Filled[j] = 0;
    }
    for (int k = 0; k < 16; k++) {
-    hatFilled[k] = 0;
+    inst3Filled[k] = 0;
    }
+   instruments = new ArrayList<String>();
   }
   
   DrumBeats update() {
@@ -61,280 +69,280 @@ class CircularBeatCreation {
     //println("ABBY - CIRCLE on this screen - y " + mouseY);
     if (mousePressed == true && mouseButton == LEFT && Pressed == false) {
       Pressed = true;
-      if (mouseX >= kickX && mouseX <= kickX + 100 && mouseY >= kickY && mouseY <= kickY + 100 && kickSelected == false) {
+      if (instruments.size() >= 1 && mouseX >= inst1X && mouseX <= inst1X + 100 && mouseY >= inst1Y && mouseY <= inst1Y + 100 && inst1Selected == false) {
         Clicked = true;
-        kickSelected = true; 
+        inst1Selected = true; 
         if (showInstrumentTooltip) {
           showInstrumentTooltip = false;
           showBeatTooltip = true;
         }
-      } else if (mouseX >= hatX && mouseX <= hatX + 100 && mouseY >= hatY && mouseY <= hatY + 100 && hatSelected == false) {
+      } else if (instruments.size() >= 3 && mouseX >= inst3X && mouseX <= inst3X + 100 && mouseY >= inst3Y && mouseY <= inst3Y + 100 && inst3Selected == false) {
         Clicked = true;
-        hatSelected = true; 
+        inst3Selected = true; 
         if (showInstrumentTooltip) {
           showInstrumentTooltip = false;
           showBeatTooltip = true;
         }
-      } else if (mouseX >= snareX && mouseX <= snareX + 100 && mouseY >= snareY && mouseY <= snareY + 100 && snareSelected == false) { //<>// //<>//
+      } else if (instruments.size() >= 2 && mouseX >= inst2X && mouseX <= inst2X + 100 && mouseY >= inst2Y && mouseY <= inst2Y + 100 && inst2Selected == false) {
         Clicked = true;
-        snareSelected = true;
+        inst2Selected = true;
         if (showInstrumentTooltip) {
           showInstrumentTooltip = false;
           showBeatTooltip = true;
         }
-      }else if (mouseX >= kickX && mouseX <= kickX + 100 && mouseY >= kickY && mouseY <= kickY + 100 && kickSelected == true) {
+      }else if (instruments.size() >= 1 && mouseX >= inst1X && mouseX <= inst1X + 100 && mouseY >= inst1Y && mouseY <= inst1Y + 100 && inst1Selected == true) {
         Clicked = true;
-        kickSelected = false; 
-      } else if (mouseX >= hatX && mouseX <= hatX + 100 && mouseY >= hatY && mouseY <= hatY + 100 && hatSelected == true) {
+        inst1Selected = false; 
+      } else if (instruments.size() >= 3 && mouseX >= inst3X && mouseX <= inst3X + 100 && mouseY >= inst3Y && mouseY <= inst3Y + 100 && inst3Selected == true) {
         Clicked = true;
-        hatSelected = false; 
-      } else if (mouseX >= snareX && mouseX <= snareX + 100 && mouseY >= snareY && mouseY <= snareY + 100 && snareSelected == true) {
+        inst3Selected = false; 
+      } else if (instruments.size() >= 2 && mouseX >= inst2X && mouseX <= inst2X + 100 && mouseY >= inst2Y && mouseY <= inst2Y + 100 && inst2Selected == true) {
         Clicked = true;
-        snareSelected = false;
+        inst2Selected = false;
       }
       // layout toggle check
-      else if (mouseX >= 1140 && mouseX <= 1200 && mouseY >= 25 && mouseY <= 70){
+      else if (mouseX >= 1200 && mouseX <= 1275 && mouseY >= 25 && mouseY <= 76){
         renderCircular = false;
         area.setVisible(false);
       }
       else if (mouseX >= 613 && mouseX <= 640 && mouseY >= 198 && mouseY <= 263) {
-        kickFilled[0] = kickFilled[0] > 0 ? 0 : 1;
-        Beats.updateBeats(0, 0, kickFilled[0]);
+        inst1Filled[0] = inst1Filled[0] > 0 ? 0 : 1;
+        Beats.updateBeats(0, 0, inst1Filled[0]);
         showBeatTooltip = false;
       }
       else if (mouseX >= 645 && mouseX <= 680 && mouseY >= 209 && mouseY <= 276) {
-        kickFilled[1] = kickFilled[1] > 0 ? 0 : 1;
-        Beats.updateBeats(0, 1, kickFilled[1]);
+        inst1Filled[1] = inst1Filled[1] > 0 ? 0 : 1;
+        Beats.updateBeats(0, 1, inst1Filled[1]);
         showBeatTooltip = false;
       }
       else if (mouseX >= 648 && mouseX <= 724 && mouseY >= 255 && mouseY <= 285) {
-        kickFilled[2] = kickFilled[2] > 0 ? 0 : 1;
-        Beats.updateBeats(0, 2, kickFilled[2]);
+        inst1Filled[2] = inst1Filled[2] > 0 ? 0 : 1;
+        Beats.updateBeats(0, 2, inst1Filled[2]);
         showBeatTooltip = false;
       }
       else if (mouseX >= 658 && mouseX <= 727 && mouseY >= 275 && mouseY <= 313) {
-        kickFilled[3] = kickFilled[3] > 0 ? 0 : 1;
-        Beats.updateBeats(0, 3, kickFilled[3]);
+        inst1Filled[3] = inst1Filled[3] > 0 ? 0 : 1;
+        Beats.updateBeats(0, 3, inst1Filled[3]);
         showBeatTooltip = false;
       }
       else if (mouseX >= 653 && mouseX <= 729 && mouseY >= 312 && mouseY <= 360) {
-        kickFilled[4] = kickFilled[4] > 0 ? 0 : 1;
-        Beats.updateBeats(0, 4, kickFilled[4]);
+        inst1Filled[4] = inst1Filled[4] > 0 ? 0 : 1;
+        Beats.updateBeats(0, 4, inst1Filled[4]);
         showBeatTooltip = false;
       }
       else if (mouseX >= 642 && mouseX <= 718 && mouseY >= 334 && mouseY <= 380) {
-        kickFilled[5] = kickFilled[5] > 0 ? 0 : 1;
-        Beats.updateBeats(0, 5, kickFilled[5]);
+        inst1Filled[5] = inst1Filled[5] > 0 ? 0 : 1;
+        Beats.updateBeats(0, 5, inst1Filled[5]);
         showBeatTooltip = false;
       }
       else if (mouseX >= 635 && mouseX <= 664 && mouseY >= 343 && mouseY <= 411) {
-        kickFilled[6] = kickFilled[6] > 0 ? 0 : 1;
-        Beats.updateBeats(0, 6, kickFilled[6]);
+        inst1Filled[6] = inst1Filled[6] > 0 ? 0 : 1;
+        Beats.updateBeats(0, 6, inst1Filled[6]);
         showBeatTooltip = false;
       }
       else if (mouseX >= 618 && mouseX <= 654 && mouseY >= 358 && mouseY <= 422) {
-        kickFilled[7] = kickFilled[7] > 0 ? 0 : 1;
-        Beats.updateBeats(0, 7, kickFilled[7]);
+        inst1Filled[7] = inst1Filled[7] > 0 ? 0 : 1;
+        Beats.updateBeats(0, 7, inst1Filled[7]);
         showBeatTooltip = false;
       }
       else if (mouseX >= 600 && mouseX <= 644 && mouseY >= 352 && mouseY <= 425) {
-        kickFilled[8] = kickFilled[8] > 0 ? 0 : 1;
-        Beats.updateBeats(0, 8, kickFilled[8]);
+        inst1Filled[8] = inst1Filled[8] > 0 ? 0 : 1;
+        Beats.updateBeats(0, 8, inst1Filled[8]);
         showBeatTooltip = false;
       }
       else if (mouseX >= 536 && mouseX <= 593 && mouseY >= 344 && mouseY <= 417) {
-        kickFilled[9] = kickFilled[9] > 0 ? 0 : 1;
-        Beats.updateBeats(0, 9, kickFilled[9]);
+        inst1Filled[9] = inst1Filled[9] > 0 ? 0 : 1;
+        Beats.updateBeats(0, 9, inst1Filled[9]);
         showBeatTooltip = false;
       }
       else if (mouseX >= 509 && mouseX <= 580 && mouseY >= 327 && mouseY <= 392) {
-        kickFilled[10] = kickFilled[10] > 0 ? 0 : 1;
-        Beats.updateBeats(0, 10, kickFilled[10]);
+        inst1Filled[10] = inst1Filled[10] > 0 ? 0 : 1;
+        Beats.updateBeats(0, 10, inst1Filled[10]);
         showBeatTooltip = false;
       }
       else if (mouseX >= 496 && mouseX <= 567 && mouseY >= 316 && mouseY <= 361) {
-        kickFilled[11] = kickFilled[11] > 0 ? 0 : 1;
-        Beats.updateBeats(0, 11, kickFilled[11]);
+        inst1Filled[11] = inst1Filled[11] > 0 ? 0 : 1;
+        Beats.updateBeats(0, 11, inst1Filled[11]);
         showBeatTooltip = false;
       }
       else if (mouseX >= 496 && mouseX <= 567 && mouseY >= 275 && mouseY <= 313) {
-        kickFilled[12] = kickFilled[12] > 0 ? 0 : 1;
-        Beats.updateBeats(0, 12, kickFilled[12]);
+        inst1Filled[12] = inst1Filled[12] > 0 ? 0 : 1;
+        Beats.updateBeats(0, 12, inst1Filled[12]);
         showBeatTooltip = false;
       }
       else if (mouseX >= 504 && mouseX <= 571 && mouseY >= 230 && mouseY <= 294) {
-        kickFilled[13] = kickFilled[13] > 0 ? 0 : 1;
-        Beats.updateBeats(0, 13, kickFilled[13]);
+        inst1Filled[13] = inst1Filled[13] > 0 ? 0 : 1;
+        Beats.updateBeats(0, 13, inst1Filled[13]);
         showBeatTooltip = false;
       }
       else if (mouseX >= 535 && mouseX <= 584 && mouseY >= 205 && mouseY <= 278) {
-        kickFilled[14] = kickFilled[14] > 0 ? 0 : 1;
-        Beats.updateBeats(0, 14, kickFilled[14]);
+        inst1Filled[14] = inst1Filled[14] > 0 ? 0 : 1;
+        Beats.updateBeats(0, 14, inst1Filled[14]);
         showBeatTooltip = false;
       }
       else if (mouseX >= 570 && mouseX <= 610 && mouseY >= 196 && mouseY <= 266) {
-        kickFilled[15] = kickFilled[15] > 0 ? 0 : 1;
-        Beats.updateBeats(0, 15, kickFilled[15]);
+        inst1Filled[15] = inst1Filled[15] > 0 ? 0 : 1;
+        Beats.updateBeats(0, 15, inst1Filled[15]);
         showBeatTooltip = false;
       }
       else if (mouseX >= 612.5 && mouseX <= 690 && mouseY >= 139 && mouseY <= 202) {
-        snareFilled[0] = snareFilled[0] > 0 ? 0 : 1;
-        Beats.updateBeats(1, 0, snareFilled[0]);
+        inst2Filled[0] = inst2Filled[0] > 0 ? 0 : 1;
+        Beats.updateBeats(1, 0, inst2Filled[0]);
         showBeatTooltip = false;
       }
       else if (mouseX >= 672 && mouseX <= 748 && mouseY >= 158 && mouseY <= 229) {
-        snareFilled[1] = snareFilled[1] > 0 ? 0 : 1;
-        Beats.updateBeats(1, 1, snareFilled[1]);
+        inst2Filled[1] = inst2Filled[1] > 0 ? 0 : 1;
+        Beats.updateBeats(1, 1, inst2Filled[1]);
         showBeatTooltip = false;
       }
       else if (mouseX >= 706 && mouseX <= 779 && mouseY >= 200 && mouseY <= 270) {
-        snareFilled[2] = snareFilled[2] > 0 ? 0 : 1;
-        Beats.updateBeats(1, 2, snareFilled[2]);
+        inst2Filled[2] = inst2Filled[2] > 0 ? 0 : 1;
+        Beats.updateBeats(1, 2, inst2Filled[2]);
         showBeatTooltip = false;
       }
       else if (mouseX >= 734 && mouseX <= 796 && mouseY >= 269 && mouseY <= 312) {
-        snareFilled[3] = snareFilled[3] > 0 ? 0 : 1;
-        Beats.updateBeats(1, 3, snareFilled[3]);
+        inst2Filled[3] = inst2Filled[3] > 0 ? 0 : 1;
+        Beats.updateBeats(1, 3, inst2Filled[3]);
         showBeatTooltip = false;
       }
       else if (mouseX >= 728 && mouseX <= 791 && mouseY >= 319 && mouseY <= 374) {
-        snareFilled[4] = snareFilled[4] > 0 ? 0 : 1;
-        Beats.updateBeats(1, 4, snareFilled[4]);
+        inst2Filled[4] = inst2Filled[4] > 0 ? 0 : 1;
+        Beats.updateBeats(1, 4, inst2Filled[4]);
         showBeatTooltip = false;
       }
       else if (mouseX >= 702 && mouseX <= 773 && mouseY >= 362 && mouseY <= 425) {
-        snareFilled[5] = snareFilled[5] > 0 ? 0 : 1;
-        Beats.updateBeats(1, 5, snareFilled[5]);
+        inst2Filled[5] = inst2Filled[5] > 0 ? 0 : 1;
+        Beats.updateBeats(1, 5, inst2Filled[5]);
         showBeatTooltip = false;
       }
       else if (mouseX >= 667 && mouseX <= 731 && mouseY >= 399 && mouseY <= 460) {
-        snareFilled[6] = snareFilled[6] > 0 ? 0 : 1;
-        Beats.updateBeats(1, 6, snareFilled[6]);
+        inst2Filled[6] = inst2Filled[6] > 0 ? 0 : 1;
+        Beats.updateBeats(1, 6, inst2Filled[6]);
         showBeatTooltip = false;
       }
       else if (mouseX >= 617 && mouseX <= 673 && mouseY >= 425 && mouseY <= 480) {
-        snareFilled[7] = snareFilled[7] > 0 ? 0 : 1;
-        Beats.updateBeats(1, 7, snareFilled[7]);
+        inst2Filled[7] = inst2Filled[7] > 0 ? 0 : 1;
+        Beats.updateBeats(1, 7, inst2Filled[7]);
         showBeatTooltip = false;
       }
       else if (mouseX >= 558 && mouseX <= 614 && mouseY >= 428 && mouseY <= 484) {
-        snareFilled[8] = snareFilled[8] > 0 ? 0 : 1;
-        Beats.updateBeats(1, 8, snareFilled[8]);
+        inst2Filled[8] = inst2Filled[8] > 0 ? 0 : 1;
+        Beats.updateBeats(1, 8, inst2Filled[8]);
         showBeatTooltip = false;
       }
       else if (mouseX >= 505 && mouseX <= 566 && mouseY >= 408 && mouseY <= 467) {
-        snareFilled[9] = snareFilled[9] > 0 ? 0 : 1;
-        Beats.updateBeats(1, 9, snareFilled[9]);
+        inst2Filled[9] = inst2Filled[9] > 0 ? 0 : 1;
+        Beats.updateBeats(1, 9, inst2Filled[9]);
         showBeatTooltip = false;
       }
       else if (mouseX >= 457 && mouseX <= 526 && mouseY >= 370 && mouseY <= 436) {
-        snareFilled[10] = snareFilled[10] > 0 ? 0 : 1;
-        Beats.updateBeats(1, 10, snareFilled[10]);
+        inst2Filled[10] = inst2Filled[10] > 0 ? 0 : 1;
+        Beats.updateBeats(1, 10, inst2Filled[10]);
         showBeatTooltip = false;
       }
       else if (mouseX >= 435 && mouseX <= 501 && mouseY >= 318 && mouseY <= 378) {
-        snareFilled[11] = snareFilled[11] > 0 ? 0 : 1;
-        Beats.updateBeats(1, 11, snareFilled[11]);
+        inst2Filled[11] = inst2Filled[11] > 0 ? 0 : 1;
+        Beats.updateBeats(1, 11, inst2Filled[11]);
         showBeatTooltip = false;
       }
       else if (mouseX >= 434 && mouseX <= 495 && mouseY >= 262 && mouseY <= 316) {
-        snareFilled[12] = snareFilled[12] > 0 ? 0 : 1;
-        Beats.updateBeats(1, 12, snareFilled[12]);
+        inst2Filled[12] = inst2Filled[12] > 0 ? 0 : 1;
+        Beats.updateBeats(1, 12, inst2Filled[12]);
         showBeatTooltip = false;
       }
       else if (mouseX >= 452 && mouseX <= 522 && mouseY >= 195 && mouseY <= 261) {
-        snareFilled[13] = snareFilled[13] > 0 ? 0 : 1;
-        Beats.updateBeats(1, 13, snareFilled[13]);
+        inst2Filled[13] = inst2Filled[13] > 0 ? 0 : 1;
+        Beats.updateBeats(1, 13, inst2Filled[13]);
         showBeatTooltip = false;
       }
       else if (mouseX >= 487 && mouseX <= 558 && mouseY >= 156 && mouseY <= 221) {
-        snareFilled[14] = snareFilled[14] > 0 ? 0 : 1;
-        Beats.updateBeats(1, 14, snareFilled[14]);
+        inst2Filled[14] = inst2Filled[14] > 0 ? 0 : 1;
+        Beats.updateBeats(1, 14, inst2Filled[14]);
         showBeatTooltip = false;
       }
       else if (mouseX >= 552 && mouseX <= 605 && mouseY >= 138 && mouseY <= 191) {
-        snareFilled[15] = snareFilled[15] > 0 ? 0 : 1;
-        Beats.updateBeats(1, 15, snareFilled[15]);
+        inst2Filled[15] = inst2Filled[15] > 0 ? 0 : 1;
+        Beats.updateBeats(1, 15, inst2Filled[15]);
         showBeatTooltip = false;
       }
       else if (mouseX >= 615 && mouseX <= 719 && mouseY >= 66 && mouseY <= 134) {
-        hatFilled[0] = hatFilled[0] > 0 ? 0 : 1;
-        Beats.updateBeats(2, 0, hatFilled[0]);
+        inst3Filled[0] = inst3Filled[0] > 0 ? 0 : 1;
+        Beats.updateBeats(2, 0, inst3Filled[0]);
         showBeatTooltip = false;
       }
       else if (mouseX >= 703 && mouseX <= 799 && mouseY >= 98 && mouseY <= 174) {
-        hatFilled[1] = hatFilled[1] > 0 ? 0 : 1;
-        Beats.updateBeats(2, 1, hatFilled[1]);
+        inst3Filled[1] = inst3Filled[1] > 0 ? 0 : 1;
+        Beats.updateBeats(2, 1, inst3Filled[1]);
         showBeatTooltip = false;
       }
       else if (mouseX >= 764 && mouseX <= 851 && mouseY >= 155 && mouseY <= 247) {
-        hatFilled[2] = hatFilled[2] > 0 ? 0 : 1;
-        Beats.updateBeats(2, 2, hatFilled[2]);
+        inst3Filled[2] = inst3Filled[2] > 0 ? 0 : 1;
+        Beats.updateBeats(2, 2, inst3Filled[2]);
         showBeatTooltip = false;
       }
       else if (mouseX >= 798 && mouseX <= 860 && mouseY >= 244 && mouseY <= 314) {
-        hatFilled[3] = hatFilled[3] > 0 ? 0 : 1;
-        Beats.updateBeats(2, 3, hatFilled[3]);
+        inst3Filled[3] = inst3Filled[3] > 0 ? 0 : 1;
+        Beats.updateBeats(2, 3, inst3Filled[3]);
         showBeatTooltip = false;
       }
       else if (mouseX >= 791 && mouseX <= 863 && mouseY >= 321 && mouseY <= 400) {
-        hatFilled[4] = hatFilled[4] > 0 ? 0 : 1;
-        Beats.updateBeats(2, 4, hatFilled[4]);
+        inst3Filled[4] = inst3Filled[4] > 0 ? 0 : 1;
+        Beats.updateBeats(2, 4, inst3Filled[4]);
         showBeatTooltip = false;
       }
       else if (mouseX >= 755 && mouseX <= 837 && mouseY >= 386 && mouseY <= 470) {
-        hatFilled[5] = hatFilled[5] > 0 ? 0 : 1;
-        Beats.updateBeats(2, 5, hatFilled[5]);
+        inst3Filled[5] = inst3Filled[5] > 0 ? 0 : 1;
+        Beats.updateBeats(2, 5, inst3Filled[5]);
         showBeatTooltip = false;
       }
       else if (mouseX >= 693 && mouseX <= 784 && mouseY >= 444 && mouseY <= 519) {
-        hatFilled[6] = hatFilled[6] > 0 ? 0 : 1;
-        Beats.updateBeats(2, 6, hatFilled[6]);
+        inst3Filled[6] = inst3Filled[6] > 0 ? 0 : 1;
+        Beats.updateBeats(2, 6, inst3Filled[6]);
         showBeatTooltip = false;
       }
       else if (mouseX >= 615 && mouseX <= 699 && mouseY >= 485 && mouseY <= 544) {
-        hatFilled[7] = hatFilled[7] > 0 ? 0 : 1;
-        Beats.updateBeats(2, 7, hatFilled[7]);
+        inst3Filled[7] = inst3Filled[7] > 0 ? 0 : 1;
+        Beats.updateBeats(2, 7, inst3Filled[7]);
         showBeatTooltip = false;
       }
       else if (mouseX >= 540 && mouseX <= 611 && mouseY >= 485 && mouseY <= 544) {
-        hatFilled[8] = hatFilled[8] > 0 ? 0 : 1;
-        Beats.updateBeats(2, 8, hatFilled[8]);
+        inst3Filled[8] = inst3Filled[8] > 0 ? 0 : 1;
+        Beats.updateBeats(2, 8, inst3Filled[8]);
         showBeatTooltip = false;
       }
       else if (mouseX >= 466 && mouseX <= 547 && mouseY >= 462 && mouseY <= 522) {
-        hatFilled[9] = hatFilled[9] > 0 ? 0 : 1;
-        Beats.updateBeats(2, 9, hatFilled[9]);
+        inst3Filled[9] = inst3Filled[9] > 0 ? 0 : 1;
+        Beats.updateBeats(2, 9, inst3Filled[9]);
         showBeatTooltip = false;
       }
       else if (mouseX >= 396 && mouseX <= 493 && mouseY >= 399 && mouseY <= 484) {
-        hatFilled[10] = hatFilled[10] > 0 ? 0 : 1;
-        Beats.updateBeats(2, 10, hatFilled[10]);
+        inst3Filled[10] = inst3Filled[10] > 0 ? 0 : 1;
+        Beats.updateBeats(2, 10, inst3Filled[10]);
         showBeatTooltip = false;
       }
       else if (mouseX >= 369 && mouseX <= 435 && mouseY >= 322 && mouseY <= 411) {
-        hatFilled[11] = hatFilled[11] > 0 ? 0 : 1;
-        Beats.updateBeats(2, 11, hatFilled[11]);
+        inst3Filled[11] = inst3Filled[11] > 0 ? 0 : 1;
+        Beats.updateBeats(2, 11, inst3Filled[11]);
         showBeatTooltip = false;
       }
       else if (mouseX >= 369 && mouseX <= 434 && mouseY >= 229 && mouseY <= 312) {
-        hatFilled[12] = hatFilled[12] > 0 ? 0 : 1;
-        Beats.updateBeats(2, 12, hatFilled[12]);
+        inst3Filled[12] = inst3Filled[12] > 0 ? 0 : 1;
+        Beats.updateBeats(2, 12, inst3Filled[12]);
         showBeatTooltip = false;
       }
       else if (mouseX >= 385 && mouseX <= 474 && mouseY >= 148 && mouseY <= 242) {
-        hatFilled[13] = hatFilled[13] > 0 ? 0 : 1;
-        Beats.updateBeats(2, 13, hatFilled[13]);
+        inst3Filled[13] = inst3Filled[13] > 0 ? 0 : 1;
+        Beats.updateBeats(2, 13, inst3Filled[13]);
         showBeatTooltip = false;
       }
       else if (mouseX >= 436 && mouseX <= 535 && mouseY >= 88 && mouseY <= 176) {
-        hatFilled[14] = hatFilled[14] > 0 ? 0 : 1;
-        Beats.updateBeats(2, 14, hatFilled[14]);
+        inst3Filled[14] = inst3Filled[14] > 0 ? 0 : 1;
+        Beats.updateBeats(2, 14, inst3Filled[14]);
         showBeatTooltip = false;
       }
       else if (mouseX >= 521 && mouseX <= 605 && mouseY >= 69 && mouseY <= 133) {
-        hatFilled[15] = hatFilled[15] > 0 ? 0 : 1;
-        Beats.updateBeats(2, 15, hatFilled[15]);
+        inst3Filled[15] = inst3Filled[15] > 0 ? 0 : 1;
+        Beats.updateBeats(2, 15, inst3Filled[15]);
         showBeatTooltip = false;
       } 
       else {
@@ -347,28 +355,28 @@ class CircularBeatCreation {
     return Beats;
   }
   
-  Boolean isKickSelected() {
-    return kickSelected;
+  Boolean isInst1Selected() {
+    return inst1Selected;
   }
   
-  Boolean isHatSelected() {
-    return hatSelected;
+  Boolean isInst3Selected() {
+    return inst3Selected;
   }
   
-  Boolean isSnareSelected() {
-    return snareSelected;
+  Boolean isInst2Selected() {
+    return inst2Selected;
   }
   
-  void setKickSelected(boolean s) {
-    kickSelected = s;
+  void setInst1Selected(boolean s) {
+    inst1Selected = s;
   }
   
-  void setHatSelected(boolean s) {
-    hatSelected = s;
+  void setInst3Selected(boolean s) {
+    inst3Selected = s;
   }
   
-  void setSnareSelected(boolean s) {
-    snareSelected = s;
+  void setInst2Selected(boolean s) {
+    inst2Selected = s;
   }
   
   Boolean isAlgorithmButtonSelected() {
@@ -382,15 +390,16 @@ class CircularBeatCreation {
   void render(DrumBeats beats) {
     if (renderCircular && !algorithmButtonSelected){
     Beats = beats;
-    kickFilled = Beats.getRow(0);
-    snareFilled = Beats.getRow(1);
-    hatFilled = Beats.getRow(2);
+    inst1Filled = Beats.getRow(0);
+    inst2Filled = Beats.getRow(1);
+    inst3Filled = Beats.getRow(2);
     
     background(-14079703);
     
     strokeWeight(5);
     stroke(-1);
     line(1.6193323, 570, 1297.0852, 570);
+    image(toggle, 1125, 25);
     
     // Text Input for Name of Song
     area.setVisible(true);
@@ -402,54 +411,59 @@ class CircularBeatCreation {
     
     if ((area.getText().trim()).equals("")){
       area.setText(name);
-      println("name" + name);
     }
     
     // Show tooltips
     if (showNameTooltip) {
       Tooltip nameTooltip = new Tooltip("Add a name for your beat","T",25,80,300,30);   
       nameTooltip.drawTooltip();
-    } else if (showInstrumentTooltip && !kickSelected && !hatSelected && !snareSelected) {
+    } else if (showInstrumentTooltip && !inst1Selected && !inst3Selected && !inst2Selected) {
       Tooltip instrumentTooltip = new Tooltip("Select an instrument to add to your beat","T",25,710,300,30);
       instrumentTooltip.drawTooltip();
     } else if (showBeatTooltip) {
       int y = 200;
-      if (snareSelected){
+      if (inst2Selected){
         y = 300;
       }
-      else if(hatSelected) {
+      else if(inst3Selected) {
         y = 400;
       }
       Tooltip beatTooltip = new Tooltip("Click on a segment to add the instruments to the beat", "R", 60,y,300,30);
       beatTooltip.drawTooltip();
-    }
+    }   
     
-    renderToggleButton();
-    
-    if (hatSelected) {
-      hatFill = -1157409;
-    } else {
-      hatFill = -1;
-    }
-    hatButton = new RectangularButton(hatFill, 7.933884, -1157409, 500.3737, 646.4375, 1.5707964, -34.9776, -110.122215, 34.9776, 34.9776, "Hat", 539.23, 638.66, 24);
-    
-    if (snareSelected) {
-      snareFill = -10241491;
-    } else {
-      snareFill = -1;
-    }
-    snareButton = new RectangularButton(snareFill, 7.933884, -10241491, 290.50824, 642.5511, 1.5700793, -34.9776, -114.26565, 34.9776, 34.9776, "Snare", 328, 638.66, 24);
-    
-    if (kickSelected) {
-      kickFill = -4487428;
-    } else {
-      kickFill = -1;
-    }
-    kickButton = new RectangularButton(kickFill, 7.933884, -4487428, 85.824615, 642.5511, 1.5707964, -34.9776, -116.59913, 34.9776, 34.9776, "Kick", 127.28, 638.66, 24);
-    
-    kickButton.renderWithText();
-    snareButton.renderWithText();
-    hatButton.renderWithText();
+    algorithmButton = new RectangularButton(-16524602, 7.933884, -16524602, 1078.1515, 497.4589, 1.5648444, -34.9776, -189.1425, 24.9776, 100.195866, "Get Help From Algorithm", 1123.74, 490.98, 24);
+      if (inst3Selected) {
+            inst3Fill = -1157409;
+          } else {
+            inst3Fill = -1;
+          }
+          
+          
+          if (inst2Selected) {
+            inst2Fill = -10241491;
+          } else {
+            inst2Fill = -1;
+          }
+          
+          if (inst1Selected) {
+            inst1Fill = -4487428;
+          } else {
+            inst1Fill = -1;
+          }
+
+          if (instruments.size() >= 1) {
+            inst1Button = new RectangularButton(inst1Fill, 7.933884, -4487428, 85.824615, 642.5511, 1.5707964, -34.9776, -116.59913, 34.9776, 34.9776, inst1, 127.28, 638.66, 24);
+            inst1Button.renderWithText();
+          }
+          if (instruments.size() >= 2) {
+            inst2Button = new RectangularButton(inst2Fill,7.933884, -10241491, 290.50824, 642.5511, 1.5700793, -34.9776, -114.26565, 34.9776, 34.9776, inst2, 328, 638.66, 24);
+            inst2Button.renderWithText();
+          }
+          if (instruments.size() == 3) {
+            inst3Button = new RectangularButton(inst3Fill, 7.933884, -1157409, 500.3737, 642.5511, 1.5707964, -34.9776, -110.122215, 34.9776, 34.9776, inst3, 539.23, 638.66, 24);
+          inst3Button.renderWithText();
+          }
     }
     
     if (algorithmButtonSelected) {
@@ -457,44 +471,9 @@ class CircularBeatCreation {
       cancel.setVisible(false);
     }
   
-  }
-   
-  void renderToggleButton() {
-    fill(-16524602);
-    strokeWeight(6.1157026);
-    stroke(-14079703);
-    pushMatrix();
-    translate(1177.9023, 55.705032);
-    rotate(0.0);
-    rectMode(CORNERS);
-    rect(-44.045776, -33.028046, 25.811897, 19.431992);
-    popMatrix();
+  } 
   
-    fill(-16524602);
-    strokeWeight(6.1157026);
-    stroke(-14079703);
-    pushMatrix();
-    translate(1105.3563, 55.705032);
-    rotate(0.0);
-    rectMode(CORNERS);
-    rect(-44.045776, -33.028046, 25.811897, 19.431992);
-    popMatrix();
-  
-    noFill();
-    strokeWeight(6.1157026);
-    stroke(-14079703);
-    pushMatrix();
-    translate(1096.288, 49.227703);
-    rotate(0.0);
-    ellipse(0,0,31.198927, 31.198927);
-    popMatrix();
-  
-    strokeWeight(9.338843);
-    stroke(-14079703);
-    line(1155.8794, 49.227703, 1184.3796, 49.227703);
- }
-  
-  void renderKickCircle() {
+  void renderInst1Circle() {
 
     noFill();
     strokeWeight(6.0);
@@ -564,7 +543,7 @@ class CircularBeatCreation {
     line(627.32935, 349.7758, 658.42053, 417.14);
   
   
-  if(kickFilled[0] > 0) {
+  if(inst1Filled[0] > 0) {
     fill(-4487428);
     strokeWeight(3.9338844);
     stroke(-3355444);
@@ -580,7 +559,7 @@ class CircularBeatCreation {
     popMatrix();
   }
   
-  if(kickFilled[1] > 0) {
+  if(inst1Filled[1] > 0) {
     fill(-4487428);
     strokeWeight(3.9338844);
     stroke(-3355444);
@@ -595,7 +574,7 @@ class CircularBeatCreation {
     endShape(CLOSE);
     popMatrix();
   }
-  if(kickFilled[2] > 0) {
+  if(inst1Filled[2] > 0) {
     fill(-4487428);
     strokeWeight(3.9338844);
     stroke(-3355444);
@@ -610,7 +589,7 @@ class CircularBeatCreation {
     endShape(CLOSE);
     popMatrix();
   }
-  if(kickFilled[3] > 0) {
+  if(inst1Filled[3] > 0) {
     fill(-4487428);
     strokeWeight(3.9338844);
     stroke(-3355444);
@@ -625,7 +604,7 @@ class CircularBeatCreation {
     endShape(CLOSE);
     popMatrix();
   }
-  if(kickFilled[4] > 0) {
+  if(inst1Filled[4] > 0) {
     fill(-4487428);
     strokeWeight(3.9338844);
     stroke(-3355444);
@@ -640,7 +619,7 @@ class CircularBeatCreation {
     endShape(CLOSE);
     popMatrix();
   }
-  if(kickFilled[5] > 0) {
+  if(inst1Filled[5] > 0) {
     fill(-4487428);
     strokeWeight(3.9338844);
     stroke(-3355444);
@@ -655,7 +634,7 @@ class CircularBeatCreation {
     endShape(CLOSE);
     popMatrix();
   }
-  if(kickFilled[6] > 0) {
+  if(inst1Filled[6] > 0) {
     fill(-4487428);
     strokeWeight(3.9338844);
     stroke(-3355444);
@@ -670,7 +649,7 @@ class CircularBeatCreation {
     endShape(CLOSE);
     popMatrix();
   }
-  if(kickFilled[7] > 0) {
+  if(inst1Filled[7] > 0) {
     fill(-4487428);
     strokeWeight(3.9338844);
     stroke(-3355444);
@@ -685,7 +664,7 @@ class CircularBeatCreation {
     endShape(CLOSE);
     popMatrix();
   }
-  if(kickFilled[8] > 0) {
+  if(inst1Filled[8] > 0) {
     fill(-4487428);
     strokeWeight(3.9338844);
     stroke(-3355444);
@@ -700,7 +679,7 @@ class CircularBeatCreation {
     endShape(CLOSE);
     popMatrix();
   }
-  if(kickFilled[9] > 0) {
+  if(inst1Filled[9] > 0) {
     fill(-4487428);
     strokeWeight(3.9338844);
     stroke(-3355444);
@@ -715,7 +694,7 @@ class CircularBeatCreation {
     endShape(CLOSE);
     popMatrix();
   }
-  if(kickFilled[10] > 0) {
+  if(inst1Filled[10] > 0) {
     fill(-4487428);
     strokeWeight(3.9338844);
     stroke(-3355444);
@@ -730,7 +709,7 @@ class CircularBeatCreation {
     endShape(CLOSE);
     popMatrix();
   }
-  if(kickFilled[11] > 0) {
+  if(inst1Filled[11] > 0) {
     fill(-4487428);
     strokeWeight(3.9338844);
     stroke(-3355444);
@@ -745,7 +724,7 @@ class CircularBeatCreation {
     endShape(CLOSE);
     popMatrix();
   }
-  if(kickFilled[12] > 0) {
+  if(inst1Filled[12] > 0) {
     fill(-4487428);
     strokeWeight(3.9338844);
     stroke(-3355444);
@@ -760,7 +739,7 @@ class CircularBeatCreation {
     endShape(CLOSE);
     popMatrix();
   }
-  if(kickFilled[13] > 0)  {
+  if(inst1Filled[13] > 0)  {
     fill(-4487428);
     strokeWeight(3.9338844);
     stroke(-3355444);
@@ -775,7 +754,7 @@ class CircularBeatCreation {
     endShape(CLOSE);
     popMatrix();
   }
-  if(kickFilled[14] > 0) {
+  if(inst1Filled[14] > 0) {
     fill(-4487428);
     strokeWeight(3.9338844);
     stroke(-3355444);
@@ -790,7 +769,7 @@ class CircularBeatCreation {
     endShape(CLOSE);
     popMatrix();
   }
-  if(kickFilled[15] > 0) {
+  if(inst1Filled[15] > 0) {
     fill(-4487428);
     strokeWeight(3.9338844);
     stroke(-3355444);
@@ -807,7 +786,7 @@ class CircularBeatCreation {
   }
 }
 
-  void renderSnareCircle() {
+  void renderInst2Circle() {
     
     noFill();
     strokeWeight(6.0);
@@ -876,7 +855,7 @@ class CircularBeatCreation {
     stroke(-3355444);
     line(684.32983, 466.3677, 660.83, 419.16156);
     
-   if(snareFilled[0] > 0) {
+   if(inst2Filled[0] > 0) {
     fill(-10241491);
     strokeWeight(3.9338844);
     stroke(-3355444);
@@ -891,7 +870,7 @@ class CircularBeatCreation {
     endShape(CLOSE);
     popMatrix();
   }
-  if(snareFilled[1] > 0) {
+  if(inst2Filled[1] > 0) {
     fill(-10241491);
     strokeWeight(3.9338844);
     stroke(-3355444);
@@ -906,7 +885,7 @@ class CircularBeatCreation {
     endShape(CLOSE);
     popMatrix();
   }
-  if(snareFilled[2] > 0) {
+  if(inst2Filled[2] > 0) {
     fill(-10241491);
     strokeWeight(3.9338844);
     stroke(-3355444);
@@ -921,7 +900,7 @@ class CircularBeatCreation {
     endShape(CLOSE);
     popMatrix();
   }
-    if(snareFilled[3] > 0) {
+    if(inst2Filled[3] > 0) {
       fill(-10241491);
       strokeWeight(3.9338844);
       stroke(-3355444);
@@ -936,7 +915,7 @@ class CircularBeatCreation {
       endShape(CLOSE);
       popMatrix();
   }
-  if(snareFilled[4] > 0) {
+  if(inst2Filled[4] > 0) {
     fill(-10241491);
     strokeWeight(3.9338844);
     stroke(-3355444);
@@ -951,7 +930,7 @@ class CircularBeatCreation {
     endShape(CLOSE);
     popMatrix();
   }
-  if(snareFilled[5] > 0) {
+  if(inst2Filled[5] > 0) {
     fill(-10241491);
     strokeWeight(3.9338844);
     stroke(-3355444);
@@ -966,7 +945,7 @@ class CircularBeatCreation {
     endShape(CLOSE);
     popMatrix();
   }
-  if(snareFilled[6] > 0) {
+  if(inst2Filled[6] > 0) {
     fill(-10241491);
     strokeWeight(3.9338844);
     stroke(-3355444);
@@ -981,7 +960,7 @@ class CircularBeatCreation {
     endShape(CLOSE);
     popMatrix();
   }
-  if(snareFilled[7] > 0) {
+  if(inst2Filled[7] > 0) {
     fill(-10241491);
     strokeWeight(3.9338844);
     stroke(-3355444);
@@ -996,7 +975,7 @@ class CircularBeatCreation {
     endShape(CLOSE);
     popMatrix();
   }
-  if(snareFilled[8] > 0) {
+  if(inst2Filled[8] > 0) {
     fill(-10241491);
     strokeWeight(3.9338844);
     stroke(-3355444);
@@ -1011,7 +990,7 @@ class CircularBeatCreation {
     endShape(CLOSE);
     popMatrix();
   }
-  if(snareFilled[9] > 0) {
+  if(inst2Filled[9] > 0) {
     fill(-10241491);
     strokeWeight(3.9338844);
     stroke(-3355444);
@@ -1026,7 +1005,7 @@ class CircularBeatCreation {
     endShape(CLOSE);
     popMatrix();
   }
-  if(snareFilled[10] > 0) {
+  if(inst2Filled[10] > 0) {
     fill(-10241491);
     strokeWeight(3.9338844);
     stroke(-3355444);
@@ -1041,7 +1020,7 @@ class CircularBeatCreation {
     endShape(CLOSE);
     popMatrix();
   }
-  if(snareFilled[11] > 0) {
+  if(inst2Filled[11] > 0) {
     fill(-10241491);
     strokeWeight(3.9338844);
     stroke(-3355444);
@@ -1056,7 +1035,7 @@ class CircularBeatCreation {
     endShape(CLOSE);
     popMatrix();
   }
-  if(snareFilled[12] > 0) {
+  if(inst2Filled[12] > 0) {
     fill(-10241491);
     strokeWeight(3.9338844);
     stroke(-3355444);
@@ -1072,7 +1051,7 @@ class CircularBeatCreation {
     popMatrix();
   }
   
-  if(snareFilled[13] > 0) {
+  if(inst2Filled[13] > 0) {
     fill(-10241491);
     strokeWeight(3.9338844);
     stroke(-3355444);
@@ -1087,7 +1066,7 @@ class CircularBeatCreation {
     endShape(CLOSE);
     popMatrix();
   }
-  if(snareFilled[14] > 0) {
+  if(inst2Filled[14] > 0) {
     fill(-10241491);
     strokeWeight(3.9338844);
     stroke(-3355444);
@@ -1102,7 +1081,7 @@ class CircularBeatCreation {
     endShape(CLOSE);
     popMatrix();
   }
-  if(snareFilled[15] > 0) {
+  if(inst2Filled[15] > 0) {
     fill(-10241491);
     strokeWeight(3.9338844);
     stroke(-3355444);
@@ -1119,7 +1098,7 @@ class CircularBeatCreation {
   }
 }
   
-  void renderHatCircle() {
+  void renderInst3Circle() {
     
     noFill();
   strokeWeight(6.0);
@@ -1188,7 +1167,7 @@ class CircularBeatCreation {
   stroke(-3355444);
   line(686.9208, 472.84506, 712.8301, 524.6637);
   
-  if(hatFilled[0] > 0) {
+  if(inst3Filled[0] > 0) {
     fill(-1157409);
     strokeWeight(3.9338844);
     stroke(-3355444);
@@ -1203,7 +1182,7 @@ class CircularBeatCreation {
     endShape(CLOSE);
     popMatrix();
   }
-  if(hatFilled[1] > 0) {
+  if(inst3Filled[1] > 0) {
     fill(-1157409);
     strokeWeight(3.9338844);
     stroke(-3355444);
@@ -1218,7 +1197,7 @@ class CircularBeatCreation {
     endShape(CLOSE);
     popMatrix();
   }
-  if(hatFilled[2] > 0) {
+  if(inst3Filled[2] > 0) {
     fill(-1157409);
     strokeWeight(3.9338844);
     stroke(-3355444);
@@ -1233,7 +1212,7 @@ class CircularBeatCreation {
     endShape(CLOSE);
     popMatrix();
   }
-  if(hatFilled[3] > 0) {
+  if(inst3Filled[3] > 0) {
     fill(-1157409);
     strokeWeight(3.9338844);
     stroke(-3355444);
@@ -1248,7 +1227,7 @@ class CircularBeatCreation {
     endShape(CLOSE);
     popMatrix();
   }
-  if(hatFilled[4] > 0) {
+  if(inst3Filled[4] > 0) {
     fill(-1157409);
     strokeWeight(3.9338844);
     stroke(-3355444);
@@ -1263,7 +1242,7 @@ class CircularBeatCreation {
     endShape(CLOSE);
     popMatrix();
   }
-  if(hatFilled[5] > 0) {
+  if(inst3Filled[5] > 0) {
     fill(-1157409);
     strokeWeight(3.9338844);
     stroke(-3355444);
@@ -1278,7 +1257,7 @@ class CircularBeatCreation {
     endShape(CLOSE);
     popMatrix();
   }
-  if(hatFilled[6] > 0) {
+  if(inst3Filled[6] > 0) {
     fill(-1157409);
     strokeWeight(3.9338844);
     stroke(-3355444);
@@ -1293,7 +1272,7 @@ class CircularBeatCreation {
     endShape(CLOSE);
     popMatrix();
   }
-  if(hatFilled[7] > 0) {
+  if(inst3Filled[7] > 0) {
       fill(-1157409);
       strokeWeight(3.9338844);
       stroke(-3355444);
@@ -1308,7 +1287,7 @@ class CircularBeatCreation {
       endShape(CLOSE);
       popMatrix();
   }
-  if(hatFilled[8] > 0) {
+  if(inst3Filled[8] > 0) {
     fill(-1157409);
     strokeWeight(3.9338844);
     stroke(-3355444);
@@ -1323,7 +1302,7 @@ class CircularBeatCreation {
     endShape(CLOSE);
     popMatrix();
   }
-    if(hatFilled[9] > 0) {
+    if(inst3Filled[9] > 0) {
       fill(-1157409);
       strokeWeight(3.9338844);
       stroke(-3355444);
@@ -1338,7 +1317,7 @@ class CircularBeatCreation {
       endShape(CLOSE);
       popMatrix();
   }
-   if(hatFilled[10] > 0) {
+   if(inst3Filled[10] > 0) {
       fill(-1157409);
       strokeWeight(3.9338844);
       stroke(-3355444);
@@ -1353,7 +1332,7 @@ class CircularBeatCreation {
       endShape(CLOSE);
       popMatrix();
   }
-   if(hatFilled[11] > 0) {
+   if(inst3Filled[11] > 0) {
       fill(-1157409);
       strokeWeight(3.9338844);
       stroke(-3355444);
@@ -1368,7 +1347,7 @@ class CircularBeatCreation {
       endShape(CLOSE);
       popMatrix();
   }
-   if(hatFilled[12] > 0) {
+   if(inst3Filled[12] > 0) {
       fill(-1157409);
       strokeWeight(3.9338844);
       stroke(-3355444);
@@ -1383,7 +1362,7 @@ class CircularBeatCreation {
       endShape(CLOSE);
       popMatrix();
   }
-   if(hatFilled[13] > 0) {
+   if(inst3Filled[13] > 0) {
       fill(-1157409);
       strokeWeight(3.9338844);
       stroke(-3355444);
@@ -1398,7 +1377,7 @@ class CircularBeatCreation {
       endShape(CLOSE);
       popMatrix();
   }
-   if(hatFilled[14] > 0) {
+   if(inst3Filled[14] > 0) {
       fill(-1157409);
       strokeWeight(3.9338844);
       stroke(-3355444);
@@ -1413,7 +1392,7 @@ class CircularBeatCreation {
       endShape(CLOSE);
       popMatrix();
   }
-   if(hatFilled[15] > 0) {
+   if(inst3Filled[15] > 0) {
       fill(-1157409);
       strokeWeight(3.9338844);
       stroke(-3355444);
@@ -1433,7 +1412,7 @@ class CircularBeatCreation {
   void updateName(String n) {
     name = n;
     showNameTooltip = false;
-    if (!kickSelected && !hatSelected && !snareSelected)
+    if (!inst1Selected && !inst3Selected && !inst2Selected)
     showInstrumentTooltip = true;
   }
   
@@ -1452,5 +1431,20 @@ class CircularBeatCreation {
   void hideTextArea() {
     area.setVisible(false);
     area.setOpaque(false);
+  }
+  void setInstrumentNames(ArrayList<String> instrumentNames) {
+    instruments = instrumentNames;
+    for (int i =0; i< instrumentNames.size(); i++){
+      if (i ==0) {
+        inst1 = instrumentNames.get(i);
+        inst1Selected = true;
+      }else if (i ==1) {
+        inst2 = instrumentNames.get(i);
+        inst2Selected = true;
+      } else if (i ==2) {
+        inst3 = instrumentNames.get(i);
+        inst3Selected = true;
+      }
+    }
   }
 }

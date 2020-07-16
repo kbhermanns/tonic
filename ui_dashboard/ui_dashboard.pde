@@ -2,9 +2,11 @@ import g4p_controls.*;
 
 boolean addABeat = false;
 boolean renderLandingPage = true;
+boolean renderAddInstrument = false;
 LinearBeatCreation createLinearBeat;
 CircularBeatCreation createCircularBeat;
 ThisOrThat thisOrThat;
+AddInstrument add;
 
 DrumBeats beats;
 Quiz createQuiz;
@@ -24,7 +26,6 @@ boolean renderLinearBeat = false;
 boolean renderCircularBeat = false;
 boolean renderQuiz = false;
 boolean renderDash = false;
-boolean renderLikeOrDislikeBeat = false;
 boolean renderThisOrThat = false;
 boolean renderLoadingBar = false;
 Boolean fillBeat = false;
@@ -39,13 +40,8 @@ String target_time_sig = "None";
 Boolean target_syncopation = false;
 int[][] target_beats;
 
-boolean kickSelected = false;
-boolean snareSelected = false;
-boolean hatSelected = false;
-
 // Buttons
 GButton startCreating;
-GButton playButton;
 GButton dashPlayButton;
 BeatPopulation gaBeatPopulation1;
 DrumBeats originalGABeat;
@@ -56,12 +52,28 @@ GButton addABeatButton;
 DrumBeats gaBeat1;
 DrumBeats gaBeat2;
 
+GButton addInstrument1;
+GButton addInstrument2;
+GButton addInstrument3;
+ArrayList<String> instruments = new ArrayList<String>();
+GImageToggleButton playPause;
+
+boolean kickSelected = false;
+boolean hatSelected = false;
+boolean snareSelected = false;
+
+int numInst = 0;
+
 // main teal color -  3, 218, 198
 // main purple color - 187, 134, 252
+GImageButton p;
   
 void setup(){
    size(1300, 800);
    
+   playPause = new GImageToggleButton(this, 400, 15 ,"PlayPause.png",2);
+   playPause.addEventHandler(this, "audioHandler");
+   playPause.setVisible(false);
    //frame rate for animations
    frameRate(500);
    
@@ -79,10 +91,6 @@ void setup(){
    thisOrThat = new ThisOrThat(beats, this);   
    dashImg = loadImage("Dashboard.png");
    landingImg = loadImage("TonicLandingPage.PNG");
-   
-   playButton = new GButton(this, 380, 30, 80, 30, "PLAY");
-   playButton.addEventHandler(this, "audioHandler");
-   playButton.setVisible(false);
    
    dashPlayButton = new GButton(this, 200, 90, 100, 50, "PLAY");
    dashPlayButton.addEventHandler(this, "audioHandler");
@@ -134,30 +142,60 @@ void setup(){
    gaBeat2.audioSetup();
    gaBeat2.mute();
    
+   add = new AddInstrument(this,instruments );
+   
    originalGABeat = new DrumBeats(this,3,16);
    gaBeatPopulation1 = new BeatPopulation(
       0.01, 50,
       gaBeat1.beats.length, gaBeat1.beats[0].length
     );
+
+    //setup add instrument functionality
+    addInstrument1 = new GButton(this, 50.847015, 607.5735, 151.57673, 69.9552, "Add Instrument");
+    addInstrument1.addEventHandler(this, "instrHandler");
+    addInstrument1.setVisible(false);
+    addInstrument1.setLocalColor(4, -1); //Background Colour
+    addInstrument1.setLocalColor(6, color(170,255,255)); //Background Hover Colour
+    addInstrument1.setLocalColor(14, color(170,255,255)); //Background Selected Colour
+    addInstrument1.setLocalColor(3, color(40,230,255)); //Boarder Colour
+    addInstrument1.setFont(new Font("Gothic A1", Font.PLAIN, 20));
+
+    addInstrument2 = new GButton(this, 255.53064, 607.5735, 150, 69.9552, "Add Instrument");
+    addInstrument2.addEventHandler(this, "instrHandler");
+    addInstrument2.setVisible(false);
+    addInstrument2.setLocalColor(4, -1); //Background Colour
+    addInstrument2.setLocalColor(6, color(170,255,255)); //Background Hover Colour
+    addInstrument2.setLocalColor(14, color(170,255,255)); //Background Selected Colour
+    addInstrument2.setLocalColor(3, color(40,230,255)); //Boarder Colour
+    addInstrument2.setFont(new Font("Gothic A1", Font.PLAIN, 20));
+
+    
+    addInstrument3 = new GButton(this, 465.3961,607.5735, 150, 69.9552, "Add Instrument");
+    addInstrument3.addEventHandler(this, "instrHandler");
+    addInstrument3.setVisible(false);
+    addInstrument3.setLocalColor(4, -1); //Background Colour
+    addInstrument3.setLocalColor(6, color(170,255,255)); //Background Hover Colour
+    addInstrument3.setLocalColor(14, color(170,255,255)); //Background Selected Colour
+    addInstrument3.setLocalColor(3, color(40,230,255)); //Boarder Colour
+    addInstrument3.setFont(new Font("Gothic A1", Font.PLAIN, 20));
 }
 
 void draw(){ 
-  background(-14079703);
+  background(-14079703); //<>//
   noFill();
   pushMatrix();
   translate(5.50573, -1.295466);
-  rotate(0.0);
+  rotate(0.0); //<>//
   popMatrix();
 
   if(renderLandingPage) {
     image(landingImg,0,0,1300,800);
   }
-
   if (renderQuiz){
     createQuiz.render();
   }
 
-  if(createQuiz.isGoClicked()){
+  if(renderQuiz && createQuiz.isGoClicked()){
     renderQuiz = false;
     renderDash = true;
     target_genre = createQuiz.getGenre();
@@ -178,10 +216,11 @@ void draw(){
    renderDash = false;
    renderAddABeat = false;
    renderLinearBeat = true;
+   addABeatClicked = false;
    addABeatButton.setVisible(false);
    dashPlayButton.setVisible(false);
    createLinearBeat.render(beats);
-     }  
+  }  
    
      if (renderLinearBeat && !createLinearBeat.getRenderLinear()) {
        renderLinearBeat = false;
@@ -196,35 +235,54 @@ void draw(){
   if (renderThisOrThat) {
     thisOrThat.render();
     thisOrThat.update();
-    playButton.setVisible(false);
+    playPause.setVisible(false);
     save.setVisible(false);
     cancel.setVisible(false);
     getHelpFromAlgorithm.setVisible(false);
   }
 
- if (renderLinearBeat && !createLinearBeat.isAlgorithmButtonSelected()) {
+  if (renderAddInstrument) {
+    add.render(kickSelected, snareSelected, hatSelected);
+    playPause.setVisible(false);
+    save.setVisible(false);
+    cancel.setVisible(false);
+    createLinearBeat.hideTextArea();
+    createCircularBeat.hideTextArea();
+    getHelpFromAlgorithm.setVisible(false);
+    addInstrument1.setVisible(false);
+    addInstrument2.setVisible(false);
+    addInstrument3.setVisible(false);
+  } else if (renderLinearBeat && !createLinearBeat.isAlgorithmButtonSelected()) {
    save.setVisible(true);
    cancel.setVisible(true);
    getHelpFromAlgorithm.setVisible(true);
    createLinearBeat.render(beats);
    beats = createLinearBeat.update();
-   if (!createLinearBeat.isAlgorithmButtonSelected()) playButton.setVisible(true);
+    playPause.moveTo(400, 15);
+     playPause.setVisible(true);
+
+   if (instruments.size() == 0 ) addInstrument1.setVisible(true);
+   if (instruments.size() == 1) addInstrument2.setVisible(true);
+   if (instruments.size() == 2) addInstrument3.setVisible(true);
+
+   
+   if (!createLinearBeat.isAlgorithmButtonSelected()) playPause.setVisible(true);
    
    if (!createLinearBeat.isAlgorithmButtonSelected()) {
-   if (createLinearBeat.isKickSelected() || createCircularBeat.isKickSelected()) {
-     createLinearBeat.setKickSelected(true);
-     createCircularBeat.setKickSelected(false);
-     createLinearBeat.renderKickSelector();
+   if (createLinearBeat.isInst1Selected() || createCircularBeat.isInst1Selected()) {
+     createLinearBeat.setInst1Selected(true);
+     createCircularBeat.setInst1Selected(false);
+     createLinearBeat.renderInst1Selector();
    }
-   if (createLinearBeat.isHatSelected() || createCircularBeat.isHatSelected()) {
-     createLinearBeat.setHatSelected(true);
-     createCircularBeat.setHatSelected(false);
-     createLinearBeat.renderHatSelector();
+   if (createLinearBeat.isInst2Selected() || createCircularBeat.isInst2Selected()) {
+     createLinearBeat.setInst2Selected(true);
+     createCircularBeat.setInst2Selected(false);
+     createLinearBeat.renderInst2Selector();
    }
-   if (createLinearBeat.isSnareSelected() || createCircularBeat.isSnareSelected()) {
-     createLinearBeat.setSnareSelected(true);
-     createCircularBeat.setSnareSelected(false);
-     createLinearBeat.renderSnareSelector();
+   if (createLinearBeat.isInst3Selected() || createCircularBeat.isInst3Selected()) {
+     createLinearBeat.setInst3Selected(true);
+     createCircularBeat.setInst3Selected(false);
+     createLinearBeat.renderInst3Selector();
    }
    }
  } else if (renderCircularBeat && !createCircularBeat.isAlgorithmButtonSelected()){
@@ -233,21 +291,28 @@ void draw(){
     getHelpFromAlgorithm.setVisible(true);
     createCircularBeat.render(beats);
     beats = createCircularBeat.update();
+    playPause.setVisible(true);
+    playPause.moveTo(577, 270);
+    
+    if (instruments.size() == 0 ) addInstrument1.setVisible(true);
+    if (instruments.size() == 1) addInstrument2.setVisible(true);
+    if (instruments.size() == 2) addInstrument3.setVisible(true);
+    
     if (!createCircularBeat.isAlgorithmButtonSelected()) {
-    if (createCircularBeat.isKickSelected() || createLinearBeat.isKickSelected()) {
-     createCircularBeat.setKickSelected(true);
-     createLinearBeat.setKickSelected(false);
-     createCircularBeat.renderKickCircle();
+    if (createCircularBeat.isInst1Selected() || createLinearBeat.isInst1Selected()) {
+     createCircularBeat.setInst1Selected(true);
+     createLinearBeat.setInst1Selected(false);
+     createCircularBeat.renderInst1Circle();
    }
-   if (createCircularBeat.isHatSelected()|| createLinearBeat.isHatSelected()) {
-     createCircularBeat.setHatSelected(true);
-     createLinearBeat.setHatSelected(false);
-     createCircularBeat.renderHatCircle();
+   if (createCircularBeat.isInst2Selected()|| createLinearBeat.isInst2Selected()) {
+     createCircularBeat.setInst2Selected(true);
+     createLinearBeat.setInst2Selected(false);
+     createCircularBeat.renderInst2Circle();
    }
-   if (createCircularBeat.isSnareSelected() || createLinearBeat.isSnareSelected()) {
-     createCircularBeat.setSnareSelected(true);
-     createLinearBeat.setSnareSelected(false);
-     createCircularBeat.renderSnareCircle();
+   if (createCircularBeat.isInst3Selected() || createLinearBeat.isInst3Selected()) {
+     createCircularBeat.setInst3Selected(true);
+     createLinearBeat.setInst3Selected(false);
+     createCircularBeat.renderInst3Circle();
    }
    }
   }  if (renderLoadingBar == true) {
@@ -277,7 +342,7 @@ void draw(){
   
   else if ((renderCircularBeat && createCircularBeat.isAlgorithmButtonSelected()) || (renderLinearBeat && createLinearBeat.isAlgorithmButtonSelected())) {
      // algorithm button was selected 
-    playButton.setVisible(false);
+    playPause.setVisible(false);
     save.setVisible(false);
     cancel.setVisible(false);
     getHelpFromAlgorithm.setVisible(false);
@@ -298,7 +363,7 @@ public void handleTextEvents(GEditableTextControl textControl, GEvent event) {
         createLinearBeat.updateName(textControl.getText());
         }
 }
-public void audioHandler(GButton button, GEvent event) {
+public void audioHandler(GImageToggleButton button, GEvent event) {
   if (!createLinearBeat.isAlgorithmButtonSelected()) beats = createLinearBeat.getBeats();
   if (beats.isMuted()) beats.unMute();
   else beats.mute();
@@ -338,9 +403,16 @@ public void startCreatingHandler(GButton button, GEvent event) {
   renderLandingPage = false;
   startCreating.setVisible(false);  
 }
+  public void instrHandler(GButton button, GEvent event) {
+  renderAddInstrument = true;
+  button.setVisible(false);
+  }
 
 public void addABeatHandler(GButton button, GEvent event) {
    addABeatClicked = true;
+}
+public void pEvent(GImageButton button, GEvent event) {
+  println("Play button clicked");
 }
 
 public void xButtonOnThisThatPressed() {
