@@ -10,6 +10,9 @@ DrumBeats beats;
 Quiz createQuiz;
 Dashboard createDash;
 
+//Variables for loading bar
+int per = 0;
+
 color addABeatHighlight; 
 color addABeatColor; 
 int addABeatX;
@@ -23,6 +26,7 @@ boolean renderQuiz = false;
 boolean renderDash = false;
 boolean renderLikeOrDislikeBeat = false;
 boolean renderThisOrThat = false;
+boolean renderLoadingBar = false;
 Boolean fillBeat = false;
 Boolean addABeatClicked = false;
 
@@ -57,6 +61,10 @@ DrumBeats gaBeat2;
   
 void setup(){
    size(1300, 800);
+   
+   //frame rate for animations
+   frameRate(500);
+   
    beats = new DrumBeats(this,3,16);
    beats.audioSetup();
    beats.mute();
@@ -108,6 +116,14 @@ void setup(){
    startCreating.setLocalColor(3, color(66,65,62)); //border colour
    startCreating.setLocalColor(4, color(187, 134, 252)); //background color
    startCreating.setFont(new Font("Gothic A1", Font.PLAIN, 24));
+   
+   getHelpFromAlgorithm = new GButton(this, 950, 450, 320, 60, "Get Help from Algorithm");
+   getHelpFromAlgorithm.addEventHandler(this, "getHelpFromAlgorithmHandler");
+   getHelpFromAlgorithm.setLocalColor(2, color(41,41,41)); //text color
+   getHelpFromAlgorithm.setLocalColor(3, color(51,174,100)); //border colour
+   getHelpFromAlgorithm.setLocalColor(4, color(3, 218, 198)); //background color
+   getHelpFromAlgorithm.setFont(new Font("Gothic A1", Font.PLAIN, 25));
+   getHelpFromAlgorithm.setVisible(false);
    
 
    gaBeat1 = new DrumBeats(this,3,16);
@@ -234,7 +250,32 @@ void draw(){
      createCircularBeat.renderSnareCircle();
    }
    }
-  }  else if ((renderCircularBeat && createCircularBeat.isAlgorithmButtonSelected()) || (renderLinearBeat && createLinearBeat.isAlgorithmButtonSelected())) {
+  }  if (renderLoadingBar == true) {
+      //Loading bar created by https://helloacm.com/processing/
+      per = (per + 10) % 100;
+      strokeWeight(15.0);
+      stroke(-16524602);
+      line(1.6193323, 563.52765, 1302.2676, 558.3458);
+      fill(-13421259);
+      strokeWeight(5.0);
+      stroke(-16777216);
+      pushMatrix();
+      translate(649.3523, 303.139);
+      rotate(0.0);
+      rectMode(CORNERS);
+      rect(-190, -73, 200, 73, 10);
+      popMatrix();
+      stroke(color(252,252,252));
+      fill(color(252,252,252));
+      textSize(30);
+      text("Loading ... " + per + " %", 650, 300);
+      if (per == 90) {
+        renderLoadingBar = false;
+        per = 0;
+      }
+  }
+  
+  else if ((renderCircularBeat && createCircularBeat.isAlgorithmButtonSelected()) || (renderLinearBeat && createLinearBeat.isAlgorithmButtonSelected())) {
      // algorithm button was selected 
     playButton.setVisible(false);
     save.setVisible(false);
@@ -244,7 +285,7 @@ void draw(){
     thisOrThat.update();
     beats.mute();
    } 
-  }
+ }
   
 // Event Handlers
 
@@ -300,4 +341,22 @@ public void startCreatingHandler(GButton button, GEvent event) {
 
 public void addABeatHandler(GButton button, GEvent event) {
    addABeatClicked = true;
+}
+
+public void xButtonOnThisThatPressed() {
+    renderLinearBeat = true;
+    renderCircularBeat = false;
+    createLinearBeat.setAlgorithmSelected(false);
+    createCircularBeat.setAlgorithmSelected(false);
+    renderThisOrThat = false;
+    beats.mute();
+}
+
+public void showLoadingBar() {
+  renderLoadingBar = true;
+}
+
+public void useBeatInSong(DrumBeats gaBeats) {
+  createLinearBeat.render(gaBeats);
+  createCircularBeat.render(gaBeats);
 }
