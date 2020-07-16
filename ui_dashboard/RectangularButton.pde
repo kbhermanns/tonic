@@ -148,7 +148,7 @@ class RectangularButton {
   
   void pressed() {
     if (((mouseX >= TransX && mouseX <= TransX + Rect3) || (mouseX >= TransX - Rect3 && mouseX <= TransX))  && ((mouseY >= TransY && mouseY <= TransY + Rect4) || (mouseY >= TransY - Rect4 && mouseY <= TransY))){
-      Selected = !Selected;
+      Selected = !Selected; //<>//
       Clicked = !Clicked;
     }
   }

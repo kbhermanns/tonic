@@ -11,6 +11,10 @@ import g4p_controls.*;
   DrumBeats beats2;
   DrumBeats originalBeat;
   BeatPopulation population;
+  
+  ArrayList<RectangularButton> kickButtons;
+  ArrayList<RectangularButton> snareButtons;
+  ArrayList<RectangularButton> hatButtons;
 
 class ThisOrThat {
   boolean[] whatHasChangedInBeat1; // kick - 0, snare - 1, hi-hat - 2
@@ -20,10 +24,6 @@ class ThisOrThat {
   //Tracks which beat is selected by user
   String cardSelected = "left";
   boolean firstPairCreated = false;
-
-  ArrayList<RectangularButton> kickButtons;
-  ArrayList<RectangularButton> snareButtons;
-  ArrayList<RectangularButton> hatButtons;
   
   Float leftPlayButtonx = 307.34927;
   Float leftPlayButtony = 361.435;
@@ -48,19 +48,16 @@ class ThisOrThat {
   Float rightCardTopBound = 76.43;
   Float rightCardBottomBound = 521.0;
 
-  //PImage purplePlayButtonImage = loadImage("PlayButtonPurple.png");
-  //PImage tealPlayButtonImage = loadImage("PlayButtonTeal.png");
+  PImage purplePlayButtonImage = loadImage("PlayButtonPurple.png");
+  PImage tealPlayButtonImage = loadImage("PlayButtonTeal.png");
   PImage purpleMusicPlayingImage = loadImage("MusicPlayingPurple.png");
   PImage tealMusicPlayingImage = loadImage("MusicPlayingTeal.png");
-<<<<<<< HEAD
   PImage preferPurpleButtonImage = loadImage("IPreferThisButtonPurple.png");
   PImage preferTealButtonImage = loadImage("IPreferThisButtonTeal.png");
   PImage useThisInSongButtonImage = loadImage("UseThisInSongButton.png");
   PImage img0 = loadImage("HiHat.png");
   PImage img1 = loadImage("Kick.png");
   PImage img2 = loadImage("Snare.png");
-=======
->>>>>>> 5766bd7419329fa58d517e859f06da302bdfcb15
   
   PApplet pa;
   
@@ -81,30 +78,36 @@ class ThisOrThat {
     );
     
     kickButtons = new ArrayList<RectangularButton>();
-    for (int k = 0; k < 17; k++) {
-      kickButtons.add(new RectangularButton(-13421259, -2039584, 3.553719, -2039584, (178 + 70*k), 630, 1.5728104, -27.204773, -24.613892, 24, 24));
-    }
-    snareButtons = new ArrayList<RectangularButton>();
-    for (int m = 0; m < 17; m++) {
-      snareButtons.add(new RectangularButton(-13421259, -2039584, 3.553719, -2039584, (178 + 70*m), 690, 1.5728104, -25.909317, -24.749884, 24, 24));
-    }
-    hatButtons = new ArrayList<RectangularButton>();
-    for (int n = 0; n < 17; n++) {
-      hatButtons.add(new RectangularButton(-13421259, -2039584, 3.553719, -2039584, (178 + 70*n), 750, 1.5728104, -25.909317, -24.749884, 24, 24));
-    }
+     for (int k = 0; k < 17; k++) {
+       kickButtons.add(new RectangularButton(-13421259, -2039584, 3.553719, -2039584, (178 + 70*k), 610, 1.5728104, -27.235615, -22.174805, 30.242954, 34.977585));
+     }
+     snareButtons = new ArrayList<RectangularButton>();
+     for (int m = 0; m < 17; m++) {
+       snareButtons.add(new RectangularButton(-13421259, -2039584, 3.553719, -2039584, (178 + 70*m), 680, 1.5728104, -27.235615, -22.174805, 30.242954, 34.977585));
+     }
+     hatButtons = new ArrayList<RectangularButton>();
+     for (int n = 0; n < 17; n++) {
+       hatButtons.add(new RectangularButton(-13421259, -2039584, 3.553719, -2039584, (178 + 70*n), 750, 1.5728104, -27.235615, -22.174805, 30.242954, 34.977585));
+     }
     
-   playGA1 = new GButton(pa, 300, 150, 80, 30, "PLAY");
+   playGA1 = new GButton(pa, 302, 150, 80, 30, "PLAY");
    playGA1.addEventHandler(pa, "playGA1Handler");
+   playGA1.setLocalColor(2, color(41,41,41)); //text color
+   playGA1.setLocalColor(3, color(3, 218, 198)); //border colour
+   playGA1.setLocalColor(4, color(3, 218, 198)); //background color
    playGA1.setVisible(false);
    
-   playGA2 = new GButton(pa, 935, 150, 80, 30, "PLAY");
+   playGA2 = new GButton(pa, 942, 150, 80, 30, "PLAY");
    playGA2.addEventHandler(pa, "playGA2Handler");
+   playGA2.setLocalColor(2, color(41,41,41)); //text color
+   playGA2.setLocalColor(3, color(187, 134, 252)); //border colour
+   playGA2.setLocalColor(4, color(187, 134, 252)); //background color
    playGA2.setVisible(false);
    
    preferThisBeatGA1 = new GButton(pa, 250, 310, 200, 60, "Generate Again");
    preferThisBeatGA1.addEventHandler(pa, "preferThisBeatHandler1");
    preferThisBeatGA1.setLocalColor(2, color(41,41,41)); //text color
-   preferThisBeatGA1.setLocalColor(3, color(66,65,62)); //border colour
+   preferThisBeatGA1.setLocalColor(3, color(3, 218, 198)); //border colour
    preferThisBeatGA1.setLocalColor(4, color(3, 218, 198)); //background color
    preferThisBeatGA1.setFont(new Font("Gothic A1", Font.PLAIN, 18));
    preferThisBeatGA1.setVisible(false);
@@ -117,7 +120,7 @@ class ThisOrThat {
    preferThisBeatGA2.setFont(new Font("Gothic A1", Font.PLAIN, 18));
    preferThisBeatGA2.setVisible(false);
    
-   useThisInSongGA1 = new GButton(pa, 230, 420, 250, 60, "Use this in my Beat");
+   useThisInSongGA1 = new GButton(pa, 230, 420, 250, 60, "Use as my Beat");
    useThisInSongGA1.addEventHandler(pa, "useThisInSongBeatHandler1");
    useThisInSongGA1.setLocalColor(2, color(41,41,41)); //text color
    useThisInSongGA1.setLocalColor(3, color(66,65,62)); //border colour
@@ -150,20 +153,76 @@ class ThisOrThat {
         beats1.beats = population.getBestBeat();
         beats2.beats = population.getSecondBestBeat();
         firstPairCreated = true;
-      }
+        
+       //set the beat display
+       for (int k = 0; k < 16; k++) {
+         if (beats1.getBeat(0,k) > 0) {
+         kickButtons.get(k).setSelected(true);
+         }
+       }
+     
+       for (int m = 0; m < 16; m++) {
+         if (beats1.getBeat(1,m) > 0) {
+           snareButtons.get(m).setSelected(true);
+         }
+       }
+     
+       for (int n = 0; n < 16; n++) {
+         if (beats1.getBeat(2,n) > 0) {
+           hatButtons.get(n).setSelected(true);
+         }
+        }
+       }
       
       if (mousePressed == true && mouseButton == LEFT){
         
         // See if user has clicked within the card region 
         if ((mouseX >= leftCardLeftBound && mouseX <= leftCardRightBound) && (mouseY >= leftCardTopBound && mouseY <= leftCardBottomBound)) {
           cardSelected = "left";
+          
+          //change the display
+           for (int k = 0; k < 16; k++) {
+             if (beats1.getBeat(0,k) > 0) {
+             kickButtons.get(k).setSelected(true);
+             }
+           }
+         
+           for (int m = 0; m < 16; m++) {
+             if (beats1.getBeat(1,m) > 0) {
+               snareButtons.get(m).setSelected(true);
+             }
+           }
+         
+           for (int n = 0; n < 16; n++) {
+             if (beats1.getBeat(2,n) > 0) {
+               hatButtons.get(n).setSelected(true);
+             }
+            }
         }
         else if ((mouseX >= rightCardLeftBound && mouseX <= rightCardRightBound) && (mouseY >= rightCardTopBound && mouseY <= rightCardBottomBound)) {
           cardSelected = "right";
+          
+          //change the display
+           for (int k = 0; k < 16; k++) {
+             if (beats2.getBeat(0,k) > 0) {
+             kickButtons.get(k).setSelected(true);
+             }
+           }
+         
+           for (int m = 0; m < 16; m++) {
+             if (beats2.getBeat(1,m) > 0) {
+               snareButtons.get(m).setSelected(true);
+             }
+           }
+         
+           for (int n = 0; n < 16; n++) {
+             if (beats2.getBeat(2,n) > 0) {
+               hatButtons.get(n).setSelected(true);
+             }
+            }
         }
         
-        // See if a beat has been clicked on
-        //Update the beat display
+       // See if a beat has been clicked on a beat
        if (cardSelected == "left") {
         //kick buttons check
         for(int i = 0; i < kickButtons.size() - 1; ++i) {
@@ -198,7 +257,9 @@ class ThisOrThat {
           beats2.updateBeats(2, k, int(hatButtons.get(k).getSelected() ? true : false));
         }
       }
-    }
+  }
+    
+    renderBeatSelector();
   }
   
   void render() {
@@ -296,6 +357,21 @@ class ThisOrThat {
     translate(974.5142, 165.81964);
     rotate(0.0);
     ellipse(0,0,148.67973, 148.67973);
+    popMatrix();
+    
+    //Play Buttons
+    noFill();
+    pushMatrix();
+    translate(940, 120);
+    rotate(0.0);
+    image(purplePlayButtonImage, 0, 0, 90, 90);
+    popMatrix();
+    
+    noFill();
+    pushMatrix();
+    translate(300, 120);
+    rotate(0.0);
+    image(tealPlayButtonImage, 0, 0, 90, 90);
     popMatrix();
   
    //colour changing bar  //<>//
@@ -431,16 +507,54 @@ class ThisOrThat {
    
    //render loading bar
    showLoadingBar();
+   
+   //set the beat display
+       for (int k = 0; k < 16; k++) {
+         if (beats1.getBeat(0,k) > 0) {
+         kickButtons.get(k).setSelected(true);
+         }
+       }
+     
+       for (int m = 0; m < 16; m++) {
+         if (beats1.getBeat(1,m) > 0) {
+           snareButtons.get(m).setSelected(true);
+         }
+       }
+     
+       for (int n = 0; n < 16; n++) {
+         if (beats1.getBeat(2,n) > 0) {
+           hatButtons.get(n).setSelected(true);
+         }
+        }
   }
 
   public void preferThisBeatHandler2(GButton button, GEvent event) {  
      // user prefers left beat (purple)
      population.run(beats2.beats, beats1.beats, originalBeat.beats, target_beats, 100);
      beats1.beats = gaBeatPopulation1.getBestBeat();
-     beats.beats = gaBeatPopulation1.getSecondBestBeat();
+     beats2.beats = gaBeatPopulation1.getSecondBestBeat();
      
      //render loading bar
      showLoadingBar();
+     
+     //set the beat display
+       for (int k = 0; k < 16; k++) {
+         if (beats2.getBeat(0,k) > 0) {
+         kickButtons.get(k).setSelected(true);
+         }
+       }
+     
+       for (int m = 0; m < 16; m++) {
+         if (beats2.getBeat(1,m) > 0) {
+           snareButtons.get(m).setSelected(true);
+         }
+       }
+     
+       for (int n = 0; n < 16; n++) {
+         if (beats2.getBeat(2,n) > 0) {
+           hatButtons.get(n).setSelected(true);
+         }
+        }
   }
   
   public void useThisInSongBeatHandler1(GButton button, GEvent event) {  
