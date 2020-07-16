@@ -21,6 +21,7 @@ class DrumBeats {
   int bpm;
   int curBeat;
   PApplet pa;
+  ArrayList<String> instruments = new ArrayList<String>();
   
   DrumBeats(PApplet papp, int numIns, int numBeats) {
     beats = new int[numIns][numBeats];
@@ -35,7 +36,7 @@ class DrumBeats {
   }
   void setEntireBeat(int[][] newBeat) {beats = newBeat;}
   void setBpm(float tempo) {
-    bpm = (int)(200 * tempo);
+    bpm = (int)(120 * tempo);
   }
   
   int getBeat(int row, int column) {
@@ -61,17 +62,56 @@ class DrumBeats {
   
   void noteOn( float dur )
   {
-    if ( beats[0][curBeat] > 0) kick.trigger();
-    if ( beats[1][curBeat] > 0) snare.trigger();
-    if ( beats[2][curBeat] > 0) hat.trigger();
+    Sampler sound1 = kick;
+    Sampler sound2 = snare;
+    Sampler sound3 = hat;
+  
+    //set sound 1
+    if (instruments.size() >0) {
+    if (instruments.get(0).equals("Kick"))
+      sound1 = kick;
+    else if (instruments.get(0).equals("Snare"))
+      sound1 = snare;
+    else if (instruments.get(0).equals("Hi Hat"))
+      sound1 = hat;
+    }
+
+    //set sound 2
+    if (instruments.size() >1) {
+    if (instruments.get(1).equals("Kick"))
+      sound2 = kick;
+    else if (instruments.get(1).equals("Snare"))
+      sound2 = snare;
+    else if (instruments.get(1).equals("Hi Hat"))
+      sound2 = hat;
+    }
+
+    //set sound 3
+    if (instruments.size() >2) {
+    if (instruments.get(2).equals("Kick"))
+      sound3 = kick;
+    else if (instruments.get(2).equals("Snare"))
+      sound3 = snare;
+    else if (instruments.get(2).equals("Hi Hat"))
+      sound3 = hat;
+    }
+
+
+    if ( beats[0][curBeat] > 0) sound1.trigger();
+    if ( beats[1][curBeat] > 0) sound2.trigger();
+    if ( beats[2][curBeat] > 0) sound3.trigger();
   }
   
   void noteOff()
   {
     curBeat = (curBeat+1)%16;
     out.setTempo( bpm );
+    if (beats[0][curBeat] == 1)
+      out.playNote(0,0.25f, this);
+    else 
+      out.playNote(0,0.1f, this);
     
-    out.playNote( 0, 0.25f, this );
+    //out.playNote( 0, 0.25f, this );
   }  
   
 }
@@ -98,5 +138,9 @@ void unMute() {
 }
 
 boolean isMuted() {return out.isMuted();}
+
+void setInstruments(ArrayList<String> inst) {
+  instruments = inst;
+} 
 
 }

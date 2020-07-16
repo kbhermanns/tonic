@@ -44,6 +44,9 @@ class LinearBeatCreation {
   PImage snareImg = loadImage("Snare.png");
   PImage hatImg = loadImage("HiHat.png");
   PImage musicImg = loadImage("MusicNote.png");
+
+  GButton addAccent;
+  boolean accentMode = false;
   
   GButton getHelpFromAlgorithm;
   
@@ -60,6 +63,14 @@ class LinearBeatCreation {
     //Setup the name input for the song
     pa = papp;
     area = new GTextArea(papp,15, 15, 350, 50, G4P.SCROLLBARS_NONE);
+        //accent button    
+    addAccent = new GButton(pa, 700, 700, 180, 50, "Add Accent");
+    addAccent.addEventHandler(papp, "accentHandler");
+    addAccent.setLocalColor(2, color(41,41,41)); //text color
+    addAccent.setLocalColor(3, color(255)); //border colour
+    addAccent.setLocalColor(4, color(255)); //background color
+    addAccent.setFont(new Font("Gothic A1", Font.PLAIN, 25));
+    addAccent.setVisible(false);
     name = "";
     area.setVisible(false);
      Beats = beats;
@@ -86,14 +97,26 @@ class LinearBeatCreation {
     for (int i = 0; i < inst1Buttons.size() - 1; i++){
       if (Beats.getBeat(0,i) > 0) showBeatTooltip = false;
       inst1Buttons.get(i).setSelected(Beats.getBeat(0, i) > 0 ? true : false);
+      if (Beats.getBeat(0,i) == 2)
+        inst1Buttons.get(i).updateBorderColour(-4487428);
+      else
+        inst1Buttons.get(i).updateBorderColour(-2039584);
     }
     for (int j = 0; j < inst2Buttons.size() - 1; j++){
       if (Beats.getBeat(0,j) > 0) showBeatTooltip = false;
       inst2Buttons.get(j).setSelected(Beats.getBeat(1, j)  > 0 ? true : false);
+      if (Beats.getBeat(1,j) == 2)
+        inst2Buttons.get(j).updateBorderColour(-10241491);
+      else
+        inst2Buttons.get(j).updateBorderColour(-2039584);
     }
     for (int k = 0; k < inst3Buttons.size() - 1; k++){
       if (Beats.getBeat(0,k) > 0) showBeatTooltip = false;
       inst3Buttons.get(k).setSelected(Beats.getBeat(2, k)  > 0 ? true : false);
+      if (Beats.getBeat(2,k) == 2)
+        inst3Buttons.get(k).updateBorderColour(-1157409);
+      else
+        inst3Buttons.get(k).updateBorderColour(-2039584);
     }
     
     //hide text area when algorithm button is selected
@@ -129,7 +152,7 @@ class LinearBeatCreation {
         // TODO: Update - this is temp route into LikeOrDislikeBeatPage
         area.setVisible(false);
         area.setOpaque(false);
-        Clicked = true;
+        Clicked = true; //<>//
         algorithmButtonSelected = true;
       }
       // layout toggle check
@@ -140,17 +163,62 @@ class LinearBeatCreation {
       //inst1 buttons check
       for(int i = 0; i < inst1Buttons.size() - 1; ++i) {
         inst1Buttons.get(i).pressed();
-        Beats.updateBeats(0, i, int(inst1Buttons.get(i).getSelected() ? true : false));
+        if (inst1Buttons.get(i).isClicked()) {
+          int value = inst1Buttons.get(i).getSelected() ? 1 : 0;
+          if (inst1Buttons.get(i).isClicked() && accentMode){
+            if (Beats.getBeat(0,i) == 2) {
+              value = 1;
+              inst1Buttons.get(i).updateBorderColour(-2039584);
+            } else {
+              value = 2;  
+              inst1Buttons.get(i).updateBorderColour(-4487428);
+            }
+          } else if (value == 0 && !accentMode) {
+            inst1Buttons.get(i).updateBorderColour(-2039584);
+          }
+          inst1Buttons.get(i).setClicked(false); 
+          Beats.updateBeats(0, i, value);
+        }
       }
       //inst2 buttons check 
       for(int j = 0; j < inst2Buttons.size() - 1; ++j) {
         inst2Buttons.get(j).pressed();
-        Beats.updateBeats(1, j, int(inst2Buttons.get(j).getSelected() ? true : false));
+        if (inst2Buttons.get(j).isClicked()) {
+          int value = inst2Buttons.get(j).getSelected() ? 1 : 0;
+          if (inst2Buttons.get(j).isClicked() && accentMode){
+              if (Beats.getBeat(1,j) == 2) {
+                value = 1;
+                inst2Buttons.get(j).updateBorderColour(-2039584);
+              } else {
+                value = 2;  
+                inst2Buttons.get(j).updateBorderColour(-10241491);
+              }
+            } else if (value == 0 && !accentMode) {
+              inst2Buttons.get(j).updateBorderColour(-2039584);
+          }
+          inst2Buttons.get(j).setClicked(false); 
+          Beats.updateBeats(1, j, value);
+        }
       }
       //inst3 buttons check
       for(int k = 0; k < inst3Buttons.size() - 1; ++k) {
         inst3Buttons.get(k).pressed();
-        Beats.updateBeats(2, k, int(inst3Buttons.get(k).getSelected() ? true : false));
+        if (inst3Buttons.get(k).isClicked()) {
+          int value = inst3Buttons.get(k).getSelected() ? 1 : 0;
+          if (inst3Buttons.get(k).isClicked() && accentMode){
+              if (Beats.getBeat(2,k) == 2) {
+                value = 1;
+                inst3Buttons.get(k).updateBorderColour(-2039584);
+              } else {
+                value = 2;
+                inst3Buttons.get(k).updateBorderColour(-1157409);
+              }
+            } else if (value == 0 && !accentMode) {
+              inst3Buttons.get(k).updateBorderColour(-2039584);
+            }
+            inst3Buttons.get(k).setClicked(false); 
+          Beats.updateBeats(2, k, value);
+        }
       }
     }
       else {
@@ -208,6 +276,8 @@ class LinearBeatCreation {
     area.setLocalColor(6, color(66,65,62)); //border colour
     area.setLocalColor(7, color(66,65,62)); //background color
     area.setFont(new Font("Gothic A1", Font.PLAIN, 30));
+
+    addAccent.setVisible(true);
     
     //tempo slider
     textSize(24); 
@@ -275,8 +345,8 @@ class LinearBeatCreation {
   
     if (algorithmButtonSelected) {
       save.setVisible(false);
-      cancel.setVisible(false);
-    }
+      cancel.setVisible(false); //<>//
+    } //<>//
   }
  
   void renderInst1Selector() {
@@ -301,35 +371,35 @@ class LinearBeatCreation {
     pushMatrix();
     translate(30, 225);
     rotate(0.0);
-        if (instruments.get(1).equals("Kick")) image(kickImg, 0, 0, 100, 80);
+    if (instruments.get(1).equals("Kick")) image(kickImg, 0, 0, 100, 80);
     else if (instruments.get(1).equals("Snare")) image(snareImg, 0, 0, 100, 80);
     else if (instruments.get(1).equals("Hi Hat")) image(hatImg, 0, 0, 100, 80);
     else image(musicImg, 0, 0, 100, 80);
     popMatrix();
 
     for (int i = 0; i < inst2Buttons.size() - 1; i++){
-      inst2Buttons.get(i).renderWithoutText();
-    }
+      inst2Buttons.get(i).renderWithoutText(); //<>//
+    } //<>//
   }
   
   void renderInst3Selector() {
-    noFill();
-    pushMatrix();
+    noFill(); //<>//
+    pushMatrix(); //<>//
     translate(20, 330);
-    rotate(0.0);
-    if (instruments.get(2).equals("Kick")) image(kickImg, 0, 0, 100, 80);
+    rotate(0.0); //<>//
+    if (instruments.get(2).equals("Kick")) image(kickImg, 0, 0, 100, 80); //<>//
     else if (instruments.get(2).equals("Snare")) image(snareImg, 0, 0, 100, 80);
     else if (instruments.get(2).equals("Hi Hat")) image(hatImg, 0, 0, 100, 80);
     else image(musicImg, 0, 0, 100, 80);
     popMatrix();
-
-    for (int i = 0; i < inst3Buttons.size() - 1; i++){
+ //<>//
+    for (int i = 0; i < inst3Buttons.size() - 1; i++){ //<>//
       inst3Buttons.get(i).renderWithoutText();
     }
   }
   
-  // Set the name of the beat
-  void setName() {
+  // Set the name of the beat //<>//
+  void setName() { //<>//
     name = area.getText();
   }
   
@@ -354,12 +424,13 @@ class LinearBeatCreation {
   }
   
   void setAlgorithmSelected(boolean s) {
-    algorithmButtonSelected = s; //<>//
-  } //<>//
+    algorithmButtonSelected = s;
+  }
   
   void hideTextArea() {
     area.setVisible(false);
     area.setOpaque(false);
+    addAccent.setVisible(false);
   }
   
   boolean getRenderLinear() {return renderLinear;}
@@ -370,6 +441,8 @@ class LinearBeatCreation {
     inst1Selected = false;
     inst2Selected = false;
     inst3Selected = false;
+
+    beats.setInstruments(instrumentNames);
     for (int i =0; i< instrumentNames.size(); i++){
       if (i ==0) {
         inst1 = instrumentNames.get(i);
@@ -382,5 +455,17 @@ class LinearBeatCreation {
         inst3Selected = true;
       }
     }
+  }
+}
+
+public void accentHandler(GButton button, GEvent event) {
+  createLinearBeat.accentMode = !createLinearBeat.accentMode; 
+  createCircularBeat.accentMode = !createCircularBeat.accentMode;
+  if (createLinearBeat.accentMode) {
+    button.setLocalColor(3, color(3, 218, 198));
+    button.setLocalColor(4, color(3, 218, 198));
+  } else {
+    button.setLocalColor(3, color(255));
+    button.setLocalColor(4, color(255));
   }
 }
