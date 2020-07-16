@@ -448,8 +448,7 @@ public void showLoadingBar() {
 }
 
 public void useBeatInSong(DrumBeats gaBeats) {
-  createLinearBeat.render(gaBeats);
-  createCircularBeat.render(gaBeats);
+  beats = gaBeats;
 }
 public void tempoSliderEventHandler(GSlider slider, GEvent event) {
   println("tempoSliderHandler "+ slider.getValueF());
