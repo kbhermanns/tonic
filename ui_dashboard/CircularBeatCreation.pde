@@ -400,6 +400,12 @@ class CircularBeatCreation {
     stroke(-1);
     line(1.6193323, 570, 1297.0852, 570);
     image(toggle, 1125, 25);
+
+    //tempo text
+    textSize(24); 
+    textFont(createFont("Gothic A1", 30));
+    fill(-1);
+    text("Tempo", 750, 620);
     
     // Text Input for Name of Song
     area.setVisible(true);

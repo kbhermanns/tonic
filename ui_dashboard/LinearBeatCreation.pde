@@ -38,10 +38,7 @@ class LinearBeatCreation {
   String inst2 = "";
   String inst3 = "";
   ArrayList<String> instruments;
-   
-  // PImage img0 = loadImage("HiHat.png");
-  // PImage img1 = loadImage("Kick.png");
-  // PImage img2 = loadImage("Snare.png");
+
   PImage toggle = loadImage("LinearToggle.png");
   PImage kickImg = loadImage("Kick.png");
   PImage snareImg = loadImage("Snare.png");
@@ -212,6 +209,12 @@ class LinearBeatCreation {
     area.setLocalColor(7, color(66,65,62)); //background color
     area.setFont(new Font("Gothic A1", Font.PLAIN, 30));
     
+    //tempo slider
+    textSize(24); 
+    textFont(createFont("Gothic A1", 30));
+    fill(-1);
+    text("Tempo", 750, 620);
+
     if ((area.getText().trim()).equals("")){
       area.setText(name);
     }

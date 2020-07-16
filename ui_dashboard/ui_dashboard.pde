@@ -57,6 +57,7 @@ GButton addInstrument2;
 GButton addInstrument3;
 ArrayList<String> instruments = new ArrayList<String>();
 GImageToggleButton playPause;
+GSlider tempoSlider;
 
 boolean kickSelected = false;
 boolean hatSelected = false;
@@ -74,6 +75,16 @@ void setup(){
    playPause = new GImageToggleButton(this, 400, 15 ,"PlayPause.png",2);
    playPause.addEventHandler(this, "audioHandler");
    playPause.setVisible(false);
+
+
+   tempoSlider = new GSlider(this, 700,642.5511, 250, 30, 20);
+   tempoSlider.setLocalColor(5, color(231, 254, 252));
+   tempoSlider.setLocalColor(3, color(3,218,198));
+   tempoSlider.setLocalColor(11, color(155, 253, 243));
+   tempoSlider.setLocalColor(14, color(133, 250, 240));
+   tempoSlider.setLocalColor(15, color(9, 220, 203));
+   tempoSlider.setVisible(false);
+   tempoSlider.addEventHandler(this, "tempoSliderEventHandler");
    //frame rate for animations
    frameRate(500);
    
@@ -102,7 +113,7 @@ void setup(){
    addABeatButton.setFont(new Font("Gothic A1", Font.PLAIN, 25));
    addABeatButton.setVisible(false);
 
-   save = new GButton(this, 950, 700, 160, 80, "Save");
+   save = new GButton(this, 1010, 720, 120, 50, "Save");
    save.addEventHandler(this, "saveHandler");
    save.setLocalColor(2, color(41,41,41)); //text color
    save.setLocalColor(3, color(51,174,100)); //border colour
@@ -110,7 +121,7 @@ void setup(){
    save.setFont(new Font("Gothic A1", Font.PLAIN, 30));
    save.setVisible(false);
    
-   cancel = new GButton(this, 1125, 700, 160, 80, "Cancel");
+   cancel = new GButton(this, 1150, 720, 120, 50, "Cancel");
    cancel.addEventHandler(this, "cancelHandler");
    cancel.setLocalColor(2, color(41,41,41)); //text color
    cancel.setLocalColor(3, color(239,76,86)); //border colour
@@ -252,6 +263,7 @@ void draw(){
     addInstrument1.setVisible(false);
     addInstrument2.setVisible(false);
     addInstrument3.setVisible(false);
+    tempoSlider.setVisible(false);
   } else if (renderLinearBeat && !createLinearBeat.isAlgorithmButtonSelected()) {
    save.setVisible(true);
    cancel.setVisible(true);
@@ -260,6 +272,7 @@ void draw(){
    beats = createLinearBeat.update();
     playPause.moveTo(400, 15);
      playPause.setVisible(true);
+     tempoSlider.setVisible(true);
 
    if (instruments.size() == 0 ) addInstrument1.setVisible(true);
    if (instruments.size() == 1) addInstrument2.setVisible(true);
@@ -293,6 +306,7 @@ void draw(){
     beats = createCircularBeat.update();
     playPause.setVisible(true);
     playPause.moveTo(577, 270);
+    tempoSlider.setVisible(true);
     
     if (instruments.size() == 0 ) addInstrument1.setVisible(true);
     if (instruments.size() == 1) addInstrument2.setVisible(true);
@@ -345,6 +359,7 @@ void draw(){
     playPause.setVisible(false);
     save.setVisible(false);
     cancel.setVisible(false);
+    tempoSlider.setVisible(false);
     getHelpFromAlgorithm.setVisible(false);
     thisOrThat.render();
     thisOrThat.update();
@@ -431,4 +446,8 @@ public void showLoadingBar() {
 public void useBeatInSong(DrumBeats gaBeats) {
   createLinearBeat.render(gaBeats);
   createCircularBeat.render(gaBeats);
+}
+public void tempoSliderEventHandler(GSlider slider, GEvent event) {
+  println("tempoSliderHandler "+ slider.getValueF());
+  beats.setBpm(slider.getValueF());
 }
