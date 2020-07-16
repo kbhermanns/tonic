@@ -18,7 +18,7 @@ class DrumBeats {
   
   int[][] beats;
   int[] holder;
-  int bpm = 120;
+  int bpm;
   int curBeat;
   PApplet pa;
   
@@ -27,12 +27,16 @@ class DrumBeats {
     pa = papp;
     minim = new Minim(pa);
     out   = minim.getLineOut();
+    bpm = 120;
   }
   
   void updateBeats(int row, int column, int value) {
     beats[row][column] = value;
   }
   void setEntireBeat(int[][] newBeat) {beats = newBeat;}
+  void setBpm(float tempo) {
+    bpm = (int)(200 * tempo);
+  }
   
   int getBeat(int row, int column) {
     return beats[row][column];
@@ -72,8 +76,7 @@ class DrumBeats {
   
 }
 
-void audioSetup() {
-    
+void audioSetup() {    
     kick  = new Sampler( "BD.wav", 4, minim );
     snare = new Sampler( "SD.wav", 4, minim );
     hat   = new Sampler( "CHH.wav", 4, minim );

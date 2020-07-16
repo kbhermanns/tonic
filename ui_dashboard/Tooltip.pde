@@ -27,6 +27,7 @@ class Tooltip {
         
         PFont font;
         font = createFont("Arial",h);
+        textAlign(CENTER);
         textFont(font, h);
 
         float textSize = h;
