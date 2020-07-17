@@ -56,9 +56,10 @@ class ThisOrThat {
   PImage preferPurpleButtonImage = loadImage("IPreferThisButtonPurple.png");
   PImage preferTealButtonImage = loadImage("IPreferThisButtonTeal.png");
   PImage useThisInSongButtonImage = loadImage("UseThisInSongButton.png");
-  PImage img0 = loadImage("HiHat.png");
-  PImage img1 = loadImage("Kick.png");
-  PImage img2 = loadImage("Snare.png");
+  PImage kickImg = loadImage("Kick.png");
+  PImage snareImg = loadImage("Snare.png");
+  PImage hatImg = loadImage("HiHat.png");
+  PImage musicImg = loadImage("MusicNote.png");
   
   PApplet pa;
   
@@ -411,40 +412,55 @@ class ThisOrThat {
   
   void renderBeatSelector() {
     
-    //Kick selector
-    noFill();
-    pushMatrix();
-    translate(40, 580);
-    rotate(0.0);
-    image(img1, 0, 0, 60, 75);
-    popMatrix();
+    for (int h = 0; h < instruments.size(); h++) {
+      if (h == 0) {
+        //Selector for 1st instrument
+        noFill();
+        pushMatrix();
+        translate(40, 580);
+        rotate(0.0);
+        if (instruments.get(0).equals("Kick")) image(kickImg, 0, 0, 60, 75);
+        else if (instruments.get(0).equals("Snare")) image(snareImg, 0, 0, 60, 75);
+        else if (instruments.get(0).equals("Hi Hat")) image(hatImg, 0, 0, 60, 75);
+        else image(musicImg, 0, 0, 60, 75);
+        popMatrix();
+        
+        for (int i = 0; i < kickButtons.size() - 1; i++){
+          kickButtons.get(i).renderWithoutText();
+        }
+      }
+      else if ( h == 1) {
+        //Selector for 2nd instrument
+        noFill();
+        pushMatrix();
+        translate(40, 660);
+        rotate(0.0);
+        if (instruments.get(1).equals("Kick")) image(kickImg, 0, 0, 50, 60);
+        else if (instruments.get(1).equals("Snare")) image(snareImg, 0, 0, 50, 60);
+        else if (instruments.get(1).equals("Hi Hat")) image(hatImg, 0, 0, 50, 60);
+        else image(musicImg, 0, 0, 50, 60);
+        popMatrix();
     
-    for (int i = 0; i < kickButtons.size() - 1; i++){
-      kickButtons.get(i).renderWithoutText();
-    }
+        for (int i = 0; i < snareButtons.size() - 1; i++){
+          snareButtons.get(i).renderWithoutText();
+        }
+      }
+      else if (h == 2) {
+        //Hat buttons
+        noFill();
+        pushMatrix();
+        translate(30, 720);
+        rotate(0.0);
+        if (instruments.get(2).equals("Kick")) image(kickImg, 0, 0, 75, 65);
+        else if (instruments.get(2).equals("Snare")) image(snareImg, 0, 0, 75, 65);
+        else if (instruments.get(2).equals("Hi Hat")) image(hatImg, 0, 0, 75, 65);
+        else image(musicImg, 0, 0, 75, 65);
+        popMatrix();
     
-    //Snare buttons
-    noFill();
-    pushMatrix();
-    translate(40, 660);
-    rotate(0.0);
-    image(img2, 0, 0, 50, 60);
-    popMatrix();
-
-    for (int i = 0; i < snareButtons.size() - 1; i++){
-      snareButtons.get(i).renderWithoutText();
-    }
-    
-    //Hat buttons
-    noFill();
-    pushMatrix();
-    translate(30, 720);
-    rotate(0.0);
-    image(img0, 0, 0, 75, 65);
-    popMatrix();
-
-    for (int i = 0; i < hatButtons.size() - 1; i++){
-      hatButtons.get(i).renderWithoutText();
+        for (int i = 0; i < hatButtons.size() - 1; i++){
+          hatButtons.get(i).renderWithoutText();
+        }
+      }
     }
   }
   
