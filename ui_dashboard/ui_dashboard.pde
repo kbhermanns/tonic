@@ -191,6 +191,8 @@ void setup(){
    add = new AddInstrument(this,instruments );
    
    originalGABeat = new DrumBeats(this,3,16);
+   // Create a population with a mutation rate, population size, number of instruments,
+   // length of beat, and the original user-created beat.
    gaBeatPopulation1 = new BeatPopulation(
       0.01, 50,
       gaBeat1.beats.length, gaBeat1.beats[0].length
