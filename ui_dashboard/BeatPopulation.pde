@@ -75,7 +75,6 @@ class BeatPopulation {
   }
 
   void run(int[][] liked, int[][] other, int[][] original, int[][] styleBeats, int numGens) {
-    //print("RUN CALLED");
     Beat likedBeat = liked != null ? new Beat(new BeatDNA(liked)) : null;
     Beat otherBeat = other != null ? new Beat(new BeatDNA(other)) : null;
 
@@ -184,5 +183,13 @@ class BeatPopulation {
     population[1].print();
     println();
     return population[1].dna.beat;
+  }
+
+  int[][] getAverageBeat() {
+    Arrays.sort(population);
+    print("Average BEAT: " + generations + " - ");
+    population[population.length / 2].print();
+    println();
+    return population[population.length / 2].dna.beat;
   }
 }

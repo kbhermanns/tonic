@@ -10,7 +10,6 @@ import g4p_controls.*;
   DrumBeats beats1;
   DrumBeats beats2;
   DrumBeats originalBeat;
-  BeatPopulation population;
   
   ArrayList<RectangularButton> kickButtons;
   ArrayList<RectangularButton> snareButtons;
@@ -71,13 +70,6 @@ class ThisOrThat {
     beats1 = new DrumBeats(pa,3,16);
     beats2 = new DrumBeats(pa,3,16);
     beatNumber = 0;
-
-    // Create a population with a mutation rate, population size, number of instruments,
-    // length of beat, and the original user-created beat.
-    population = new BeatPopulation(
-      0.01, 50,
-      beats1.beats.length, beats1.beats[0].length
-    );
     
     kickButtons = new ArrayList<RectangularButton>();
      for (int k = 0; k < 17; k++) {
@@ -151,9 +143,9 @@ class ThisOrThat {
   void update() {
       // Run the GA upon initialization without user input to get the first pair of beats.
       if (!firstPairCreated) {
-        population.run(null, null, originalBeat.beats, target_beats, 100);
-        beats1.beats = population.getBestBeat();
-        beats2.beats = population.getSecondBestBeat();
+        gaBeatPopulation1.run(null, null, originalBeat.beats, target_beats, 100);
+        beats1.beats = gaBeatPopulation1.getBestBeat();
+        beats2.beats = gaBeatPopulation1.getSecondBestBeat();
         firstPairCreated = true;
         
        //set the beat display
@@ -518,61 +510,61 @@ class ThisOrThat {
  }
 
   public void preferThisBeatHandler1(GButton button, GEvent event) {  
-   // user prefers left beat (teal)
-   population.run(beats1.beats, beats2.beats, originalBeat.beats, target_beats, 100);
-   beats1.beats = gaBeatPopulation1.getBestBeat();
-   beats2.beats = gaBeatPopulation1.getSecondBestBeat();
-   
-   //render loading bar
-   showLoadingBar();
-   
-   //set the beat display
-       for (int k = 0; k < 16; k++) {
-         if (beats1.getBeat(0,k) > 0) {
-         kickButtons.get(k).setSelected(true);
-         }
-       }
-     
-       for (int m = 0; m < 16; m++) {
-         if (beats1.getBeat(1,m) > 0) {
-           snareButtons.get(m).setSelected(true);
-         }
-       }
-     
-       for (int n = 0; n < 16; n++) {
-         if (beats1.getBeat(2,n) > 0) {
-           hatButtons.get(n).setSelected(true);
-         }
-        }
+    // user prefers left beat (teal)
+    gaBeatPopulation1.run(beats1.beats, beats2.beats, originalBeat.beats, target_beats, 100);
+    beats1.beats = gaBeatPopulation1.getBestBeat();
+    beats2.beats = gaBeatPopulation1.getAverageBeat();
+    
+    //render loading bar
+    showLoadingBar();
+    
+    //set the beat display
+    for (int k = 0; k < 16; k++) {
+      if (beats1.getBeat(0,k) > 0) {
+      kickButtons.get(k).setSelected(true);
+      }
+    }
+
+    for (int m = 0; m < 16; m++) {
+      if (beats1.getBeat(1,m) > 0) {
+        snareButtons.get(m).setSelected(true);
+      }
+    }
+
+    for (int n = 0; n < 16; n++) {
+      if (beats1.getBeat(2,n) > 0) {
+        hatButtons.get(n).setSelected(true);
+      }
+    }
   }
 
   public void preferThisBeatHandler2(GButton button, GEvent event) {  
-     // user prefers left beat (purple)
-     population.run(beats2.beats, beats1.beats, originalBeat.beats, target_beats, 100);
-     beats1.beats = gaBeatPopulation1.getBestBeat();
-     beats2.beats = gaBeatPopulation1.getSecondBestBeat();
-     
-     //render loading bar
-     showLoadingBar();
-     
-     //set the beat display
-       for (int k = 0; k < 16; k++) {
-         if (beats2.getBeat(0,k) > 0) {
-         kickButtons.get(k).setSelected(true);
-         }
-       }
-     
-       for (int m = 0; m < 16; m++) {
-         if (beats2.getBeat(1,m) > 0) {
-           snareButtons.get(m).setSelected(true);
-         }
-       }
-     
-       for (int n = 0; n < 16; n++) {
-         if (beats2.getBeat(2,n) > 0) {
-           hatButtons.get(n).setSelected(true);
-         }
-        }
+    // user prefers right beat (purple)
+    gaBeatPopulation1.run(beats2.beats, beats1.beats, originalBeat.beats, target_beats, 100);
+    beats1.beats = gaBeatPopulation1.getBestBeat();
+    beats2.beats = gaBeatPopulation1.getAverageBeat();
+    
+    //render loading bar
+    showLoadingBar();
+    
+    //set the beat display
+    for (int k = 0; k < 16; k++) {
+      if (beats2.getBeat(0,k) > 0) {
+      kickButtons.get(k).setSelected(true);
+      }
+    }
+  
+    for (int m = 0; m < 16; m++) {
+      if (beats2.getBeat(1,m) > 0) {
+        snareButtons.get(m).setSelected(true);
+      }
+    }
+  
+    for (int n = 0; n < 16; n++) {
+      if (beats2.getBeat(2,n) > 0) {
+        hatButtons.get(n).setSelected(true);
+      }
+    }
   }
   
   public void useThisInSongBeatHandler1(GButton button, GEvent event) {  
