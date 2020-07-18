@@ -56,6 +56,19 @@ class DrumBeats {
   void setBeats(int[][] newBeat) {
     beats = newBeat;
   }
+
+  boolean isEmpty() {
+    boolean foundExistance = false;
+    for (int i = 0; i < beats.length; i++) {
+      for (int j = 0; j < beats.length; j++) {
+        if (beats[i][j] != 0) {
+          foundExistance = true;
+          break;
+        }
+      }
+    }
+    return !foundExistance;
+  }
   
   class Tick implements Instrument
 {
