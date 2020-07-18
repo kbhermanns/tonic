@@ -191,6 +191,8 @@ void setup(){
    add = new AddInstrument(this,instruments );
    
    originalGABeat = new DrumBeats(this,3,16);
+   // Create a population with a mutation rate, population size, number of instruments,
+   // length of beat, and the original user-created beat.
    gaBeatPopulation1 = new BeatPopulation(
       0.01, 50,
       gaBeat1.beats.length, gaBeat1.beats[0].length
@@ -445,12 +447,16 @@ public void audioHandler(GImageToggleButton button, GEvent event) {
 }
 
 public void playGA1Handler(GButton button, GEvent event) {
+  if (button.getText() == "PLAY") button.setText("PAUSE");
+  else button.setText("PLAY");
   if (gaBeat1.isMuted()) gaBeat1.unMute();
   else gaBeat1.mute();
   gaBeat1.setBeats(thisOrThat.getBeat1().getEntireBeat());
 }
 
-public void playGA2Handler(GButton button, GEvent event) {  
+public void playGA2Handler(GButton button, GEvent event) {
+  if (button.getText() == "PLAY") button.setText("PAUSE");
+  else button.setText("PLAY");
   if (gaBeat2.isMuted()) gaBeat2.unMute();
   else gaBeat2.mute();
   gaBeat2.setBeats(thisOrThat.getBeat2().getEntireBeat());
