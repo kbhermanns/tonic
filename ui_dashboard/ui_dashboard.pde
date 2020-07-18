@@ -447,12 +447,16 @@ public void audioHandler(GImageToggleButton button, GEvent event) {
 }
 
 public void playGA1Handler(GButton button, GEvent event) {
+  if (button.getText() == "PLAY") button.setText("PAUSE");
+  else button.setText("PLAY");
   if (gaBeat1.isMuted()) gaBeat1.unMute();
   else gaBeat1.mute();
   gaBeat1.setBeats(thisOrThat.getBeat1().getEntireBeat());
 }
 
-public void playGA2Handler(GButton button, GEvent event) {  
+public void playGA2Handler(GButton button, GEvent event) {
+  if (button.getText() == "PLAY") button.setText("PAUSE");
+  else button.setText("PLAY");
   if (gaBeat2.isMuted()) gaBeat2.unMute();
   else gaBeat2.mute();
   gaBeat2.setBeats(thisOrThat.getBeat2().getEntireBeat());

@@ -143,6 +143,14 @@ class ThisOrThat {
   void update() {
       // Run the GA upon initialization without user input to get the first pair of beats.
       if (!firstPairCreated) {
+        // If the user hasn't created anything yet the instrument ArrayList won't be filled,
+        // the GA will generate on all three instruments, so show all the changes by adding these
+        // manually to the ArrayList.
+        if (originalBeat.isEmpty()) {
+          instruments.add("Kick");
+          instruments.add("Snare");
+          instruments.add("Hat");
+        }
         gaBeatPopulation1.run(null, null, originalBeat.beats, target_beats, 100);
         beats1.beats = gaBeatPopulation1.getBestBeat();
         beats2.beats = gaBeatPopulation1.getSecondBestBeat();
@@ -253,7 +261,7 @@ class ThisOrThat {
       }
   }
     
-    renderBeatSelector();
+    // renderBeatSelector();
   }
   
   void render() {
@@ -477,10 +485,10 @@ class ThisOrThat {
       for (int j = 0; j < 15; j++) {
         if (originalBeat.getBeat(i, j) != beats2.getBeat(i, j)) {
           // break out of inner loop 
-          whatHasChangedInBeat1[i] = true;
+          whatHasChangedInBeat2[i] = true;
           j = 15;
         } else {
-          whatHasChangedInBeat1[i] = false;
+          whatHasChangedInBeat2[i] = false;
         }
       }
     }
