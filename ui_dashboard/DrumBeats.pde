@@ -11,6 +11,10 @@ class DrumBeats {
   Sampler     kick;
   Sampler     snare;
   Sampler     hat;
+
+  Sampler kickAccent;
+  Sampler snareAccent;
+  Sampler hatAccent;
   
   int kickRow = 1;
   int snareRow = 2;
@@ -81,32 +85,68 @@ class DrumBeats {
   
     //set sound 1
     if (instruments.size() >0) {
-    if (instruments.get(0).equals("Kick"))
-      sound1 = kick;
-    else if (instruments.get(0).equals("Snare"))
-      sound1 = snare;
-    else if (instruments.get(0).equals("Hi Hat"))
-      sound1 = hat;
+      if (instruments.get(0).equals("Kick")) {
+        if (beats[0][curBeat] == 1)
+          sound1 = kick;
+        else
+          sound1 = kickAccent;
+      }
+      else if (instruments.get(0).equals("Snare")) {
+        if (beats[0][curBeat] == 1)
+          sound1 = snare;
+        else
+          sound1 = snareAccent;
+      }
+      else if (instruments.get(0).equals("Hi Hat")) {
+        if (beats[0][curBeat] == 1)
+          sound1 = hat;
+        else
+          sound1 = hatAccent;
+      }
     }
 
     //set sound 2
     if (instruments.size() >1) {
-    if (instruments.get(1).equals("Kick"))
-      sound2 = kick;
-    else if (instruments.get(1).equals("Snare"))
-      sound2 = snare;
-    else if (instruments.get(1).equals("Hi Hat"))
-      sound2 = hat;
+      if (instruments.get(1).equals("Kick")) {
+        if (beats[1][curBeat] == 1)
+          sound2 = kick;
+        else
+          sound2 = kickAccent;
+      }
+      else if (instruments.get(1).equals("Snare")) {
+        if (beats[1][curBeat] == 1)
+          sound2 = snare;
+        else
+          sound2 = snareAccent;
+      }
+      else if (instruments.get(1).equals("Hi Hat")) {
+        if (beats[1][curBeat] == 1)
+          sound2 = hat;
+        else
+          sound2 = hatAccent;
+      }
     }
 
     //set sound 3
     if (instruments.size() >2) {
-    if (instruments.get(2).equals("Kick"))
-      sound3 = kick;
-    else if (instruments.get(2).equals("Snare"))
-      sound3 = snare;
-    else if (instruments.get(2).equals("Hi Hat"))
-      sound3 = hat;
+      if (instruments.get(2).equals("Kick")) {
+        if (beats[2][curBeat] == 1)
+            sound3 = kick;
+          else
+            sound3 = kickAccent;
+      }
+      else if (instruments.get(2).equals("Snare")) {
+        if (beats[2][curBeat] == 1)
+            sound3 = snare;
+          else
+            sound3 = snareAccent;
+      }
+      else if (instruments.get(2).equals("Hi Hat")) {
+        if (beats[2][curBeat] == 1)
+            sound3 = hat;
+          else
+            sound3 = hatAccent;
+      }
     }
 
 
@@ -119,12 +159,8 @@ class DrumBeats {
   {
     curBeat = (curBeat+1)%16;
     out.setTempo( bpm );
-    if (beats[0][curBeat] == 1)
-      out.playNote(0,0.25f, this);
-    else 
-      out.playNote(0,0.1f, this);
     
-    //out.playNote( 0, 0.25f, this );
+    out.playNote( 0, 0.25f, this );
   }  
   
 }
@@ -133,10 +169,18 @@ void audioSetup() {
     kick  = new Sampler( "BD.wav", 4, minim );
     snare = new Sampler( "SD.wav", 4, minim );
     hat   = new Sampler( "CHH.wav", 4, minim );
+
+    //accent files
+    kickAccent = new Sampler("KickAccent.wav", 4, minim);
+    snareAccent = new Sampler("SnareAccent.wav", 4, minim);
+    hatAccent = new Sampler("HatAccent.wav", 4, minim);
     
-    kick.patch( out );
+    kick.patch( out ); //<>//
     snare.patch( out );
     hat.patch( out );
+    kickAccent.patch(out);
+    snareAccent.patch(out);
+    hatAccent.patch(out);
   
     curBeat = 0;    
   
