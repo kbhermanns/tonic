@@ -455,7 +455,10 @@ public void handleTextEvents(GEditableTextControl textControl, GEvent event) {
 }
 public void audioHandler(GImageToggleButton button, GEvent event) {
   if (!createLinearBeat.isAlgorithmButtonSelected()) beats = createLinearBeat.getBeats();
-  if (beats.isMuted()) beats.unMute();
+  if (beats.isMuted()) {
+    beats.audioSetup();
+    beats.unMute();
+  }
   else beats.mute();
 }
 
