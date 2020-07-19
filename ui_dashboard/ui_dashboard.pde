@@ -1,5 +1,6 @@
 import g4p_controls.*;
 
+PrintWriter output; // used for testing purposes to record user data 
 boolean addABeat = false;
 boolean renderLandingPage = true;
 boolean renderAddInstrument = false;
@@ -32,6 +33,10 @@ Boolean fillBeat = false;
 Boolean addABeatClicked = false;
 boolean isBeginner = true;
 boolean renderSkillLevelSelect = false;
+
+// needed for user testing 
+boolean hasPrintedOutQuizCompletionTimeAlready = false;
+int numberOfTimesUserPressedGenerateNewBeats = 0;
 
 PImage dashImg;
 PImage landingImg;
@@ -79,6 +84,9 @@ GImageButton p;
 void setup(){
    size(1300, 800);
    
+   // Create a new file in the sketch directory
+   output = createWriter("userTestingData.txt"); 
+  
    playPause = new GImageToggleButton(this, 400, 15 ,"PlayPause.png",2);
    playPause.addEventHandler(this, "audioHandler");
    playPause.setVisible(false);
@@ -265,6 +273,12 @@ void draw(){
   }
   
   if (renderDash) {
+   if (!hasPrintedOutQuizCompletionTimeAlready) {
+     // only print out the time it took to complete the quiz once 
+     output.println("Time to complete quiz (milliseconds): " + createQuiz.timeToCompleteQuiz()); // Write testing data to file 
+     output.flush();
+     hasPrintedOutQuizCompletionTimeAlready = true;
+   }
    beginnerButton.setVisible(false);
    expertButton.setVisible(false);
    switchSkillLevelButton.setVisible(false);
@@ -295,7 +309,6 @@ void draw(){
        renderLinearBeat = true;
        createLinearBeat.setRenderLinear(true);
      }
-       // TODO: having issues with this so fix later - Abby
   if (renderThisOrThat) {
     thisOrThat.render();
     thisOrThat.update();
@@ -433,11 +446,11 @@ void draw(){
 
 public void handleTextEvents(GEditableTextControl textControl, GEvent event) { 
     if (renderCircularBeat) {
-        createLinearBeat.updateName(textControl.getText());
-        createCircularBeat.updateName(textControl.getText());
+           createLinearBeat.updateName(textControl.getText());
+           createCircularBeat.updateName(textControl.getText());
         } else {
-        createCircularBeat.updateName(textControl.getText());
-        createLinearBeat.updateName(textControl.getText());
+           createCircularBeat.updateName(textControl.getText());
+           createLinearBeat.updateName(textControl.getText());
         }
 }
 public void audioHandler(GImageToggleButton button, GEvent event) {
@@ -535,9 +548,19 @@ public void startCreatingHandler(GButton button, GEvent event) {
 public void beginnerExpertHandler(GButton button, GEvent event) {
     beginnerButton.setVisible(false);
     expertButton.setVisible(false);
-    if (button.getText() == "Beginner"){isBeginner = true;}
-    if (button.getText() == "Moderate/Expert"){isBeginner = false;}
+    if (button.getText() == "Beginner"){
+       isBeginner = true;
+       output.println("User selected beginner from quiz"); // Write testing data to file 
+    }
+    if (button.getText() == "Moderate/Expert"){
+       isBeginner = false;
+       output.println("User selected expert from quiz"); // Write testing data to file 
+    }
     renderQuiz = true; 
+    // this is needed for the case that a user starts the quiz, goes back, then goes into new begginer/expert level of quiz
+    createQuiz.resetStartTimeQuiz();
+    output.flush(); // Writes the remaining data to the file
+    //output.close(); // Finishes the file
   }
 
 public void switchSkillLevelHandler(GButton button, GEvent event) {
@@ -545,6 +568,10 @@ public void switchSkillLevelHandler(GButton button, GEvent event) {
     renderSkillLevelSelect = true;
     switchSkillLevelButton.setVisible(false);
     createQuiz.clearButtons();
+    // Write testing data to file 
+    output.println("User went back to switch skill level on quiz");
+    output.println("Time spent on quiz before user went back (milliseconds): " + (millis() - createQuiz.getStartTimeQuiz()));
+    output.flush();
 }
   public void instrHandler(GButton button, GEvent event) {
     renderAddInstrument = true;
@@ -571,6 +598,30 @@ public void xButtonOnThisThatPressed() {
     createCircularBeat.setAlgorithmSelected(false);
     renderThisOrThat = false;
     beats.mute();
+}
+
+public void trackNewBeatGenerated() {
+  // used for testing purposes - called when a user presses "generate another" on this/that page
+  numberOfTimesUserPressedGenerateNewBeats += 1;
+}
+
+public void trackNumberOfTimesUserGeneratedNewBeats() {
+  // called at the end of the generate beat page to print out the total number of times they chose to generate another beat
+  output.println("Total number of times user chose to generate more beats: " + numberOfTimesUserPressedGenerateNewBeats);
+  output.flush();
+}
+
+public void trackTimeToGenerateNewBeat(int time) {
+  // used for testing purposes
+  output.println("Time to Generate new beat (milliseconds): " + time);
+  output.flush();
+}
+
+public void trackBeatsShownToUserFitness(float beat1Fitness, float beat2Fitness) {
+  // used for testing purposes 
+  output.println("Beat 1 Fitness : " + beat1Fitness);
+  output.println("Beat 2 Fitness : " + beat2Fitness);
+  output.flush();
 }
 
 public void showLoadingBar() {

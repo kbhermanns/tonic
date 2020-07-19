@@ -517,11 +517,24 @@ class ThisOrThat {
   }
  }
 
-  public void preferThisBeatHandler1(GButton button, GEvent event) {  
+  public void preferThisBeatHandler1(GButton button, GEvent event) { 
     // user prefers left beat (teal)
+    
+    //track that the user chose to generate another beat 
+    trackNewBeatGenerated();
+    
+    int startTime = millis();
     gaBeatPopulation1.run(beats1.beats, beats2.beats, originalBeat.beats, target_beats, 100);
     beats1.beats = gaBeatPopulation1.getBestBeat();
     beats2.beats = gaBeatPopulation1.getAverageBeat();
+    int endTime = millis();
+    //float beat1Fitness = gaBeatPopulation1.getBestBeatFitness();
+    float beat1Fitness = gaBeatPopulation1.getMaxFitness();
+    float beat2Fitness = gaBeatPopulation1.getSecondBestBeatFitness();
+    trackBeatsShownToUserFitness(beat1Fitness, beat2Fitness);
+    
+    // track the time it took to generate the new beat
+    trackTimeToGenerateNewBeat((endTime - startTime));
     
     //render loading bar
     showLoadingBar();
@@ -546,11 +559,26 @@ class ThisOrThat {
     }
   }
 
-  public void preferThisBeatHandler2(GButton button, GEvent event) {  
+  public void preferThisBeatHandler2(GButton button, GEvent event) {
     // user prefers right beat (purple)
+    
+    //track that the user chose to generate another beat 
+    trackNewBeatGenerated();
+    
+    int startTime = millis();
+    
     gaBeatPopulation1.run(beats2.beats, beats1.beats, originalBeat.beats, target_beats, 100);
     beats1.beats = gaBeatPopulation1.getBestBeat();
     beats2.beats = gaBeatPopulation1.getAverageBeat();
+    
+    int endTime = millis();
+    //float beat1Fitness = gaBeatPopulation1.getBestBeatFitness();
+    float beat1Fitness = gaBeatPopulation1.getMaxFitness();
+    float beat2Fitness = gaBeatPopulation1.getSecondBestBeatFitness();
+    trackBeatsShownToUserFitness(beat1Fitness, beat2Fitness);
+    
+    // track the time it took to generate the new beat
+    trackTimeToGenerateNewBeat((endTime - startTime));
     
     //render loading bar
     showLoadingBar();
@@ -586,6 +614,8 @@ class ThisOrThat {
     closeButton.setVisible(false);
     useBeatInSong(beats1);
     xButtonOnThisThatPressed();
+    // used to track total number of generations until user was done 
+    trackNumberOfTimesUserGeneratedNewBeats();
   }
   
   public void useThisInSongBeatHandler2(GButton button, GEvent event) {  
@@ -599,6 +629,8 @@ class ThisOrThat {
     closeButton.setVisible(false);
     useBeatInSong(beats2);
     xButtonOnThisThatPressed();
+    // used to track total number of generations until user was done
+    trackNumberOfTimesUserGeneratedNewBeats();
   }
   
   public void closeButtonPressedHandler(GButton button, GEvent event) {  
@@ -611,4 +643,6 @@ class ThisOrThat {
     useThisInSongGA1.setVisible(false);
     useThisInSongGA2.setVisible(false);
     closeButton.setVisible(false);
+    // used to track total number of generations until user was done
+    trackNumberOfTimesUserGeneratedNewBeats();
   }
