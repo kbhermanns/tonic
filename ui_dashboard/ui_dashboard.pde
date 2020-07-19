@@ -547,8 +547,14 @@ public void switchSkillLevelHandler(GButton button, GEvent event) {
     createQuiz.clearButtons();
 }
   public void instrHandler(GButton button, GEvent event) {
-  renderAddInstrument = true;
-  button.setVisible(false);
+    renderAddInstrument = true;
+    button.setVisible(false);
+    if (createLinearBeat.showInstrumentTooltip || createCircularBeat.showInstrumentTooltip) {
+      createLinearBeat.showInstrumentTooltip = false;
+      createCircularBeat.showInstrumentTooltip = false;
+      createLinearBeat.showBeatTooltip = true;
+      createCircularBeat.showBeatTooltip = true;
+    }
   }
 
 public void addABeatHandler(GButton button, GEvent event) {

@@ -55,7 +55,7 @@ class AddInstrument {
         fill(-1);
         text("Select one of the predefined instruments or add your own", 650, 100); 
         textSize(24);
-        text("To preview a sound, click on the icon beside the instrument",650,140);
+        text("You can select more than one instrument, up to a maximum of 3",650,140);
 
         //display buttons
         go.setVisible(true);
