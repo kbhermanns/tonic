@@ -152,7 +152,7 @@ class LinearBeatCreation {
         // TODO: Update - this is temp route into LikeOrDislikeBeatPage
         area.setVisible(false);
         area.setOpaque(false);
-        Clicked = true; //<>//
+        Clicked = true; //<>// //<>//
         algorithmButtonSelected = true;
       }
       // layout toggle check
@@ -263,6 +263,7 @@ class LinearBeatCreation {
   void render(DrumBeats beats) {
    if (renderLinear && !algorithmButtonSelected){
     Beats = beats;
+    setInstrumentNames(instruments);
     background(-14079703);
     strokeWeight(5);
     stroke(-1);
@@ -344,8 +345,8 @@ class LinearBeatCreation {
           }
           if (instruments.size() >= 2) {
             inst2Button = new RectangularButton(inst2Fill, 7.933884, -10241491, 290.50824, 642.5511, 1.5700793, -34.9776, -116.59913, 34.9776, 34.9776, inst2, 328, 638.66, 24);
-            inst2Button.renderWithText();
-          }
+            inst2Button.renderWithText(); //<>//
+          } //<>//
           if (instruments.size() == 3) {
             inst3Button = new RectangularButton(inst3Fill, 7.933884, -1157409, 500.3737, 642.5511, 1.5707964, -34.9776, -116.59913, 34.9776, 34.9776, inst3, 539.23, 638.66, 24);
           inst3Button.renderWithText();
@@ -377,28 +378,28 @@ class LinearBeatCreation {
   }
   
   void renderInst2Selector() {
-    noFill();
-    pushMatrix();
+    noFill(); //<>//
+    pushMatrix(); //<>//
     translate(30, 225);
     rotate(0.0);
     if (instruments.get(1).equals("Kick")) image(kickImg, 0, 0, 100, 80);
-    else if (instruments.get(1).equals("Snare")) image(snareImg, 0, 0, 100, 80);
-    else if (instruments.get(1).equals("Hi Hat")) image(hatImg, 0, 0, 100, 80);
+    else if (instruments.get(1).equals("Snare")) image(snareImg, 0, 0, 100, 80); //<>//
+    else if (instruments.get(1).equals("Hi Hat")) image(hatImg, 0, 0, 100, 80); //<>//
     else image(musicImg, 0, 0, 100, 80);
-    popMatrix();
-
+    popMatrix(); //<>//
+ //<>//
     for (int i = 0; i < inst2Buttons.size() - 1; i++){
       inst2Buttons.get(i).renderWithoutText(); //<>//
     } //<>//
   }
-  
-  void renderInst3Selector() {
+   //<>//
+  void renderInst3Selector() { //<>//
     noFill(); //<>//
     pushMatrix(); //<>//
     translate(20, 330);
     rotate(0.0); //<>//
-    if (instruments.get(2).equals("Kick")) image(kickImg, 0, 0, 100, 80); //<>//
-    else if (instruments.get(2).equals("Snare")) image(snareImg, 0, 0, 100, 80);
+    if (instruments.get(2).equals("Kick")) image(kickImg, 0, 0, 100, 80); //<>// //<>//
+    else if (instruments.get(2).equals("Snare")) image(snareImg, 0, 0, 100, 80); //<>//
     else if (instruments.get(2).equals("Hi Hat")) image(hatImg, 0, 0, 100, 80);
     else image(musicImg, 0, 0, 100, 80);
     popMatrix();

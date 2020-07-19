@@ -114,7 +114,7 @@ class ThisOrThat {
    preferThisBeatGA2.setFont(new Font("Gothic A1", Font.PLAIN, 18));
    preferThisBeatGA2.setVisible(false);
    
-   useThisInSongGA1 = new GButton(pa, 230, 420, 250, 60, "Use as my Beat");
+   useThisInSongGA1 = new GButton(pa, 230, 420, 250, 60, "Use this as my Beat");
    useThisInSongGA1.addEventHandler(pa, "useThisInSongBeatHandler1");
    useThisInSongGA1.setLocalColor(2, color(41,41,41)); //text color
    useThisInSongGA1.setLocalColor(3, color(66,65,62)); //border colour
@@ -122,7 +122,7 @@ class ThisOrThat {
    useThisInSongGA1.setFont(new Font("Gothic A1", Font.PLAIN, 18));
    useThisInSongGA1.setVisible(false);
    
-   useThisInSongGA2 = new GButton(pa, 850, 420, 250, 60, "Use this in my Beat");
+   useThisInSongGA2 = new GButton(pa, 850, 420, 250, 60, "Use this as my Beat");
    useThisInSongGA2.addEventHandler(pa, "useThisInSongBeatHandler2");
    useThisInSongGA2.setLocalColor(2, color(41,41,41)); //text color
    useThisInSongGA2.setLocalColor(3, color(66,65,62)); //border colour
@@ -412,6 +412,47 @@ class ThisOrThat {
   
   void renderBeatSelector() {
     
+    if (instruments.size() == 1) {
+      if (instruments.get(0).equals("Kick")) {
+        instruments.add("Snare");
+        instruments.add("Hi Hat");
+      }
+      else if (instruments.get(0).equals("Snare")) {
+        instruments.add("Kick");
+        instruments.add("Hi Hat");
+      }
+      else if (instruments.get(0).equals("Hi Hat")) {
+        instruments.add("Kick");
+        instruments.add("Snare");
+      }
+    }
+    else if (instruments.size() == 2) {
+      if (instruments.get(0).equals("Kick")) {
+        if(instruments.get(1).equals("Snare")) {
+          instruments.add("Hi Hat");
+        }
+        else if(instruments.get(1).equals("Hi Hat")){
+          instruments.add("Snare");
+        }        
+      }
+      else if (instruments.get(0).equals("Snare")) {
+        if(instruments.get(1).equals("Kick")) {
+          instruments.add("Hi Hat");
+        }
+        else if(instruments.get(1).equals("Hi Hat")){
+          instruments.add("Kick");
+        }
+      }
+      else if (instruments.get(0).equals("Hi Hat")) {
+        if(instruments.get(1).equals("Snare")) {
+          instruments.add("Kick");
+        }
+        else if(instruments.get(1).equals("Kick")){
+          instruments.add("Snare");
+        }
+      }
+    }
+       
     for (int h = 0; h < instruments.size(); h++) {
       if (h == 0) {
         //Selector for 1st instrument
