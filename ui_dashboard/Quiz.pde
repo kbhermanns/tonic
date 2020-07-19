@@ -7,6 +7,8 @@ String glob_synco_str = "None";
 
 Boolean glob_syncopation = false;
 Boolean glob_go = false;
+int startTimeQuiz = 0; // in milliseconds 
+int endTimeQuiz = 0; // in milliseconds 
 
 class Quiz{
   
@@ -42,6 +44,9 @@ class Quiz{
         target_beats[i][j] = 0;
       }
     }
+    
+    // start timer showing user has started the quiz 
+    startTimeQuiz = millis();
     
     hipHopButton = new GButton(papp, 182.3423 + shiftx, 223.37125+ shifty, 150, 70, "Hip-Hop");
     hipHopButton.addEventHandler(papp, "genreHandler");
@@ -415,6 +420,21 @@ class Quiz{
     return glob_go;
   }
   
+  int timeToCompleteQuiz() {
+    //print("endtimequiz: " + endTimeQuiz + "\n");
+    //print("starttimequiz: " + startTimeQuiz + "\n");
+    //print("timeToCompleteQuiz: " + (startTimeQuiz - endTimeQuiz) + "\n");
+    return (endTimeQuiz - startTimeQuiz);
+  }
+  
+  int getStartTimeQuiz() {
+    return startTimeQuiz;
+  }
+  
+  void resetStartTimeQuiz() {
+    startTimeQuiz = millis();
+  }
+  
   void clearButtons(){
     hipHopButton.setVisible(false);
     discoPopButton.setVisible(false);
@@ -462,4 +482,6 @@ public void syncoHandler(GButton button, GEvent event) {
 
 public void goHandler(GButton button, GEvent event) {
     glob_go = true;
+    // set timer showing user has ended the quiz
+    endTimeQuiz = millis();
   }
