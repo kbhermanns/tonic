@@ -354,6 +354,16 @@ class CircularBeatCreation {
     line(1.6193323, 570, 1297.0852, 570);
     image(toggle, 1125, 25);
 
+    // SHow accent mode status
+    if (accentMode) {
+      textSize(32);
+      textAlign(CENTER);
+      fill(-1);
+      text("Accent Mode", 800, 50); 
+      textSize(24);
+      text("Click on beats to add and remove accents",800,70);
+    }
+
     //tempo text
     textSize(24); 
     textFont(createFont("Gothic A1", 30));
@@ -377,7 +387,7 @@ class CircularBeatCreation {
       Tooltip nameTooltip = new Tooltip("Add a name for your beat","T",25,80,300,30);   
       nameTooltip.drawTooltip();
     } else if (showInstrumentTooltip && !inst1Selected && !inst3Selected && !inst2Selected) {
-      Tooltip instrumentTooltip = new Tooltip("Select an instrument to add to your beat","T",25,710,300,30);
+      Tooltip instrumentTooltip = new Tooltip("Click to add an instrument to your beat","T",25,710,300,30);
       instrumentTooltip.drawTooltip();
     } else if (showBeatTooltip) {
       int y = 200;
