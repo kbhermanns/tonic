@@ -36,6 +36,7 @@ boolean renderSkillLevelSelect = false;
 
 // needed for user testing 
 boolean hasPrintedOutQuizCompletionTimeAlready = false;
+int numberOfTimesUserPressedGenerateNewBeats = 0;
 
 PImage dashImg;
 PImage landingImg;
@@ -591,6 +592,30 @@ public void xButtonOnThisThatPressed() {
     createCircularBeat.setAlgorithmSelected(false);
     renderThisOrThat = false;
     beats.mute();
+}
+
+public void trackNewBeatGenerated() {
+  // used for testing purposes - called when a user presses "generate another" on this/that page
+  numberOfTimesUserPressedGenerateNewBeats += 1;
+}
+
+public void trackNumberOfTimesUserGeneratedNewBeats() {
+  // called at the end of the generate beat page to print out the total number of times they chose to generate another beat
+  output.println("Total number of times user chose to generate more beats: " + numberOfTimesUserPressedGenerateNewBeats);
+  output.flush();
+}
+
+public void trackTimeToGenerateNewBeat(int time) {
+  // used for testing purposes
+  output.println("Time to Generate new beat (milliseconds): " + time);
+  output.flush();
+}
+
+public void trackBeatsShownToUserFitness(float beat1Fitness, float beat2Fitness) {
+  // used for testing purposes 
+  output.println("Beat 1 Fitness : " + beat1Fitness);
+  output.println("Beat 2 Fitness : " + beat2Fitness);
+  output.flush();
 }
 
 public void showLoadingBar() {

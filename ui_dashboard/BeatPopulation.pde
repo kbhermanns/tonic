@@ -176,6 +176,11 @@ class BeatPopulation {
     println();
     return population[0].dna.beat;
   }
+  
+  float getBestBeatFitness() {
+    Arrays.sort(population);
+    return population[0].getFitness();
+  }
 
   int[][] getSecondBestBeat() {
     Arrays.sort(population);
@@ -183,6 +188,11 @@ class BeatPopulation {
     population[1].print();
     println();
     return population[1].dna.beat;
+  }
+  
+  float getSecondBestBeatFitness() {
+    Arrays.sort(population);
+    return population[1].getFitness();
   }
 
   int[][] getAverageBeat() {
