@@ -587,8 +587,8 @@ class ThisOrThat {
   public void preferThisBeatHandler1(GButton button, GEvent event) { 
     // user prefers left beat (teal)
     
-    beatCount1 = beatCount1 + 1;
-    beatCount2 = beatCount2 + 1;
+    beatCount1 = beatCount1 + 2;
+    beatCount2 = beatCount2 + 2;
     
     //track that the user chose to generate another beat 
     trackNewBeatGenerated();
@@ -632,8 +632,8 @@ class ThisOrThat {
   public void preferThisBeatHandler2(GButton button, GEvent event) {
     // user prefers right beat (purple)
     
-    beatCount1 = beatCount1 + 1;
-    beatCount2 = beatCount2 + 1;
+    beatCount1 = beatCount1 + 2;
+    beatCount2 = beatCount2 + 2;
     
     //track that the user chose to generate another beat 
     trackNewBeatGenerated();
