@@ -17,7 +17,6 @@ import g4p_controls.*;
   
   int beatCount1 = 1;
   int beatCount2 = 2;
-  int largestBeat = 2;
 
 class ThisOrThat {
   boolean[] whatHasChangedInBeat1; // kick - 0, snare - 1, hi-hat - 2
@@ -588,14 +587,8 @@ class ThisOrThat {
   public void preferThisBeatHandler1(GButton button, GEvent event) { 
     // user prefers left beat (teal)
     
-    if (beatCount1 >= beatCount2) {
-        largestBeat = beatCount1;
-    }
-    else if (beatCount2 >= beatCount1) {
-        largestBeat = beatCount2;
-    }
-    
-    beatCount1 = largestBeat + 1;
+    beatCount1 = beatCount1 + 2;
+    beatCount2 = beatCount2 + 2;
     
     //track that the user chose to generate another beat 
     trackNewBeatGenerated();
@@ -638,14 +631,9 @@ class ThisOrThat {
 
   public void preferThisBeatHandler2(GButton button, GEvent event) {
     // user prefers right beat (purple)
-     if (beatCount1 >= beatCount2) {
-        largestBeat = beatCount1;
-    }
-    else if (beatCount2 >= beatCount1) {
-        largestBeat = beatCount2;
-    }
     
-    beatCount2 = largestBeat + 1;
+    beatCount1 = beatCount1 + 2;
+    beatCount2 = beatCount2 + 2;
     
     //track that the user chose to generate another beat 
     trackNewBeatGenerated();
