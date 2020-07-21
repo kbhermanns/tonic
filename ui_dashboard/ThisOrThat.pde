@@ -14,6 +14,10 @@ import g4p_controls.*;
   ArrayList<RectangularButton> kickButtons;
   ArrayList<RectangularButton> snareButtons;
   ArrayList<RectangularButton> hatButtons;
+  
+  int beatCount1 = 1;
+  int beatCount2 = 2;
+  int largestBeat = 2;
 
 class ThisOrThat {
   boolean[] whatHasChangedInBeat1; // kick - 0, snare - 1, hi-hat - 2
@@ -398,6 +402,18 @@ class ThisOrThat {
     textSize(20);
     text(useThisLabel1, 170, 420);  // Text wraps within text box
     
+    // Left labels
+    String option1Label = "Option #1";
+    fill(-4342339);
+    textSize(20);
+    text(option1Label, 170, 100);  // Text wraps within text box
+    
+    String beatCount1Label = "Beat: " + str(beatCount1);
+    fill(-4342339);
+    textSize(20);
+    text(beatCount1Label, 160, 120);  // Text wraps within text box
+    
+    
     // Right buttons context sentances
     String generateAgainLabel2 = "I like where this is going... \n";
     fill(-4342339);
@@ -408,6 +424,17 @@ class ThisOrThat {
     fill(-4342339);
     textSize(20);
     text(useThisLabel2, 790, 420);  // Text wraps within text box
+    
+    // Right labels
+    String option2Label = "Option #2";
+    fill(-4342339);
+    textSize(20);
+    text(option2Label, 790, 100);  // Text wraps within text box
+    
+    String beatCount2Label = "Beat: " + str(beatCount2);
+    fill(-4342339);
+    textSize(20);
+    text(beatCount2Label, 780, 120);  // Text wraps within text box
   } 
   
   void renderBeatSelector() {
@@ -561,6 +588,15 @@ class ThisOrThat {
   public void preferThisBeatHandler1(GButton button, GEvent event) { 
     // user prefers left beat (teal)
     
+    if (beatCount1 >= beatCount2) {
+        largestBeat = beatCount1;
+    }
+    else if (beatCount2 >= beatCount1) {
+        largestBeat = beatCount2;
+    }
+    
+    beatCount1 = largestBeat + 1;
+    
     //track that the user chose to generate another beat 
     trackNewBeatGenerated();
     
@@ -602,6 +638,14 @@ class ThisOrThat {
 
   public void preferThisBeatHandler2(GButton button, GEvent event) {
     // user prefers right beat (purple)
+     if (beatCount1 >= beatCount2) {
+        largestBeat = beatCount1;
+    }
+    else if (beatCount2 >= beatCount1) {
+        largestBeat = beatCount2;
+    }
+    
+    beatCount2 = largestBeat + 1;
     
     //track that the user chose to generate another beat 
     trackNewBeatGenerated();
