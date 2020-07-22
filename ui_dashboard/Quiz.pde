@@ -14,7 +14,7 @@ class Quiz{
   
     int[][] target_beats;
     int shiftx = 125;
-    int shifty = -80;
+    int shifty = 20;
     
     GButton hipHopButton;
     GButton discoPopButton;
@@ -26,10 +26,6 @@ class Quiz{
     GButton moderateButton;
     GButton heartbeatButton;
     GButton fastButton;
-    
-    GButton twoFourButton;
-    GButton threeFourButton;
-    GButton fourFourButton;
     
     GButton yesSyncoButton;
     GButton noSyncoButton;
@@ -134,35 +130,8 @@ class Quiz{
     fastButton.setLocalColor(3, color(40,230,255)); //Boarder Colour
     fastButton.setFont(new Font("Gothic A1", Font.PLAIN, 30));
     
-    twoFourButton = new GButton(papp, 272.31128 + shiftx, 581.696+ shifty, 150, 70,"2:4");
-    twoFourButton.addEventHandler(papp, "timeSigHandler");
-    twoFourButton.setVisible(false);
-    twoFourButton.setLocalColor(4, color(85,254,255)); //Background Colour
-    twoFourButton.setLocalColor(6, color(170,255,255)); //Background Hover Colour
-    twoFourButton.setLocalColor(14, color(170,255,255)); //Background Selected Colour
-    twoFourButton.setLocalColor(3, color(40,230,255)); //Boarder Colour
-    twoFourButton.setFont(new Font("Gothic A1", Font.PLAIN, 30));
-    
-    threeFourButton = new GButton(papp, 452.2492 + shiftx, 581.696+ shifty, 150, 70,"3:4");
-    threeFourButton.addEventHandler(papp, "timeSigHandler");
-    threeFourButton.setVisible(false);
-    threeFourButton.setLocalColor(4, color(85,254,255)); //Background Colour
-    threeFourButton.setLocalColor(6, color(170,255,255)); //Background Hover Colour
-    threeFourButton.setLocalColor(14, color(170,255,255)); //Background Selected Colour
-    threeFourButton.setLocalColor(3, color(40,230,255)); //Boarder Colour
-    threeFourButton.setFont(new Font("Gothic A1", Font.PLAIN, 30));
-    
-    fourFourButton = new GButton(papp, 632.18713 + shiftx, 581.696+ shifty, 150, 70,"4:4");
-    fourFourButton.addEventHandler(papp, "timeSigHandler");
-    fourFourButton.setVisible(false);
-    fourFourButton.setLocalColor(4, color(85,254,255)); //Background Colour
-    fourFourButton.setLocalColor(6, color(170,255,255)); //Background Hover Colour
-    fourFourButton.setLocalColor(14, color(170,255,255)); //Background Selected Colour
-    fourFourButton.setLocalColor(3, color(40,230,255)); //Boarder Colour
-    fourFourButton.setFont(new Font("Gothic A1", Font.PLAIN, 30));
-    
-    if(isBeginner){yesSyncoButton = new GButton(papp,360.72906 + shiftx, 763.1851 + shifty, 150, 70,"Off Beat");}
-    if(!isBeginner){yesSyncoButton = new GButton(papp,360.72906 + shiftx, 763.1851 + shifty, 150, 70,"Yes");}
+    if(isBeginner){yesSyncoButton = new GButton(papp,360.72906 + shiftx, 763.1851 + shifty -180, 150, 70,"Off Beat");}
+    if(!isBeginner){yesSyncoButton = new GButton(papp,360.72906 + shiftx, 763.1851 + shifty-180, 150, 70,"Yes");}
     yesSyncoButton.addEventHandler(papp, "syncoHandler");
     yesSyncoButton.setVisible(false);
     yesSyncoButton.setLocalColor(4, color(85,254,255)); //Background Colour
@@ -171,8 +140,8 @@ class Quiz{
     yesSyncoButton.setLocalColor(3, color(40,230,255)); //Boarder Colour
     yesSyncoButton.setFont(new Font("Gothic A1", Font.PLAIN, 30));
   
-    if(isBeginner){noSyncoButton = new GButton(papp, 542.2182 + shiftx, 763.1851 + shifty, 150, 70, "Strong Beat");}
-    if(!isBeginner){noSyncoButton = new GButton(papp, 542.2182 + shiftx, 763.1851 + shifty, 150, 70, "No");}
+    if(isBeginner){noSyncoButton = new GButton(papp, 542.2182 + shiftx, 763.1851 + shifty-180, 150, 70, "Strong Beat");}
+    if(!isBeginner){noSyncoButton = new GButton(papp, 542.2182 + shiftx, 763.1851 + shifty-180, 150, 70, "No");}
     noSyncoButton.addEventHandler(papp, "syncoHandler");
     noSyncoButton.setVisible(false);
     noSyncoButton.setLocalColor(4, color(85,254,255)); //Background Colour
@@ -181,7 +150,7 @@ class Quiz{
     noSyncoButton.setLocalColor(3, color(40,230,255)); //Boarder Colour
     noSyncoButton.setFont(new Font("Gothic A1", Font.PLAIN, 30));
     
-    goButton = new GButton(papp, 812.1251 + shiftx, 808.8232 + shifty, 150, 70, "Go!");
+    goButton = new GButton(papp, 812.1251 + shiftx - 20, 808.8232 -80 -10, 150, 70, "Go!");
     goButton.addEventHandler(papp, "goHandler");
     goButton.setVisible(false);
     goButton.setLocalColor(4, color(187, 134, 252)); //Background Colour
@@ -196,21 +165,19 @@ class Quiz{
     background(-14079703);
     textSize(32);
     fill(225);
-    text("Tell me about beat you want to create!", 370, 35);
-    text("What Genre?", 550, 95);
+    text("Tell me about beat you want to create!", 370, 35+100);
+    text("What Genre?", 550, 95+100);
     
     beginnerButton.setVisible(false);
     expertButton.setVisible(false);
     
     if(isBeginner){
-      text("Speed of the beat?", 500, 275);
-      text("Time Signature?", 520, 455);
-      text("Where do you want the down beat? (Syncopation)", 260, 635);
+      text("Speed of the beat?", 500, 275+100);
+      text("Where do you want the down beat? (Syncopation)", 260, 455+100);
     }
     if(!isBeginner){
-      text("Speed in Beats per Minute (BPM)?", 400, 275);
-      text("Time Signature?", 520, 455);
-      text("Add Syncopation?", 520, 635);
+      text("Speed in Beats per Minute (BPM)?", 400, 275+100);
+      text("Add Syncopation?", 520, 455+100);
     }
     
     if(isBeginner){slowButton.setText("Slow");}
@@ -245,9 +212,6 @@ class Quiz{
       moderateButton.setVisible(false);
       heartbeatButton.setVisible(false);
       fastButton.setVisible(false);
-      twoFourButton.setVisible(false);
-      threeFourButton.setVisible(false);
-      fourFourButton.setVisible(false);
       yesSyncoButton.setVisible(false);
       noSyncoButton.setVisible(false); 
       goButton.setVisible(false);
@@ -261,9 +225,6 @@ class Quiz{
       moderateButton.setVisible(true);
       heartbeatButton.setVisible(true);
       fastButton.setVisible(true);
-      twoFourButton.setVisible(true);
-      threeFourButton.setVisible(true);
-      fourFourButton.setVisible(true);
       yesSyncoButton.setVisible(true);
       noSyncoButton.setVisible(true); 
       goButton.setVisible(true);
@@ -327,21 +288,6 @@ class Quiz{
       moderateButton.setLocalColor(4, color(85,254,255));
       heartbeatButton.setLocalColor(4, color(85,254,255));
       fastButton.setLocalColor(4, color(255,255,255));}
-      
-   if(glob_time_sig == "2:4"){
-      twoFourButton.setLocalColor(4, color(255,255,255));
-      threeFourButton.setLocalColor(4, color(85,254,255));
-      fourFourButton.setLocalColor(4, color(85,254,255));}
-      
-   else if(glob_time_sig == "3:4"){
-      twoFourButton.setLocalColor(4, color(85,254,255));
-      threeFourButton.setLocalColor(4, color(255,255,255));
-      fourFourButton.setLocalColor(4, color(85,254,255));}
-
-  else if(glob_time_sig == "4:4"){
-      twoFourButton.setLocalColor(4, color(85,254,255));
-      threeFourButton.setLocalColor(4, color(85,254,255));
-      fourFourButton.setLocalColor(4, color(255,255,255));}
       
    if (glob_synco_str == "Yes"){
        glob_syncopation = true;
@@ -445,9 +391,6 @@ class Quiz{
     moderateButton.setVisible(false);
     heartbeatButton.setVisible(false);
     fastButton.setVisible(false);
-    twoFourButton.setVisible(false);
-    threeFourButton.setVisible(false);
-    fourFourButton.setVisible(false);
     yesSyncoButton.setVisible(false);
     noSyncoButton.setVisible(false);
     goButton.setVisible(false);
@@ -467,12 +410,6 @@ public void speedHandler(GButton button, GEvent event) {
     if (button.getText() == "Moderate" || button.getText() == "110-135 BPM"){glob_speed = "110-135 BPM";}
     if (button.getText() == "Heartbeat Pace" || button.getText() == "135-160 BPM") {glob_speed = "135-160 BPM";}
     if (button.getText() == "Fast" || button.getText() =="160-180 BPM") {glob_speed = "160-180 BPM";}
-  }
-  
-public void timeSigHandler(GButton button, GEvent event) {
-    if (button.getText() == "2:4"){glob_time_sig = "2:4";}
-    if (button.getText() == "3:4"){glob_time_sig = "3:4";}
-    if (button.getText() == "4:4"){glob_time_sig = "4:4";}
   }
   
 public void syncoHandler(GButton button, GEvent event) {

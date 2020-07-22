@@ -148,7 +148,7 @@ void setup(){
    expertButton.setLocalColor(3, color(40,230,255)); //Boarder Colour
    expertButton.setFont(new Font("Gothic A1", Font.PLAIN, 30));
    
-   switchSkillLevelButton = new GButton(this, 250, 808.8232 -80, 150, 70, "Back");
+   switchSkillLevelButton = new GButton(this, 250, 808.8232 -80 -10, 150, 70, "Back");
    switchSkillLevelButton.addEventHandler(this, "switchSkillLevelHandler");
    switchSkillLevelButton.setLocalColor(4, color(187, 134, 252)); //Background Colour
    switchSkillLevelButton.setLocalColor(6, color(177,126,254)); //Background Hover Colour
