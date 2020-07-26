@@ -232,7 +232,7 @@ void setup(){
     addInstrument3.setLocalColor(4, -1); //Background Colour
     addInstrument3.setLocalColor(6, color(170,255,255)); //Background Hover Colour
     addInstrument3.setLocalColor(14, color(170,255,255)); //Background Selected Colour
-    addInstrument3.setLocalColor(3, color(40,230,255)); //Boarder Colour //<>//
+    addInstrument3.setLocalColor(3, color(40,230,255)); //Boarder Colour //<>// //<>//
     addInstrument3.setFont(new Font("Gothic A1", Font.PLAIN, 20));
 }
 
@@ -468,6 +468,9 @@ public void playGA1Handler(GButton button, GEvent event) {
   if (gaBeat1.isMuted()) gaBeat1.unMute();
   else gaBeat1.mute();
   gaBeat1.setBeats(thisOrThat.getBeat1().getEntireBeat());
+  // make sure the other button is muted and set to paused mode
+  setGAButton2Text();
+  gaBeat2.mute(); 
 }
 
 public void playGA2Handler(GButton button, GEvent event) {
@@ -476,6 +479,9 @@ public void playGA2Handler(GButton button, GEvent event) {
   if (gaBeat2.isMuted()) gaBeat2.unMute();
   else gaBeat2.mute();
   gaBeat2.setBeats(thisOrThat.getBeat2().getEntireBeat());
+  // make sure the other button is muted and set to paused mode
+  setGAButton1Text();
+  gaBeat1.mute(); 
 }
 
 public void cancelHandler(GButton button, GEvent event) { 
@@ -595,6 +601,8 @@ public void pEvent(GImageButton button, GEvent event) {
 }
 
 public void xButtonOnThisThatPressed() {
+    gaBeat1.mute();
+    gaBeat2.mute();
     renderLinearBeat = true;
     renderCircularBeat = false;
     createLinearBeat.setAlgorithmSelected(false);
@@ -636,4 +644,6 @@ public void useBeatInSong(DrumBeats gaBeats) {
 }
 public void tempoSliderEventHandler(GSlider slider, GEvent event) {
   beats.setBpm(slider.getValueF());
+  gaBeat1.setBpm(slider.getValueF());
+  gaBeat2.setBpm(slider.getValueF());
 }

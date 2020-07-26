@@ -676,7 +676,18 @@ class ThisOrThat {
     }
   }
   
-  public void useThisInSongBeatHandler1(GButton button, GEvent event) {  
+  public void setGAButton1Text() {
+    playGA1.setText("PLAY");
+  }
+
+  public void setGAButton2Text() {
+    playGA2.setText("PLAY");
+  }
+
+
+  public void useThisInSongBeatHandler1(GButton button, GEvent event) { 
+    setGAButton1Text();
+    setGAButton2Text();
     // user wants to use left beat (teal)
     playGA1.setVisible(false); 
     playGA2.setVisible(false);
@@ -691,7 +702,9 @@ class ThisOrThat {
     trackNumberOfTimesUserGeneratedNewBeats();
   }
   
-  public void useThisInSongBeatHandler2(GButton button, GEvent event) {  
+  public void useThisInSongBeatHandler2(GButton button, GEvent event) { 
+    setGAButton1Text();
+    setGAButton2Text();
     // user wants to use right beat (purple)
     playGA1.setVisible(false); 
     playGA2.setVisible(false);
@@ -707,6 +720,8 @@ class ThisOrThat {
   }
   
   public void closeButtonPressedHandler(GButton button, GEvent event) {  
+    setGAButton1Text();
+    setGAButton2Text();
     // user wants to close what they were doing - stop generating 
     xButtonOnThisThatPressed();
     playGA1.setVisible(false); 
