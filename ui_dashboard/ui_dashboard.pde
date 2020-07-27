@@ -69,7 +69,7 @@ GImageToggleButton playPause;
 GImageToggleButton dashPlayButton1;
 GImageToggleButton dashPlayButton2;
 GImageToggleButton dashPlayButton3;
-GSlider tempoSlider;
+GCustomSlider tempoSlider;
 
 boolean kickSelected = false;
 boolean hatSelected = false;
@@ -91,14 +91,17 @@ void setup(){
    playPause.addEventHandler(this, "audioHandler");
    playPause.setVisible(false);
 
-   tempoSlider = new GSlider(this, 700,642.5511, 250, 30, 20);
+   tempoSlider = new GCustomSlider(this, 700,632.5511, 250, 50, null);
    tempoSlider.setLocalColor(5, color(231, 254, 252));
    tempoSlider.setLocalColor(3, color(3,218,198));
    tempoSlider.setLocalColor(11, color(155, 253, 243));
    tempoSlider.setLocalColor(14, color(133, 250, 240));
    tempoSlider.setLocalColor(15, color(9, 220, 203));
+   tempoSlider.setLocalColor(2, color(255));
    tempoSlider.setVisible(false);
    tempoSlider.addEventHandler(this, "tempoSliderEventHandler");
+   tempoSlider.setOpaque(true);
+   tempoSlider.setLimits(60,180);
    //frame rate for animations
    frameRate(500);
    
@@ -232,7 +235,7 @@ void setup(){
     addInstrument3.setLocalColor(4, -1); //Background Colour
     addInstrument3.setLocalColor(6, color(170,255,255)); //Background Hover Colour
     addInstrument3.setLocalColor(14, color(170,255,255)); //Background Selected Colour
-    addInstrument3.setLocalColor(3, color(40,230,255)); //Boarder Colour //<>// //<>//
+    addInstrument3.setLocalColor(3, color(40,230,255)); //Boarder Colour  
     addInstrument3.setFont(new Font("Gothic A1", Font.PLAIN, 20));
 }
 
@@ -243,6 +246,20 @@ void draw(){
   translate(5.50573, -1.295466);
   rotate(0.0);
   popMatrix();
+
+  String[] tempoLabels;
+
+  if (isBeginner) {
+    tempoLabels = new String[] {"Slow", "Walking", "Moderate", "Heartbeat", "Fast"};
+  } else {
+    tempoLabels = new String[] {"60", "85", "110", "135", "160", "180"};
+  }
+
+  tempoSlider.setShowTicks(true);
+  tempoSlider.setTickLabels(tempoLabels);
+  tempoSlider.setShowValue(true);
+  tempoSlider.setShowDecor(false, true, true, true);
+
 
   if(renderLandingPage) {
     image(landingImg,0,0,1300,800);
@@ -270,6 +287,11 @@ void draw(){
     target_time_sig = createQuiz.getTimeSig();
     target_syncopation = createQuiz.isSyncopated();
     target_beats = createQuiz.getTargetBeats();
+    if (target_speed.equals("Slow") || target_speed.equals("60-85 BPM")) {beats.setBpm(60); tempoSlider.setValue(0);}
+    else if (target_speed.equals("Walking Pace") || target_speed.equals("85-110 BPM")) {beats.setBpm(85); tempoSlider.setValue(1);}
+    else if (target_speed.equals("Moderate") || target_speed.equals("110-135 BPM")) {beats.setBpm(110); tempoSlider.setValue(2);}
+    else if (target_speed.equals("Heartbeat Pace") || target_speed.equals("135-160 BPM")) {beats.setBpm(135); tempoSlider.setValue(3);}
+    else if (target_speed.equals("Fast") || target_speed.equals("160-180 BPM")) {beats.setBpm(160); tempoSlider.setValue(4);}
   }
   
   if (renderDash) {
@@ -377,6 +399,8 @@ void draw(){
     playPause.setVisible(true);
     playPause.moveTo(577, 270);
     tempoSlider.setVisible(true);
+
+    createLinearBeat.accentToggle.setVisible(true);
     
     if (instruments.size() == 0 ) addInstrument1.setVisible(true);
     if (instruments.size() == 1) addInstrument2.setVisible(true);
@@ -407,7 +431,7 @@ void draw(){
     save.setVisible(false);
     cancel.setVisible(false);
     tempoSlider.setVisible(false);
-    createLinearBeat.addAccent.setVisible(false);
+    createLinearBeat.accentToggle.setVisible(false);
     getHelpFromAlgorithm.setVisible(false);
     addInstrument1.setVisible(false);
     addInstrument2.setVisible(false);
@@ -566,6 +590,8 @@ public void beginnerExpertHandler(GButton button, GEvent event) {
        output.println("User selected expert from quiz"); // Write testing data to file 
     }
     renderQuiz = true; 
+    createLinearBeat.setBeginner(isBeginner);
+    createCircularBeat.setBeginner(isBeginner);
     // this is needed for the case that a user starts the quiz, goes back, then goes into new begginer/expert level of quiz
     createQuiz.resetStartTimeQuiz();
     output.flush(); // Writes the remaining data to the file
@@ -642,8 +668,18 @@ public void showLoadingBar() {
 public void useBeatInSong(DrumBeats gaBeats) {
   beats = gaBeats;
 }
-public void tempoSliderEventHandler(GSlider slider, GEvent event) {
-  beats.setBpm(slider.getValueF());
-  gaBeat1.setBpm(slider.getValueF());
-  gaBeat2.setBpm(slider.getValueF());
+public void tempoSliderEventHandler(GCustomSlider slider, GEvent event) {
+  println(slider.getValueS());
+  println(slider.getValueI());
+  String val = slider.getValueS();
+  int bpm = 120;
+  if (val.equals("60") || val.equals("Slow")) bpm = 60;
+  else if (val.equals("85")) bpm = 85;
+  else if (val.equals("110") || val.equals("Walking")) bpm = 110;
+  else if (val.equals("135") || val.equals("Moderate")) bpm = 135;
+  else if (val.equals("160") || val.equals("Heartbeat")) bpm = 160;
+  else if (val.equals("180") || val.equals("Fast")) bpm = 180;
+  beats.setBpm(bpm);
+  gaBeat1.setBpm(bpm);
+  gaBeat2.setBpm(bpm);
 }

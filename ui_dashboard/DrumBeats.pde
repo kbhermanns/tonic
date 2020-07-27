@@ -39,8 +39,8 @@ class DrumBeats {
     beats[row][column] = value;
   }
   void setEntireBeat(int[][] newBeat) {beats = newBeat;}
-  void setBpm(float tempo) {
-    bpm = (int)(120 * tempo);
+  void setBpm(int tempo) {
+    bpm = tempo;
   }
   
   int getBeat(int row, int column) {
@@ -175,7 +175,7 @@ void audioSetup() {
     snareAccent = new Sampler("SnareAccent.wav", 4, minim);
     hatAccent = new Sampler("HatAccent.wav", 4, minim);
     
-    kick.patch( out ); //<>//
+    kick.patch( out ); 
     snare.patch( out );
     hat.patch( out );
     kickAccent.patch(out);
