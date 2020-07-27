@@ -53,6 +53,7 @@ GButton expertButton;
 GButton beginnerButton;
 GButton switchSkillLevelButton;
 BeatPopulation gaBeatPopulation1;
+BeatPopulation gaBeatPopulation2;
 DrumBeats originalGABeat;
 GButton getHelpFromAlgorithm;
 GButton save; 
@@ -208,6 +209,11 @@ void setup(){
       0.01, 50,
       gaBeat1.beats.length, gaBeat1.beats[0].length
     );
+    gaBeatPopulation2 = new BeatPopulation(
+      0.10, 50,
+      gaBeat1.beats.length, gaBeat1.beats[0].length
+    );
+
 
     //setup add instrument functionality
     addInstrument1 = new GButton(this, 50.847015, 607.5735, 151.57673, 69.9552, "Add Instrument");
