@@ -45,7 +45,6 @@ class LinearBeatCreation {
   PImage hatImg = loadImage("HiHat.png");
   PImage musicImg = loadImage("MusicNote.png");
 
-  GButton addAccent;
   boolean accentMode = false;
   
   GButton getHelpFromAlgorithm;
@@ -58,19 +57,17 @@ class LinearBeatCreation {
   Boolean showInstrumentTooltip = false;
   Boolean showBeatTooltip = false;
   PApplet pa;
-    
+  boolean beginnerSelected;
+  GImageToggleButton accentToggle;
   LinearBeatCreation(DrumBeats beats, PApplet papp) {
+    accentToggle = new GImageToggleButton(papp, 900, 730 ,"accentToggle.png",2);
+    accentToggle.addEventHandler(papp, "accentHandler");
+    accentToggle.setVisible(false);
     //Setup the name input for the song
     pa = papp;
+    beginnerSelected = true;
     area = new GTextArea(papp,15, 15, 350, 50, G4P.SCROLLBARS_NONE);
-        //accent button    
-    addAccent = new GButton(pa, 700, 700, 180, 50, "Add Accent");
-    addAccent.addEventHandler(papp, "accentHandler");
-    addAccent.setLocalColor(2, color(41,41,41)); //text color
-    addAccent.setLocalColor(3, color(255)); //border colour
-    addAccent.setLocalColor(4, color(255)); //background color
-    addAccent.setFont(new Font("Gothic A1", Font.PLAIN, 25));
-    addAccent.setVisible(false);
+
     name = "";
     area.setVisible(false);
      Beats = beats;
@@ -134,6 +131,11 @@ class LinearBeatCreation {
           showInstrumentTooltip = false;
           showBeatTooltip = true;
         }
+        if (!inst1Selected) {
+         for (int i=0; i<16; i++) {
+           Beats.updateBeats(0, i, 0);
+         }
+        }
       }else if (instruments.size() >=2 && ((mouseX >= inst2X && mouseX <= inst2X + 100) || (mouseX >= inst2X - 100 && mouseX <= inst2X)) && ((mouseY >= inst2Y && mouseY <= inst2Y + 100) || (mouseY >= inst2Y - 100 && mouseY <= inst2Y))) {
         Clicked = true;
         inst2Selected = !inst2Selected;
@@ -141,18 +143,28 @@ class LinearBeatCreation {
           showInstrumentTooltip = false;
           showBeatTooltip = true;
         }
+        if (!inst2Selected) {
+         for (int i=0; i<16; i++) { 
+           Beats.updateBeats(1, i, 0);
+         } 
+        }
       } else if (instruments.size() >= 3 && ((mouseX >= inst3X && mouseX <= inst3X + 100) || (mouseX >= inst3X - 100 && mouseX <= inst3X)) && ((mouseY >= inst3Y && mouseY <= inst3Y + 100) || (mouseY >= inst3Y - 100 && mouseY <= inst3Y))) {
         Clicked = true;
         inst3Selected = !inst3Selected; 
         if (showInstrumentTooltip) {
-          showInstrumentTooltip = false;
+          showInstrumentTooltip = false;  
           showBeatTooltip = true;
+        }
+        if (!inst3Selected) {
+         for (int i=0; i<16; i++) {
+           Beats.updateBeats(2, i, 0);
+         }
         }
       } else if (mouseX >= algorithmButtonX && mouseX <= algorithmButtonX + 200 && mouseY >= algorithmButtonY && mouseY <= algorithmButtonY + 200) {
         // TODO: Update - this is temp route into LikeOrDislikeBeatPage
         area.setVisible(false);
         area.setOpaque(false);
-        Clicked = true; //<>// //<>//
+        Clicked = true;  
         algorithmButtonSelected = true;
       }
       // layout toggle check
@@ -263,7 +275,6 @@ class LinearBeatCreation {
   void render(DrumBeats beats) {
    if (renderLinear && !algorithmButtonSelected){
     Beats = beats;
-    setInstrumentNames(instruments);
     background(-14079703);
     strokeWeight(5);
     stroke(-1);
@@ -288,13 +299,17 @@ class LinearBeatCreation {
     area.setLocalColor(7, color(66,65,62)); //background color
     area.setFont(new Font("Gothic A1", Font.PLAIN, 30));
 
-    addAccent.setVisible(true);
+    accentToggle.setVisible(true);
     
     //tempo slider
     textSize(24); 
+    textAlign(CENTER);
     textFont(createFont("Gothic A1", 30));
     fill(-1);
-    text("Tempo", 750, 620);
+    if (beginnerSelected) text("Tempo (Speed)", 800, 620);
+    else text("Tempo (BPM)", 800, 620);
+
+    text("Add Accent", 790, 750);
 
     if ((area.getText().trim()).equals("")){
       area.setText(name);
@@ -325,10 +340,9 @@ class LinearBeatCreation {
           } else {
             inst3Fill = -1;
           }
-          
-          
-          if (inst2Selected) {
-            inst2Fill = -10241491;
+           
+          if (inst2Selected) { 
+            inst2Fill = -10241491; 
           } else {
             inst2Fill = -1;
           }
@@ -337,16 +351,16 @@ class LinearBeatCreation {
             inst1Fill = -4487428;
           } else {
             inst1Fill = -1;
-          }
-
-          if (instruments.size() >= 1) {
-            inst1Button = new RectangularButton(inst1Fill, 7.933884, -4487428, 85.824615, 642.5511, 1.5707964, -34.9776, -116.59913, 34.9776, 34.9776, inst1, 127.28, 638.66, 24);
+          } 
+ 
+          if (instruments.size() >= 1) { 
+            inst1Button = new RectangularButton(inst1Fill, 7.933884, -4487428, 85.824615, 642.5511, 1.5707964, -34.9776, -116.59913, 34.9776, 34.9776, inst1, 127.28, 638.66, 24);  
             inst1Button.renderWithText();
           }
           if (instruments.size() >= 2) {
             inst2Button = new RectangularButton(inst2Fill, 7.933884, -10241491, 290.50824, 642.5511, 1.5700793, -34.9776, -116.59913, 34.9776, 34.9776, inst2, 328, 638.66, 24);
-            inst2Button.renderWithText(); //<>//
-          } //<>//
+            inst2Button.renderWithText(); 
+          } 
           if (instruments.size() == 3) {
             inst3Button = new RectangularButton(inst3Fill, 7.933884, -1157409, 500.3737, 642.5511, 1.5707964, -34.9776, -116.59913, 34.9776, 34.9776, inst3, 539.23, 638.66, 24);
           inst3Button.renderWithText();
@@ -356,61 +370,61 @@ class LinearBeatCreation {
   
     if (algorithmButtonSelected) {
       save.setVisible(false);
-      cancel.setVisible(false); //<>//
-    } //<>//
-  }
- 
-  void renderInst1Selector() {
-    noFill();
-    pushMatrix();
-    translate(30, 90);
-    rotate(0.0);
-    if (instruments.get(0).equals("Kick")) image(kickImg, 0, 0, 100, 80);
-    else if (instruments.get(0).equals("Snare")) image(snareImg, 0, 0, 100, 80);
-    else if (instruments.get(0).equals("Hi Hat")) image(hatImg, 0, 0, 100, 80);
-    else image(musicImg, 0, 0, 100, 80);
-    popMatrix();
-    
-    for (int i = 0; i < inst1Buttons.size() - 1; i++){
-      inst1Buttons.get(i).renderWithoutText();
-    }
-
-  }
+      cancel.setVisible(false); 
+    }  
+  } 
   
-  void renderInst2Selector() {
-    noFill(); //<>//
-    pushMatrix(); //<>//
-    translate(30, 225);
-    rotate(0.0);
-    if (instruments.get(1).equals("Kick")) image(kickImg, 0, 0, 100, 80);
-    else if (instruments.get(1).equals("Snare")) image(snareImg, 0, 0, 100, 80); //<>//
-    else if (instruments.get(1).equals("Hi Hat")) image(hatImg, 0, 0, 100, 80); //<>//
-    else image(musicImg, 0, 0, 100, 80);
-    popMatrix(); //<>//
- //<>//
-    for (int i = 0; i < inst2Buttons.size() - 1; i++){
-      inst2Buttons.get(i).renderWithoutText(); //<>//
-    } //<>//
-  }
-   //<>//
-  void renderInst3Selector() { //<>//
-    noFill(); //<>//
-    pushMatrix(); //<>//
+  void renderInst1Selector() { 
+    noFill(); 
+    pushMatrix();   
+    translate(30, 90);   
+    rotate(0.0);  
+    if (instruments.get(0).equals("Kick")) image(kickImg, 0, 0, 100, 80);  
+    else if (instruments.get(0).equals("Snare")) image(snareImg, 0, 0, 100, 80);  
+    else if (instruments.get(0).equals("Hi Hat")) image(hatImg, 0, 0, 100, 80);   
+    else image(musicImg, 0, 0, 100, 80);    
+    popMatrix();   
+       
+    for (int i = 0; i < inst1Buttons.size() - 1; i++){    
+      inst1Buttons.get(i).renderWithoutText();   
+    }    
+    
+  }   
+      
+  void renderInst2Selector() {    
+    noFill();      
+    pushMatrix();    
+    translate(30, 225);   
+    rotate(0.0);  
+    if (instruments.get(1).equals("Kick")) image(kickImg, 0, 0, 100, 80);    
+    else if (instruments.get(1).equals("Snare")) image(snareImg, 0, 0, 100, 80);    
+    else if (instruments.get(1).equals("Hi Hat")) image(hatImg, 0, 0, 100, 80);   
+    else image(musicImg, 0, 0, 100, 80); 
+    popMatrix();  
+   
+    for (int i = 0; i < inst2Buttons.size() - 1; i++){   
+      inst2Buttons.get(i).renderWithoutText();   
+    }  
+  } 
+    
+  void renderInst3Selector() {   
+    noFill();   
+    pushMatrix();  
     translate(20, 330);
-    rotate(0.0); //<>//
-    if (instruments.get(2).equals("Kick")) image(kickImg, 0, 0, 100, 80); //<>// //<>//
-    else if (instruments.get(2).equals("Snare")) image(snareImg, 0, 0, 100, 80); //<>//
+    rotate(0.0); 
+    if (instruments.get(2).equals("Kick")) image(kickImg, 0, 0, 100, 80);  
+    else if (instruments.get(2).equals("Snare")) image(snareImg, 0, 0, 100, 80); 
     else if (instruments.get(2).equals("Hi Hat")) image(hatImg, 0, 0, 100, 80);
     else image(musicImg, 0, 0, 100, 80);
     popMatrix();
- //<>//
-    for (int i = 0; i < inst3Buttons.size() - 1; i++){ //<>//
+ 
+    for (int i = 0; i < inst3Buttons.size() - 1; i++){ 
       inst3Buttons.get(i).renderWithoutText();
     }
   }
   
-  // Set the name of the beat //<>//
-  void setName() { //<>//
+  // Set the name of the beat 
+  void setName() { 
     name = area.getText();
   }
   
@@ -441,8 +455,13 @@ class LinearBeatCreation {
   void hideTextArea() {
     area.setVisible(false);
     area.setOpaque(false);
-    addAccent.setVisible(false);
+    accentToggle.setVisible(false);
   }
+  
+  void setBeginner(boolean begin) {
+    beginnerSelected = begin;
+  }
+  
   
   boolean getRenderLinear() {return renderLinear;}
   DrumBeats getBeats() { return Beats;}
@@ -469,14 +488,8 @@ class LinearBeatCreation {
   }
 }
 
-public void accentHandler(GButton button, GEvent event) {
+public void accentHandler(GImageToggleButton button, GEvent event) {
+  println("Arrived");
   createLinearBeat.accentMode = !createLinearBeat.accentMode; 
   createCircularBeat.accentMode = !createCircularBeat.accentMode;
-  if (createLinearBeat.accentMode) {
-    button.setLocalColor(3, color(3, 218, 198));
-    button.setLocalColor(4, color(3, 218, 198));
-  } else {
-    button.setLocalColor(3, color(255));
-    button.setLocalColor(4, color(255));
-  }
 }

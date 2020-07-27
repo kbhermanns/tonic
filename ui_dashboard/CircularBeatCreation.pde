@@ -44,9 +44,12 @@ class CircularBeatCreation {
   Boolean showInstrumentTooltip = false;
   Boolean showBeatTooltip = false;
   
+  boolean beginnerSelected;
+  
   CircularBeatCreation(DrumBeats beats, PApplet papp) {
     //Setup the name input for the song
     area = new GTextArea(papp,15, 15, 350, 50, G4P.SCROLLBARS_NONE);
+    beginnerSelected = true;
     name = "";
     area.setVisible(false);
    inst1Filled = new int[16];
@@ -94,12 +97,21 @@ class CircularBeatCreation {
       }else if (instruments.size() >= 1 && mouseX >= inst1X && mouseX <= inst1X + 100 && mouseY >= inst1Y && mouseY <= inst1Y + 100 && inst1Selected == true) {
         Clicked = true;
         inst1Selected = false; 
+        for (int i=0; i<16; i++) {
+           Beats.updateBeats(0, i, 0);
+         }
       } else if (instruments.size() >= 3 && mouseX >= inst3X && mouseX <= inst3X + 100 && mouseY >= inst3Y && mouseY <= inst3Y + 100 && inst3Selected == true) {
         Clicked = true;
         inst3Selected = false; 
+        for (int i=0; i<16; i++) {
+           Beats.updateBeats(2, i, 0);
+         }
       } else if (instruments.size() >= 2 && mouseX >= inst2X && mouseX <= inst2X + 100 && mouseY >= inst2Y && mouseY <= inst2Y + 100 && inst2Selected == true) {
         Clicked = true;
         inst2Selected = false;
+        for (int i=0; i<16; i++) {
+           Beats.updateBeats(1, i, 0);
+         }
       }
       // layout toggle check
       else if (mouseX >= 1200 && mouseX <= 1275 && mouseY >= 25 && mouseY <= 76){
@@ -361,14 +373,18 @@ class CircularBeatCreation {
       fill(-1);
       text("Accent Mode", 800, 50); 
       textSize(24);
-      text("Click on beats to add and remove accents",800,70);
+      text("Click on beats to add and remove accents",830,70);
     }
 
     //tempo text
     textSize(24); 
+    textAlign(CENTER);
     textFont(createFont("Gothic A1", 30));
     fill(-1);
-    text("Tempo", 750, 620);
+    if (beginnerSelected) text("Tempo (Speed)", 800, 620);
+    else text("Tempo (BPM)", 800, 620);
+    
+    text("Add Accent", 790, 750);
     
     // Text Input for Name of Song
     area.setVisible(true);
@@ -1539,6 +1555,10 @@ class CircularBeatCreation {
   
   void setAlgorithmSelected(boolean s) {
     algorithmButtonSelected = s;
+  }
+  
+  void setBeginner(boolean begin) {
+    beginnerSelected = begin;
   }
   
   void hideTextArea() {

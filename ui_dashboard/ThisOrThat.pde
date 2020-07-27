@@ -700,6 +700,7 @@ class ThisOrThat {
     xButtonOnThisThatPressed();
     // used to track total number of generations until user was done 
     trackNumberOfTimesUserGeneratedNewBeats();
+    createLinearBeat.setInstrumentNames(instruments);
   }
   
   public void useThisInSongBeatHandler2(GButton button, GEvent event) { 
@@ -717,6 +718,7 @@ class ThisOrThat {
     xButtonOnThisThatPressed();
     // used to track total number of generations until user was done
     trackNumberOfTimesUserGeneratedNewBeats();
+    createLinearBeat.setInstrumentNames(instruments);
   }
   
   public void closeButtonPressedHandler(GButton button, GEvent event) {  
