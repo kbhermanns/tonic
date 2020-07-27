@@ -155,8 +155,9 @@ class ThisOrThat {
           instruments.add("Hat");
         }
         gaBeatPopulation1.run(null, null, originalBeat.beats, target_beats, 100);
+        gaBeatPopulation2.run(null, null, originalBeat.beats, target_beats, 100);
         beats1.beats = gaBeatPopulation1.getBestBeat();
-        beats2.beats = gaBeatPopulation1.getSecondBestBeat();
+        beats2.beats = gaBeatPopulation2.getBestBeat();
         firstPairCreated = true;
         
        //set the beat display
@@ -594,13 +595,14 @@ class ThisOrThat {
     trackNewBeatGenerated();
     
     int startTime = millis();
-    gaBeatPopulation1.run(beats1.beats, beats2.beats, originalBeat.beats, target_beats, 100);
+    gaBeatPopulation1.run(beats1.beats, beats2.beats, originalBeat.beats, target_beats, 50);
+    gaBeatPopulation2.run(beats1.beats, beats2.beats, originalBeat.beats, target_beats, 50);
     beats1.beats = gaBeatPopulation1.getBestBeat();
-    beats2.beats = gaBeatPopulation1.getAverageBeat();
+    beats2.beats = gaBeatPopulation2.getBestBeat();
     int endTime = millis();
     //float beat1Fitness = gaBeatPopulation1.getBestBeatFitness();
     float beat1Fitness = gaBeatPopulation1.getMaxFitness();
-    float beat2Fitness = gaBeatPopulation1.getSecondBestBeatFitness();
+    float beat2Fitness = gaBeatPopulation2.getMaxFitness();
     trackBeatsShownToUserFitness(beat1Fitness, beat2Fitness);
     
     // track the time it took to generate the new beat
@@ -640,14 +642,15 @@ class ThisOrThat {
     
     int startTime = millis();
     
-    gaBeatPopulation1.run(beats2.beats, beats1.beats, originalBeat.beats, target_beats, 100);
+    gaBeatPopulation1.run(beats2.beats, beats1.beats, originalBeat.beats, target_beats, 50);
+    gaBeatPopulation2.run(beats2.beats, beats1.beats, originalBeat.beats, target_beats, 50);
     beats1.beats = gaBeatPopulation1.getBestBeat();
-    beats2.beats = gaBeatPopulation1.getAverageBeat();
+    beats2.beats = gaBeatPopulation2.getBestBeat();
     
     int endTime = millis();
     //float beat1Fitness = gaBeatPopulation1.getBestBeatFitness();
     float beat1Fitness = gaBeatPopulation1.getMaxFitness();
-    float beat2Fitness = gaBeatPopulation1.getSecondBestBeatFitness();
+    float beat2Fitness = gaBeatPopulation2.getMaxFitness();
     trackBeatsShownToUserFitness(beat1Fitness, beat2Fitness);
     
     // track the time it took to generate the new beat

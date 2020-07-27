@@ -1,0 +1,32 @@
+User selected beginner from quiz
+Time to complete quiz (milliseconds): 3698
+Beat 1 Fitness : 0.0
+Beat 2 Fitness : 0.0
+Time to Generate new beat (milliseconds): 158
+Beat 1 Fitness : 0.0
+Beat 2 Fitness : 0.0
+Time to Generate new beat (milliseconds): 24
+Beat 1 Fitness : 0.0
+Beat 2 Fitness : 0.0
+Time to Generate new beat (milliseconds): 24
+Beat 1 Fitness : 0.0
+Beat 2 Fitness : 0.0
+Time to Generate new beat (milliseconds): 19
+Beat 1 Fitness : 0.0
+Beat 2 Fitness : 0.0
+Time to Generate new beat (milliseconds): 20
+Beat 1 Fitness : 0.0
+Beat 2 Fitness : 0.0
+Time to Generate new beat (milliseconds): 20
+Beat 1 Fitness : 0.0
+Beat 2 Fitness : 0.0
+Time to Generate new beat (milliseconds): 19
+Beat 1 Fitness : 0.0
+Beat 2 Fitness : 0.0
+Time to Generate new beat (milliseconds): 19
+Beat 1 Fitness : 0.0
+Beat 2 Fitness : 0.0
+Time to Generate new beat (milliseconds): 20
+Beat 1 Fitness : 0.0
+Beat 2 Fitness : 0.0
+Time to Generate new beat (milliseconds): 23
